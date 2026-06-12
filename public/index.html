@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Health Log">
+<meta name="theme-color" content="#ffffff">
+<link rel="manifest" href="/manifest.json">
+<title>Family Health</title>
+<style>
+  :root {
+    --coral: #D85A30; --coral-light: #FAECE7; --coral-dark: #993C1D;
+    --teal: #1D9E75; --teal-light: #E1F5EE; --teal-dark: #0F6E56;
+    --amber: #BA7517; --amber-light: #FAEEDA; --amber-dark: #633806;
+    --blue: #4A6FA5; --blue-light: #E8EFF8; --blue-dark: #2A4A7A;
+    --purple: #7B5EA7; --purple-light: #EDE8F5; --purple-dark: #4A3270;
+    --gray: #5F5E5A; --gray-light: #F1EFE8; --gray-dark: #2C2C2A;
+    --border: rgba(0,0,0,0.1); --surface: #f8f7f4; --white: #ffffff;
+    --text: #1a1a1a; --text-muted: #666;
+    --radius: 12px; --radius-sm: 8px;
+    --tab-height: 64px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --border: rgba(255,255,255,0.12); --surface: #1a1a1a; --white: #242424;
+      --text: #f0f0f0; --text-muted: #999; --gray-light: #2a2a2a;
+      --coral-light: #3a1a10; --teal-light: #0a2a20; --amber-light: #2a1a05;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; overflow: hidden; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--surface); color: var(--text); font-size: 15px; }
+
+  /* Layout */
+  #app { height: 100vh; display: flex; flex-direction: column; }
+  .screen { display: none; flex: 1; overflow-y: auto; padding: 16px 16px calc(var(--tab-height) + 16px); }
+  .screen.active { display: block; }
+
+  /* Header */
+  .header { background: var(--white); border-bottom: 0.5px solid var(--border); padding: 14px 16px 10px; }
+  .header-row { display: flex; align-items: center; justify-content: space-between; }
+  .header-title { font-size: 20px; font-weight: 600; color: var(--text); }
+  .header-sub { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+  .person-toggle { display: flex; gap: 6px; }
+  .ptog { padding: 5px 14px; border-radius: 20px; border: 1px solid var(--border); background: none; font-size: 13px; font-weight: 500; cursor: pointer; color: var(--text-muted); }
+  .ptog.r.active { background: var(--coral-light); color: var(--coral-dark); border-color: var(--coral); }
+  .ptog.d.active { background: var(--teal-light); color: var(--teal-dark); border-color: var(--teal); }
+
+  /* Tab bar */
+  .tab-bar { position: fixed; bottom: 0; left: 0; right: 0; height: var(--tab-height); background: var(--white); border-top: 0.5px solid var(--border); display: flex; z-index: 100; padding-bottom: env(safe-area-inset-bottom); }
+  .tab { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; cursor: pointer; border: none; background: none; color: var(--text-muted); font-size: 10px; font-weight: 500; }
+  .tab.active { color: var(--coral); }
+  .tab i { font-size: 22px; }
+  .tab.active i { color: var(--coral); }
+
+  /* Cards */
+  .card { background: var(--white); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 14px 15px; margin-bottom: 10px; }
+  .card-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 10px; }
+  .section-label { font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin: 18px 0 8px; }
+
+  /* Badges */
+  .badge { display: inline-flex; align-items: center; gap: 3px; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 20px; }
+  .badge-r { background: var(--coral-light); color: var(--coral-dark); }
+  .badge-d { background: var(--teal-light); color: var(--teal-dark); }
+  .badge-s { background: var(--blue-light); color: var(--blue-dark); }
+  .badge-v { background: var(--purple-light); color: var(--purple-dark); }
+  .badge-jf { background: var(--amber-light); color: var(--amber-dark); }
+  .vasu-note { font-size: 11px; color: var(--blue-dark); margin-top: 4px; background: var(--blue-light); padding: 4px 8px; border-radius: 5px; }
+
+  /* Metric cards */
+  .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+  .metric { background: var(--white); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 12px 14px; }
+  .metric-label { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+  .metric-val { font-size: 26px; font-weight: 600; line-height: 1; }
+  .metric-sub { font-size: 11px; margin-top: 4px; }
+  .metric.r .metric-val { color: var(--coral); }
+  .metric.d .metric-val { color: var(--teal); }
+
+  /* Progress bar */
+  .prog-bar { height: 5px; background: var(--gray-light); border-radius: 3px; margin: 6px 0 3px; overflow: hidden; }
+  .prog-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
+  .prog-fill.r { background: var(--coral); }
+  .prog-fill.d { background: var(--teal); }
+
+  /* Forms */
+  .form-row { margin-bottom: 12px; }
+  .form-label { font-size: 12px; font-weight: 500; color: var(--text-muted); margin-bottom: 5px; display: block; }
+  input[type=number], input[type=text], input[type=date], select, textarea {
+    width: 100%; padding: 11px 13px; font-size: 15px; border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm); background: var(--white); color: var(--text);
+    -webkit-appearance: none; appearance: none;
+  }
+  textarea { resize: none; line-height: 1.5; }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--coral); }
+
+  /* Buttons */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 12px 20px; border-radius: var(--radius-sm); border: none; font-size: 15px; font-weight: 600; cursor: pointer; width: 100%; margin-bottom: 8px; }
+  .btn-primary { background: var(--coral); color: white; }
+  .btn-primary.d { background: var(--teal); }
+  .btn-ghost { background: var(--gray-light); color: var(--text); }
+  .btn:active { opacity: 0.85; transform: scale(0.98); }
+
+  /* Energy selector */
+  .energy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .energy-btn { padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: none; font-size: 13px; cursor: pointer; text-align: center; color: var(--text); }
+  .energy-btn.active { border-color: var(--coral); background: var(--coral-light); color: var(--coral-dark); font-weight: 600; }
+
+  /* Meal plan rows */
+  .meal-row { padding: 10px 0; border-bottom: 0.5px solid var(--border); }
+  .meal-row:last-child { border-bottom: none; }
+  .meal-slot { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 5px; }
+  .meal-person { background: var(--gray-light); border-radius: var(--radius-sm); padding: 8px 10px; margin-bottom: 5px; }
+  .meal-person:last-child { margin-bottom: 0; }
+  .meal-text { font-size: 13px; color: var(--text); line-height: 1.45; }
+  .jf-note { font-size: 11px; color: var(--amber-dark); margin-top: 4px; background: var(--amber-light); padding: 4px 8px; border-radius: 5px; }
+
+  /* Checklist */
+  .check-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 0.5px solid var(--border); }
+  .check-row:last-child { border-bottom: none; }
+  .check-info { flex: 1; }
+  .check-name { font-size: 14px; font-weight: 500; color: var(--text); }
+  .check-freq { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .check-circle { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: all 0.15s; font-size: 14px; }
+  .check-circle.done { background: var(--teal-light); border-color: var(--teal); }
+
+  /* Grocery */
+  .grocery-cat-title { font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin: 16px 0 8px; }
+  .grocery-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: var(--white); border: 0.5px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 6px; cursor: pointer; }
+  .grocery-item.checked { opacity: 0.4; text-decoration: line-through; }
+  .grocery-item input[type=checkbox] { width: 18px; height: 18px; flex-shrink: 0; accent-color: var(--coral); }
+  .grocery-item span { font-size: 14px; }
+
+  /* Log history */
+  .log-entry { background: var(--white); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 12px 14px; margin-bottom: 8px; }
+  .log-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+  .log-date { font-size: 13px; font-weight: 600; }
+  .log-stat { font-size: 12px; color: var(--text-muted); }
+  .log-meals { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+  /* Progress chart */
+  .chart-wrap { position: relative; height: 160px; margin: 8px 0; }
+
+  /* Empty state */
+  .empty { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 14px; }
+
+  /* Tabs in prep / jackfruit */
+  .inner-tabs { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+  .inner-tab { padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border); font-size: 13px; cursor: pointer; background: none; color: var(--text-muted); }
+  .inner-tab.active { background: var(--coral-light); color: var(--coral-dark); border-color: var(--coral); font-weight: 600; }
+
+  /* Notification-style banner */
+  .banner { background: var(--amber-light); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 13px; color: var(--amber-dark); margin-bottom: 10px; line-height: 1.5; }
+
+  /* Onboarding overlay */
+  #onboarding { position: fixed; inset: 0; background: var(--white); z-index: 999; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px; text-align: center; }
+  #onboarding h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+  #onboarding p { color: var(--text-muted); font-size: 15px; line-height: 1.6; margin-bottom: 24px; }
+  .onboard-pills { display: flex; gap: 8px; justify-content: center; margin-bottom: 32px; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+</head>
+<body>
+
+<!-- Onboarding (first launch only) -->
+<div id="onboarding" style="display:none">
+  <div style="font-size:48px;margin-bottom:16px">🌿</div>
+  <h1>Family Health</h1>
+  <p>Daily tracker for Ritvij & Dhara — meals, weight, sleep, supplements and progress.</p>
+  <div class="onboard-pills">
+    <span class="badge badge-r">Ritvij — weight loss</span>
+    <span class="badge badge-d">Dhara — weight gain</span>
+  </div>
+  <button class="btn btn-primary" onclick="closeOnboarding()">Get started</button>
+</div>
+
+<div id="app">
+
+<!-- Header -->
+<div class="header">
+  <div class="header-row">
+    <div>
+      <div class="header-title" id="header-title">Today</div>
+      <div class="header-sub" id="header-sub"></div>
+    </div>
+    <div class="person-toggle">
+      <button class="ptog r active" id="ptog-r" onclick="setPerson('R')">R</button>
+      <button class="ptog d" id="ptog-d" onclick="setPerson('D')">D</button>
+    </div>
+  </div>
+</div>
+
+<!-- TODAY -->
+<div id="screen-today" class="screen active">
+  <div class="banner" id="jf-reminder"></div>
+
+  <div class="metric-grid">
+    <div class="metric r" id="weight-card-R">
+      <div class="metric-label">Ritvij — weight</div>
+      <div class="metric-val" id="last-weight-R">—</div>
+      <div class="prog-bar"><div class="prog-fill r" id="prog-r" style="width:0%"></div></div>
+      <div class="metric-sub" id="weight-sub-R" style="color:var(--coral-dark)"></div>
+    </div>
+    <div class="metric d" id="weight-card-D">
+      <div class="metric-label">Dhara — weight</div>
+      <div class="metric-val" id="last-weight-D">—</div>
+      <div class="prog-bar"><div class="prog-fill d" id="prog-d" style="width:0%"></div></div>
+      <div class="metric-sub" id="weight-sub-D" style="color:var(--teal-dark)"></div>
+    </div>
+  </div>
+
+  <div class="section-label">Log for <span id="active-person-label">Ritvij</span></div>
+
+  <div class="card">
+    <div class="card-title">Today's entry</div>
+    <div class="form-row">
+      <label class="form-label">Date</label>
+      <input type="date" id="log-date">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Weight (kg)</label>
+      <input type="number" id="log-weight" placeholder="e.g. 91.2" step="0.1">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Sleep last night (hrs)</label>
+      <input type="number" id="log-sleep" placeholder="e.g. 7.5" step="0.5">
+    </div>
+    <div class="form-row">
+      <label class="form-label">Energy level</label>
+      <div class="energy-grid">
+        <button class="energy-btn" id="en1" onclick="setEnergy(1)">😴 Low</button>
+        <button class="energy-btn" id="en2" onclick="setEnergy(2)">😐 OK</button>
+        <button class="energy-btn" id="en3" onclick="setEnergy(3)">⚡ Good</button>
+        <button class="energy-btn" id="en4" onclick="setEnergy(4)">🔥 Great</button>
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Meals eaten today</label>
+      <textarea id="log-meals" rows="3" placeholder="Breakfast: green smoothie + overnight oats (JF soaked in)&#10;Lunch: dal fry + roti (JF in dough) + salad&#10;Dinner: ..."></textarea>
+    </div>
+    <button class="btn btn-primary" id="save-btn" onclick="saveLog()"><i class="ti ti-check"></i> Save entry</button>
+  </div>
+
+  <div class="section-label">Supplements today</div>
+  <div class="card" id="med-list"></div>
+</div>
+
+<!-- MEALS -->
+<div id="screen-meals" class="screen">
+  <div class="inner-tabs" id="week-tabs" style="margin-bottom:8px"></div>
+  <div class="inner-tabs" id="day-tabs"></div>
+  <div id="meal-content"></div>
+</div>
+
+<!-- PROGRESS -->
+<div id="screen-progress" class="screen">
+  <div class="card">
+    <div class="card-title">Weight — Ritvij</div>
+    <div class="chart-wrap"><canvas id="chart-r" role="img" aria-label="Ritvij weight trend over time">Weight trend chart</canvas></div>
+    <div id="r-stats" style="font-size:12px;color:var(--text-muted)"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Weight — Dhara</div>
+    <div class="chart-wrap"><canvas id="chart-d" role="img" aria-label="Dhara weight trend over time">Weight trend chart</canvas></div>
+    <div id="d-stats" style="font-size:12px;color:var(--text-muted)"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Blood Markers — Ritvij</div>
+    <div id="blood-targets-r"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Blood Markers — Dhara</div>
+    <div id="blood-targets-d"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Sleep & energy log</div>
+    <div id="sleep-log"></div>
+  </div>
+  <div class="section-label">Recent entries</div>
+  <div id="log-history"></div>
+</div>
+
+<!-- GROCERY -->
+<div id="screen-grocery" class="screen">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+    <div style="font-size:13px;color:var(--text-muted)">Tap to check off as you shop</div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-ghost" style="width:auto;padding:6px 12px;font-size:13px;margin:0" onclick="copyGroceryList(this)">Copy for WhatsApp</button>
+      <button class="btn btn-ghost" style="width:auto;padding:6px 12px;font-size:13px;margin:0" onclick="resetGrocery()">Reset</button>
+    </div>
+  </div>
+  <div id="grocery-content"></div>
+</div>
+
+<!-- MEAL PREP -->
+<div id="screen-prep" class="screen">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+    <div style="font-size:13px;color:var(--text-muted)">Weekly brief for Babli Aunty</div>
+    <button class="btn btn-ghost" style="width:auto;padding:6px 12px;font-size:13px;margin:0" onclick="copyPrepGuide(this)">Copy for WhatsApp</button>
+  </div>
+  <div class="inner-tabs" id="prep-week-tabs" style="margin-bottom:12px"></div>
+  <div id="prep-content"></div>
+</div>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab active" id="tab-today" onclick="showScreen('today')"><i class="ti ti-clipboard-check"></i>Today</button>
+  <button class="tab" id="tab-meals" onclick="showScreen('meals')"><i class="ti ti-salad"></i>Meals</button>
+  <button class="tab" id="tab-progress" onclick="showScreen('progress')"><i class="ti ti-chart-line"></i>Progress</button>
+  <button class="tab" id="tab-grocery" onclick="showScreen('grocery')"><i class="ti ti-shopping-cart"></i>Grocery</button>
+  <button class="tab" id="tab-prep" onclick="showScreen('prep')"><i class="ti ti-checklist"></i>Meal Prep</button>
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>

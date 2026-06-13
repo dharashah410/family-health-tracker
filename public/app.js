@@ -723,37 +723,48 @@ let chartR = null, chartD = null;
 // ─── INIT ──────────────────────────────────────────────────────────────────
 
 async function init() {
-  await openDB();
+  try {
+    await openDB();
 
-  // Check first launch
-  const launched = await dbGet('prefs', 'launched');
-  if (!launched) {
-    document.getElementById('onboarding').style.display = 'flex';
-    await dbPut('prefs', { key: 'launched', val: true });
+    // Check first launch
+    const launched = await dbGet('prefs', 'launched');
+    if (!launched) {
+      document.getElementById('onboarding').style.display = 'flex';
+      await dbPut('prefs', { key: 'launched', val: true });
+    }
+
+    // Set today's date
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('log-date').value = today;
+
+    // Load data
+    allLogs = await fetchLogs();
+    const grocItems = await dbGetAll('grocery');
+    grocItems.forEach(i => { groceryState[i.key] = i.checked; });
+
+    // Header date
+    const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const now = new Date();
+    document.getElementById('header-sub').textContent = `${dayNames[now.getDay()]}, ${now.getDate()} ${now.toLocaleString('en-IN',{month:'long'})}`;
+
+    // Build screens
+    buildMealTabs();
+    buildGrocery();
+    updateWeightCards();
+    buildMedList();
+    buildJFReminder();
+
+    renderProgress();
+  } catch (err) {
+    console.error('Init error:', err);
+  } finally {
+    // Always dismiss loading splash, even if something fails
+    const loader = document.getElementById('loading');
+    if (loader) {
+      loader.classList.add('out');
+      setTimeout(() => loader.remove(), 380);
+    }
   }
-
-  // Set today's date
-  const today = new Date().toISOString().split('T')[0];
-  document.getElementById('log-date').value = today;
-
-  // Load data
-  allLogs = await fetchLogs();
-  const grocItems = await dbGetAll('grocery');
-  grocItems.forEach(i => { groceryState[i.key] = i.checked; });
-
-  // Header date
-  const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  const now = new Date();
-  document.getElementById('header-sub').textContent = `${dayNames[now.getDay()]}, ${now.getDate()} ${now.toLocaleString('en-IN',{month:'long'})}`;
-
-  // Build screens
-  buildMealTabs();
-  buildGrocery();
-  updateWeightCards();
-  buildMedList();
-  buildJFReminder();
-
-  renderProgress();
 }
 
 function closeOnboarding() {

@@ -755,6 +755,7 @@ async function init() {
     buildJFReminder();
 
     renderProgress();
+    initPush();
   } catch (err) {
     console.error('Init error:', err);
   } finally {
@@ -1247,6 +1248,126 @@ function copyPrepGuide(btn) {
   }
 }
 
+// ─── PUSH NOTIFICATIONS & REMINDERS ──────────────────────────────────────
+
+async function initPush() {
+  if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
+
+  const reg = await navigator.serviceWorker.ready;
+
+  // Show enable button if not yet granted
+  if (Notification.permission === 'default') {
+    document.getElementById('notif-enable-btn').style.display = 'block';
+  }
+
+  if (Notification.permission !== 'granted') return;
+
+  // Already granted — subscribe silently
+  await subscribePush(reg);
+}
+
+async function requestNotifPermission() {
+  const permission = await Notification.requestPermission();
+  if (permission === 'granted') {
+    document.getElementById('notif-enable-btn').style.display = 'none';
+    const reg = await navigator.serviceWorker.ready;
+    await subscribePush(reg);
+    loadReminders();
+    showToast('Notifications enabled ✓');
+  }
+}
+
+async function subscribePush(reg) {
+  try {
+    const { publicKey } = await fetch('/api/vapid-key').then(r => r.json());
+    const sub = await reg.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: urlBase64ToUint8Array(publicKey),
+    });
+    await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(sub),
+    });
+  } catch (e) {
+    console.warn('Push subscription failed:', e);
+  }
+}
+
+function urlBase64ToUint8Array(base64String) {
+  const padding = '='.repeat((4 - base64String.length % 4) % 4);
+  const base64  = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+  const raw     = atob(base64);
+  return Uint8Array.from([...raw].map(c => c.charCodeAt(0)));
+}
+
+function openReminders() {
+  document.getElementById('reminder-backdrop').classList.add('open');
+  document.getElementById('reminder-sheet').classList.add('open');
+  loadReminders();
+}
+
+function closeReminders() {
+  document.getElementById('reminder-backdrop').classList.remove('open');
+  document.getElementById('reminder-sheet').classList.remove('open');
+}
+
+const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+async function loadReminders() {
+  const reminders = await fetch('/api/reminders').then(r => r.json());
+  const list = document.getElementById('reminder-list');
+  list.innerHTML = '';
+
+  // Show enable button state
+  const enableBtn = document.getElementById('notif-enable-btn');
+  enableBtn.style.display = Notification.permission === 'default' ? 'block' : 'none';
+
+  if (Notification.permission === 'denied') {
+    list.innerHTML = '<div style="color:var(--text-muted);font-size:13px;padding:12px 0">Notifications are blocked. Enable them in your browser/phone settings, then reopen this app.</div>';
+    return;
+  }
+
+  reminders.forEach(r => {
+    const days = JSON.parse(r.days);
+    const dayLabel = days.length === 7 ? 'Every day' :
+                     days.length === 0 ? 'Off' :
+                     days.map(d => DAY_NAMES[d]).join(', ');
+
+    const row = document.createElement('div');
+    row.className = 'reminder-row';
+    row.innerHTML = `
+      <div class="reminder-info">
+        <div class="reminder-label">${r.label}</div>
+        <div class="reminder-meta">${dayLabel}${days.length ? ' · ' + r.time : ''}</div>
+      </div>
+      ${days.length ? `<input type="time" class="reminder-time" value="${r.time}" onchange="updateReminderTime('${r.id}', this.value)">` : ''}
+      <label class="toggle">
+        <input type="checkbox" ${r.enabled ? 'checked' : ''} onchange="toggleReminder('${r.id}', this.checked)">
+        <div class="toggle-track"></div>
+        <div class="toggle-thumb"></div>
+      </label>`;
+    list.appendChild(row);
+  });
+}
+
+async function toggleReminder(id, enabled) {
+  await fetch(`/api/reminders/${id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ enabled: enabled ? 1 : 0 }),
+  });
+}
+
+async function updateReminderTime(id, time) {
+  await fetch(`/api/reminders/${id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ time }),
+  });
+  showToast('Reminder time updated ✓');
+}
+
 // ─── GROCERY ──────────────────────────────────────────────────────────────
 
 function buildGrocery() {
@@ -1326,3 +1447,48 @@ async function resetGrocery() {
 // ─── START ─────────────────────────────────────────────────────────────────
 
 init().catch(console.error);
+
+// ─── PULL TO REFRESH ───────────────────────────────────────────────────────
+
+(function () {
+  let startY = 0, pulling = false;
+
+  const indicator = document.createElement('div');
+  indicator.style.cssText = [
+    'position:fixed', 'top:0', 'left:50%', 'transform:translateX(-50%) translateY(-60px)',
+    'background:#1D9E75', 'color:white', 'padding:8px 20px', 'border-radius:0 0 20px 20px',
+    'font-size:13px', 'font-weight:600', 'z-index:9000',
+    'transition:transform 0.2s ease', 'pointer-events:none',
+  ].join(';');
+  indicator.textContent = '↓ Pull to refresh';
+  document.body.appendChild(indicator);
+
+  const container = document.getElementById('screen-container');
+
+  container.addEventListener('touchstart', e => {
+    const active = document.querySelector('.screen.active');
+    if (active && active.scrollTop === 0) {
+      startY = e.touches[0].clientY;
+      pulling = true;
+    }
+  }, { passive: true });
+
+  container.addEventListener('touchmove', e => {
+    if (!pulling) return;
+    const dist = e.touches[0].clientY - startY;
+    if (dist > 10) {
+      const pct = Math.min(dist / 90, 1);
+      indicator.style.transform = `translateX(-50%) translateY(${-60 + pct * 60}px)`;
+      indicator.textContent = pct >= 1 ? '↑ Release to refresh' : '↓ Pull to refresh';
+    }
+  }, { passive: true });
+
+  container.addEventListener('touchend', e => {
+    if (!pulling) return;
+    pulling = false;
+    const dist = e.changedTouches[0].clientY - startY;
+    indicator.style.transform = 'translateX(-50%) translateY(-60px)';
+    indicator.textContent = '↓ Pull to refresh';
+    if (dist >= 90) window.location.reload();
+  }, { passive: true });
+}());

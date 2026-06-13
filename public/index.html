@@ -281,6 +281,51 @@
   #onboarding h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
   #onboarding p { color: var(--text-muted); font-size: 15px; line-height: 1.6; margin-bottom: 24px; }
   .onboard-pills { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 32px; }
+
+  /* ── Reminders sheet ─────────────────────────────────────── */
+  #reminder-backdrop {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.4);
+    z-index: 500; opacity: 0; pointer-events: none; transition: opacity 0.25s;
+  }
+  #reminder-backdrop.open { opacity: 1; pointer-events: auto; }
+  #reminder-sheet {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    background: var(--surface); border-radius: 20px 20px 0 0;
+    z-index: 501; padding: 0 0 env(safe-area-inset-bottom);
+    transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.32,0.72,0,1);
+    max-height: 88vh; display: flex; flex-direction: column;
+  }
+  #reminder-sheet.open { transform: translateY(0); }
+  .sheet-handle { width: 36px; height: 4px; background: var(--border); border-radius: 2px; margin: 12px auto 0; flex-shrink: 0; }
+  .sheet-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px 12px; flex-shrink: 0; border-bottom: 0.5px solid var(--border); }
+  .sheet-title { font-size: 17px; font-weight: 700; }
+  .sheet-body { overflow-y: auto; padding: 12px 16px 20px; flex: 1; }
+  .notif-enable-btn { width: 100%; padding: 14px; background: var(--coral); color: white; border: none; border-radius: var(--radius-sm); font-size: 15px; font-weight: 600; cursor: pointer; margin-bottom: 16px; }
+  .reminder-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 0; border-bottom: 0.5px solid var(--border);
+    min-height: 60px;
+  }
+  .reminder-row:last-child { border-bottom: none; }
+  .reminder-info { flex: 1; }
+  .reminder-label { font-size: 14px; font-weight: 500; color: var(--text); }
+  .reminder-meta  { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .reminder-time  { font-size: 13px; color: var(--text-muted); border: 0.5px solid var(--border); border-radius: 6px; padding: 4px 8px; background: var(--white); cursor: pointer; }
+  /* Toggle switch */
+  .toggle { position: relative; width: 44px; height: 26px; flex-shrink: 0; }
+  .toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+  .toggle-track {
+    position: absolute; inset: 0; border-radius: 13px;
+    background: var(--gray-light); transition: background 0.2s; cursor: pointer;
+  }
+  .toggle input:checked + .toggle-track { background: var(--teal); }
+  .toggle-thumb {
+    position: absolute; top: 3px; left: 3px;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    transition: transform 0.2s; pointer-events: none;
+  }
+  .toggle input:checked ~ .toggle-thumb { transform: translateX(18px); }
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 </head>
@@ -314,9 +359,14 @@
       <div class="header-title" id="header-title">Today</div>
       <div class="header-sub" id="header-sub"></div>
     </div>
-    <div class="person-toggle">
-      <button class="ptog r active" id="ptog-r" onclick="setPerson('R')">R</button>
-      <button class="ptog d" id="ptog-d" onclick="setPerson('D')">D</button>
+    <div style="display:flex;align-items:center;gap:8px">
+      <button id="bell-btn" onclick="openReminders()" style="width:44px;height:44px;border:none;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:50%;color:var(--text-muted)" title="Reminders">
+        <i class="ti ti-bell" style="font-size:22px"></i>
+      </button>
+      <div class="person-toggle">
+        <button class="ptog r active" id="ptog-r" onclick="setPerson('R')">R</button>
+        <button class="ptog d" id="ptog-d" onclick="setPerson('D')">D</button>
+      </div>
     </div>
   </div>
 </div>
@@ -436,6 +486,22 @@
 </div>
 
 </div><!-- /#screen-container -->
+
+<!-- REMINDER SHEET -->
+<div id="reminder-backdrop" onclick="closeReminders()"></div>
+<div id="reminder-sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-header">
+    <div class="sheet-title">🔔 Reminders</div>
+    <button onclick="closeReminders()" style="border:none;background:none;font-size:22px;cursor:pointer;color:var(--text-muted);width:44px;height:44px">✕</button>
+  </div>
+  <div class="sheet-body">
+    <button id="notif-enable-btn" class="notif-enable-btn" onclick="requestNotifPermission()" style="display:none">
+      Enable push notifications
+    </button>
+    <div id="reminder-list"></div>
+  </div>
+</div>
 
 <!-- TAB BAR -->
 <div class="tab-bar">

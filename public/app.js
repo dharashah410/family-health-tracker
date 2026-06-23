@@ -48,28 +48,166 @@ const BLOOD_TARGETS = {
 };
 
 const PREP_TASKS = [
+
+// ── WEEK 1 (15–21 Jun) ────────────────────────────────────────────────────────
+[
   { section: 'Saturday Night — Soak', emoji: '🌙', tasks: [
-    'Soak red rice + urad dal (4:1 ratio) in a large pot — for idli/dosa batter',
-    'Soak moong dal in a separate bowl — for chilla batter',
-    'Soak chickpeas in a bowl',
-    'Soak rajma in a separate bowl',
+    'Red rice + urad dal (4:1 ratio) — large pot, water 3 inches above grains. For idli (Fri) and dosa (Sat dosa night) batter.',
+    'Moong dal — 1 cup, separate bowl. For Vasu\'s daily besan-moong chilla batter (half moong, half besan).',
+    'Chickpeas (chole) — 250 g, large bowl. Used Tue dinner (chole) and Fri lunch (chole).',
+    'Toor dal — 1 cup, separate bowl. For jackfruit sambar base (Thu, Sat dosa night) and Dhansak dal (Fri dinner, Sun dinner).',
   ]},
-  { section: 'Sunday Morning — Cook & Grind', emoji: '☀️', tasks: [
-    'Grind dosa/idli batter. Take out 2 cups for Ritvij → stir in 1 tbsp JF powder. Set all to ferment 6–8 hrs.',
-    'Grind chilla batter (soaked moong dal)',
-    'Pressure cook chickpeas. Portion in labelled box.',
-    'Pressure cook rajma. Portion in separate box.',
-    'Make sambar base (toor dal + vegetables, no oil)',
-    'Make green chutney: coriander + coconut + lime + green chilli. Store in jar.',
+  { section: 'Sunday Morning — Grind & Cook', emoji: '☀️', tasks: [
+    'Grind idli/dosa batter from soaked red rice + urad dal — thick pourable (like heavy cream). Set aside 2 cups for Ritvij, stir in 1 tbsp JF powder. Ferment all batter at room temp 6–8 hrs.',
+    'Grind Vasu\'s chilla batter: 1 cup besan + ½ cup soaked moong + water to thin pourable. Pinch of cumin, turmeric. No salt. Refrigerate.',
+    'Pressure cook chickpeas — 3 whistles high, 10 min low. Firm, not mushy. Drain, labelled box. Reserve cooking water (use in chole gravy).',
+    'Pressure cook toor dal — 2 cups water, 3 whistles. Use half for sambar, half for Dhansak base.',
+    'Make Jackfruit Sambar base — toor dal + canned young jackfruit + tomato (roughly diced) + drumstick (3cm pieces) + sambar powder + tamarind water. No oil. Simmer until thickened. Fridge — reheat Thu and Sat.',
+    'Make Dhansak dal base — equal parts masoor + toor + moong + bottle gourd (2cm cubes) + spinach (roughly torn) + tomato (roughly diced) + Parsi spices. No oil. Pressure cook 3 whistles. Fridge. Used Fri and Sun dinner.',
+    'Make green chutney — blend 1 bunch coriander (roughly cut) + ½ cup grated coconut + 2 green chillies + juice of 1 lime + small piece ginger. Smooth, jar, fridge. Lasts the week.',
+    'Make Vasu\'s marinara dip — blanch 5 tomatoes (score, boil 2 min, peel), blend smooth with 1 garlic clove + pinch dried basil. No oil, no salt, no sugar. Small jar, fridge.',
   ]},
-  { section: 'Sunday Afternoon — Batch Prep', emoji: '🌤️', tasks: [
-    'Seeds powder jar: roast flaxseed + sesame + chia. Lightly crush. Store on counter.',
-    'JF roti dough: knead 1 tbsp JF powder per 2 cups atta. Cover and refrigerate.',
-    'Cut salad veg: cucumber, capsicum, tomato, carrot. Store in airtight boxes.',
-    'Cook large pot of millet.',
-    'Make miso-ginger broth base (for Friday ramen). Store in jar in fridge.',
-    'Make date-tamarind chutney for chaats.',
+  { section: 'Sunday Afternoon — Cut & Prep', emoji: '🌤️', tasks: [
+    '🫙 Seeds powder jar: dry roast flaxseeds, sesame, chia separately until fragrant. Cool, lightly crush (keep texture — not fine powder). Glass jar on counter.',
+    '🫙 JF roti dough: knead 2 cups jowar flour + 1 tbsp JF powder + warm water. Smooth and soft. Wrap tightly, refrigerate. For Ritvij and Dhara\'s rotis Mon–Sat.',
+    '🥒 Cucumber — two cuts: (1) thin half-moon slices (3mm) for daily salads, (2) finger-length sticks for Ritvij\'s snack. Same box.',
+    '🍅 Tomato — roughly diced (2cm chunks) for salads. No salt. This batch lasts 3 days — cut second round Wednesday.',
+    '🥕 Carrot — thin julienne (matchstick-sized) for salad and Vasu\'s plate.',
+    '🫑 Capsicum red + yellow — two cuts: (1) finger-width vertical strips (5cm long) for Vasu\'s daily roasting plate and Sat dosa night topping, (2) finely diced (5mm) for Sabi\'s egg scramble topping. Label boxes separately.',
+    '🌿 Spinach for Chana Palak (Mon): wash, remove thick stems, roughly torn — do NOT chop fine, it must hold texture. Damp cloth, fridge.',
+    '🔪 Bhindi/okra for Bhindi Masala (Tue): wash whole NOW, dry completely with cloth (critical — any moisture = slimy). Refrigerate dry. Cut JUST BEFORE cooking: thin diagonal slices (3mm).',
+    '🍠 Sweet potato — peel, cut 2cm cubes for steaming (Mon, Tue sides). Keep 2–3 whole, unpeeled for Wed Sweet Potato Chaat (roast whole). Cubes in water to prevent browning.',
+    '🍆 Baingan for Baingan Bharta (Thu lunch + Sun dinner): wash, keep whole — roast directly on open flame Thursday morning. Do NOT cut. Set aside clean.',
+    '🌱 Methi leaves for Methi Palak Sabzi (Wed): pick leaves off stems, discard thick stems. Roughly chop. Box lined with kitchen paper.',
+    '🍄 Mushrooms for Ramen (Fri): wipe with damp cloth — do NOT wash. Thinly sliced (4–5mm). Airtight box, fridge.',
+    '🥬 Bok choy for Ramen (Fri): wash, halve lengthways — keep leaves and stem intact. Pat dry, fridge.',
+    '🧊 Tofu — press block between kitchen paper 20 min. For Ramen (Fri): cut into 2cm cubes. For Sunday Scramble: leave block whole, crumble just before cooking. Store in separate boxes.',
+    '🫙 Coconut chutney for Wed dosa + Sat dosa night: blend ½ cup grated coconut + 1 green chilli + small piece ginger + juice of ½ lime. Jar, fridge.',
+    '🫙 Date-tamarind chutney for chaats all week: soak 6 pitted dates + 1 tbsp tamarind paste in warm water 10 min. Blend smooth, thin with water. Jar, fridge.',
+    '🥣 Miso-ginger broth for Ramen (Fri): simmer 1 L water + 2 tbsp miso paste + grated ginger (1 inch) + 2 garlic cloves (minced) + dried mushrooms 10 min. Do NOT boil (kills miso probiotics). Cool, jar, fridge.',
+    '🥣 Large millet pot (Thu lunch + Sat side): rinse 2 cups foxtail millet, dry toast 1 min, add 4 cups water, cook covered 12 min. Cool, airtight box. Reheat with splash of water.',
   ]},
+],
+
+// ── WEEK 2 (22–28 Jun) ────────────────────────────────────────────────────────
+[
+  { section: 'Saturday Night — Soak', emoji: '🌙', tasks: [
+    'Red rice + urad dal (4:1 ratio) — for Red Rice Idli (Fri breakfast) and Sat dosa night. Large pot, 3 inches above grains.',
+    'Moong dal — 1 cup, separate bowl. For Vasu\'s daily besan-moong chilla batter.',
+    'Chickpeas — 200 g. For Chole (Fri lunch).',
+    'Toor dal — 1 cup. For sambar base (Sat dosa night) and any dal sides.',
+  ]},
+  { section: 'Sunday Morning — Grind & Cook', emoji: '☀️', tasks: [
+    'Grind idli/dosa batter — thick pourable. Set 2 cups for Ritvij + 1 tbsp JF. Ferment 6–8 hrs.',
+    'Grind Vasu\'s chilla batter — besan + soaked moong, thin pourable, no salt. Refrigerate.',
+    'Pressure cook chickpeas — firm, not mushy. Reserve cooking water.',
+    'Make sambar base — toor dal + tomato + vegetables + sambar powder + tamarind. No oil. Fridge — used Sat dosa night.',
+    'Make green chutney — coriander + coconut + lime + chilli. Jar, fridge.',
+    'Make Vasu\'s marinara dip — blanched tomatoes blended smooth, no oil, no salt. Jar, fridge.',
+    'Make Methi Matar Malai base (Mon lunch) — grind cashews + onion + ginger + garlic. No oil, no cream. Sauté spices dry, add paste + peas + fenugreek leaves. Refrigerate.',
+  ]},
+  { section: 'Sunday Afternoon — Cut & Prep', emoji: '🌤️', tasks: [
+    '🫙 Refill seeds powder jar if running low.',
+    '🫙 Fresh JF roti dough — knead jowar flour + 1 tbsp JF + warm water. Refrigerate.',
+    '🥒 Cucumber — half-moon slices (3mm) for salads + finger sticks for snack.',
+    '🍅 Tomato — roughly diced (2cm) for salads. No salt.',
+    '🥕 Carrot — thin julienne for salad and Vasu.',
+    '🫑 Capsicum red + yellow — (1) vertical strips (5cm) for Vasu\'s roasting plate + (2) finely diced (5mm) for Sabi\'s egg topping.',
+    '🌿 Palak/spinach — wash, remove thick stems, roughly torn. Damp cloth, fridge.',
+    '🔪 Bhindi for Bhindi Masala (Mon lunch): wash whole NOW, dry completely with cloth. Refrigerate dry. Diagonal slices (3mm) just before cooking.',
+    '🍠 Sweet potato — peel, 2cm cubes for steaming. In water to prevent browning.',
+    '🍆 Baingan for Baingan Bharta (Sun dinner): wash, keep whole, set aside.',
+    '🌱 Methi leaves: pick off thick stems, roughly chop. Box with kitchen paper.',
+    '🧊 Tofu for Ramen (Fri): press 20 min, cut 2cm cubes.',
+    '🍄 Mushrooms for Ramen (Fri): wipe clean, thin slices (4–5mm).',
+    '🥬 Bok choy for Ramen (Fri): wash, halve lengthways, pat dry.',
+    '🥣 Miso-ginger broth for Ramen (Fri): simmer, no boiling. Jar, fridge.',
+    '🥣 Large millet pot — rinse 2 cups millet, toast, cook. For the week.',
+    '🫙 Coconut chutney for Sat dosa night. Jar, fridge.',
+    '🫙 Date-tamarind chutney for chaats. Jar, fridge.',
+  ]},
+],
+
+// ── WEEK 3 (29 Jun – 5 Jul) ──────────────────────────────────────────────────
+[
+  { section: 'Saturday Night — Soak', emoji: '🌙', tasks: [
+    'Red rice + urad dal (4:1) — for Fri Red Rice Idli and Sat Thalipeeth dosa night batter.',
+    'Moong dal — 1 cup. For Vasu\'s daily chilla batter and Tue Moong Chaat.',
+    'Chickpeas — 200 g. For Mon Chickpea Curry and Sat Chickpea Masala Chaat.',
+    'Toor dal — 1 cup. For Jackfruit Sambar (Mon dinner, Sun lunch) and Kootu Curry base (Fri).',
+    'Soy chunks for Mangalorean Curry (Thu dinner) — soak in warm water Sunday morning, 30 min.',
+  ]},
+  { section: 'Sunday Morning — Grind & Cook', emoji: '☀️', tasks: [
+    'Grind idli/dosa batter — ferment 6–8 hrs. Set 2 cups for Ritvij + JF. Also base for Sat Thalipeeth batter (mix in jowar + other grains then).',
+    'Grind Vasu\'s chilla batter — besan + soaked moong, thin, no salt. Refrigerate.',
+    'Pressure cook chickpeas — firm. Reserve cooking water.',
+    'Make Jackfruit Sambar base — toor dal + jackfruit + tomato + sambar powder + tamarind. No oil. Fridge. Reheat Mon dinner and Sun lunch.',
+    'Make Dal Makhani base (Tue dinner) — whole masoor + kidney beans (small amount) pressure cooked 3–4 whistles. Simmer 30+ min for creamy texture. No oil, no cream. Refrigerate.',
+    'Pumpkin Porridge base (Tue breakfast) — pressure cook pumpkin cubes (3cm) until soft. Blend smooth with coconut milk. Store. Reheat Tue morning.',
+    'Make green chutney — coriander + coconut + lime + chilli. Jar, fridge.',
+    'Make Vasu\'s marinara dip. Jar, fridge.',
+  ]},
+  { section: 'Sunday Afternoon — Cut & Prep', emoji: '🌤️', tasks: [
+    '🫙 Seeds powder jar, JF roti dough — as every week.',
+    '🥒 Cucumber — half-moon slices (3mm) for salads.',
+    '🍅 Tomato — roughly diced (2cm) for salads.',
+    '🥕 Carrot — thin julienne.',
+    '🫑 Capsicum red + yellow — (1) vertical strips (5cm) for Vasu\'s plate + (2) finely diced (5mm) for Sabi.',
+    '🌿 Spinach/palak — wash, remove thick stems, roughly torn. Damp cloth.',
+    '🔪 Bhindi for Bhindi Kadhi (Thu lunch): wash whole NOW, dry completely — no moisture. Refrigerate dry. Thin diagonal slices (2–3mm) just before cooking.',
+    '🍠 Sweet potato — 2cm cubes for steaming. In water.',
+    '🥦 Broccoli — medium florets (3–4cm) for steaming sides (Fri lunch side).',
+    '🫘 French beans for Tue lunch: wash, snip ends, cut 3cm lengths (diagonal).',
+    '🍆 Brinjal for Brinjal-Drumstick Curry (Wed dinner): medium cubes (3cm) — cut just before cooking (browning). Drumstick — 5cm pieces.',
+    '🍞 Bread for Bread Upma (Thu breakfast): tear into 1.5cm rough pieces. Box. Day-old bread works best.',
+    '🧊 Tofu for Ramen (Fri): press 20 min, cut 2cm cubes.',
+    '🍄 Mushrooms for Ramen (Fri): wipe with damp cloth, thin slices (4–5mm).',
+    '🥬 Bok choy for Ramen (Fri): halve lengthways, pat dry.',
+    '🥣 Miso-ginger broth for Ramen (Fri): simmer, no boiling. Jar, fridge.',
+    '🥣 Large millet pot — for the week.',
+    '🫙 Coconut chutney for Wed dosa and Sat Thalipeeth dosa night.',
+    '🫙 Date-tamarind chutney for Chickpea Masala Chaat (Sat).',
+    '🥑 Avocado for Sat Avocado Superbowl: leave whole, uncut. If firm, leave on counter to ripen.',
+  ]},
+],
+
+// ── WEEK 4 (6–12 Jul) ─────────────────────────────────────────────────────────
+[
+  { section: 'Saturday Night — Soak', emoji: '🌙', tasks: [
+    'Red rice + urad dal (4:1) — for Wed Millet Dosa and Fri Red Rice Idli. Large pot.',
+    'Moong dal — 1 cup. For Vasu\'s daily chilla batter and Tue Moong Chaat.',
+    'Chickpeas — 200 g. For Mon Chole and Wed Chana Palak.',
+    'Toor dal — 1 cup. For dal sides and sambar.',
+    '🥣 Overnight oats (Tue): mix oats + chia + seeds powder + mashed banana + plant milk in jars (R and D separately). Refrigerate tonight.',
+  ]},
+  { section: 'Sunday Morning — Grind & Cook', emoji: '☀️', tasks: [
+    'Grind idli/dosa batter — for Wed Millet Dosa. Ferment 6–8 hrs. Set 2 cups for Ritvij + JF.',
+    'Grind Vasu\'s chilla batter — besan + soaked moong, thin, no salt. Refrigerate.',
+    'Pressure cook chickpeas — for Mon Chole and Wed Chana Palak. Firm, reserve cooking water.',
+    'Make Mixed Vegetable Makhanwala base (Mon lunch): pressure cook mixed veg (cauliflower florets + peas + carrot 2cm cubes). Make cashew-tomato gravy — blend soaked cashews + onion + ginger + garlic. No oil, no cream. Mix and refrigerate.',
+    'Soak and rub karela for Tue lunch: slice bitter gourd (2–3mm rounds), toss with 1 tsp salt, let sit 30 min, squeeze out bitter water. Rinse, fridge.',
+    'Make green chutney. Jar, fridge.',
+    'Make Vasu\'s marinara dip. Jar, fridge.',
+  ]},
+  { section: 'Sunday Afternoon — Cut & Prep', emoji: '🌤️', tasks: [
+    '🫙 Seeds powder jar, JF roti dough — as every week.',
+    '🥒 Cucumber — half-moon slices (3mm) for salads.',
+    '🍅 Tomato — roughly diced (2cm) for salads.',
+    '🥕 Carrot — thin julienne for salads.',
+    '🫑 Capsicum red + yellow — (1) vertical strips (5cm) for Vasu\'s roasting plate + (2) finely diced (5mm) for Sabi\'s egg topping.',
+    '🌿 Spinach for Chana Palak (Wed) and Methi Palak Sabzi (Wed): wash, remove thick stems, roughly torn. Damp cloth.',
+    '🌱 Methi leaves for Wed Methi Palak Sabzi: pick off thick stems, roughly chop. Box with kitchen paper.',
+    '🔪 Bhindi for Bhindi Masala (Thu): wash whole NOW, dry completely. Refrigerate dry. Diagonal slices (3mm) just before cooking Thursday.',
+    '🍠 Sweet potato — 2cm cubes for steaming. In water.',
+    '🥒 Karela prepared this morning — keep in fridge, cook fresh Tue morning.',
+    '🥒 Dudhi/Lauki for Tue dinner: peel, cut medium cubes (2–3cm). Keep in water.',
+    '🥣 Ragi Porridge for Thu: mix ragi flour + water into smooth lump-free paste. Refrigerate. Stir and cook fresh Thu morning with coconut milk.',
+    '🥣 Large millet pot — for the week.',
+    '🫙 Coconut chutney for Wed dosa.',
+    '🫙 Date-tamarind chutney for Mon Moong Chaat and Wed Chickpea Chaat.',
+  ]},
+],
+
 ];
 
 const COOK_RULES = [
@@ -88,7 +226,7 @@ const MEAL_PLAN = [
   [
   { day: 'Monday', dayShort: 'Mon',
     R: { b: 'Green smoothie (spinach + banana + flaxseed powder) + fruit plate', bJF: '1 tbsp JF powder blended in',
-         l: 'Chana Palak (small bowl) + 1 jowar roti + large cucumber-tomato salad', lJF: '1 tbsp JF powder in roti dough',
+         l: 'Mediterranean Lentil Salad (cookieandkate.com/lentil-salad) + Chickpea Tomato Soup (cookieandkate.com/chickpea-tomato-soup-recipe)', lJF: '1 tbsp JF stirred into soup',
          s: '10 almonds + cucumber sticks + green smoothie',
          d: 'Dal Fry (masoor) + large salad + 1 small jowar roti', dJF: '1 tbsp JF powder in roti dough' },
     D: { b: 'Fluffy pancakes (banana-oat) + peanut butter + seasonal fruit',
@@ -107,7 +245,7 @@ const MEAL_PLAN = [
 
   { day: 'Tuesday', dayShort: 'Tue',
     R: { b: 'Overnight Oats + berries + seeds powder', bJF: '1 tbsp JF powder stirred in the night before',
-         l: 'Bhindi Masala + 1 roti + large salad', lJF: 'JF in roti dough',
+         l: 'Quinoa Tabbouleh (cookieandkate.com/quinoa-tabbouleh) + Best Lentil Soup (cookieandkate.com/best-lentil-soup-recipe)', lJF: '1 tbsp JF stirred into soup',
          s: 'Moong sprout chaat + lime + coriander',
          d: 'Chole (small bowl) + salad + steamed cauliflower' },
     D: { b: 'Overnight Oats (larger) + dates + banana + chia seeds',
@@ -126,7 +264,7 @@ const MEAL_PLAN = [
 
   { day: 'Wednesday', dayShort: 'Wed',
     R: { b: 'Instant Millet Dosa + sambar + tomato chutney + salad', bJF: '1 tbsp JF powder in dosa batter',
-         l: 'Methi Palak Sweet Potato Sabzi + 1 roti + large salad', lJF: 'JF in roti dough',
+         l: 'Cauliflower Salad (cookieandkate.com/cauliflower-salad) + Roasted Red Pepper & Tomato Soup (cookieandkate.com/roasted-red-pepper-and-tomato-soup)', lJF: '1 tbsp JF stirred into soup',
          s: 'Sweet Potato Chaat + green chutney',
          d: 'Vegetable Khichdi (moong dal heavy, small bowl) + salad' },
     D: { b: 'Millet Dosa ×3 + sambar + coconut chutney + avocado slice',
@@ -145,7 +283,7 @@ const MEAL_PLAN = [
 
   { day: 'Thursday', dayShort: 'Thu',
     R: { b: 'Thalipeeth (savoury multigrain pancake) + green chutney', bJF: '1 tbsp JF powder in batter',
-         l: 'Jackfruit Sambar + small millet rice + salad',
+         l: 'Quinoa Salad with Chickpeas (cookieandkate.com/best-quinoa-salad-recipe) + Cabbage Vegetable Soup (cookieandkate.com/cabbage-vegetable-soup)', lJF: '1 tbsp JF stirred into soup',
          s: '10 walnuts + guava/pear (with skin)',
          d: 'Baingan Bharta + 1 roti + salad', dJF: 'JF in roti dough' },
     D: { b: 'Thalipeeth ×2 + peanut butter + banana',
@@ -164,7 +302,7 @@ const MEAL_PLAN = [
 
   { day: 'Friday', dayShort: 'Fri',
     R: { b: 'Red Rice Idli ×2 + sambar + tomato chutney + salad', bJF: '1 tbsp JF powder in idli batter',
-         l: 'Dhansak Dal + salad + 1 roti', lJF: 'JF in roti dough',
+         l: 'Mediterranean Bean Salad (cookieandkate.com/mediterranean-bean-salad-recipe) + Spicy Black Bean Soup (cookieandkate.com/spicy-vegan-black-bean-soup)', lJF: '1 tbsp JF stirred into soup',
          s: 'Green smoothie + guava',
          d: 'Ramen bowl: miso broth + tofu + bok choy + brown rice noodles + mushroom' },
     D: { b: 'Red Rice Idli ×4 + sambar + coconut chutney + avocado',
@@ -204,19 +342,19 @@ const MEAL_PLAN = [
     R: { b: 'Fruit plate (papaya + guava + pear with skin) + flaxseed water',
          l: 'Jackfruit Sambar + small millet rice + large salad',
          s: '10 almonds + 2 dates',
-         d: 'Dhansak Dal + salad + 1 roti', dJF: '1 tbsp JF powder stirred into dal while cooking' },
+         d: '🍔 BURGER NIGHT — Black bean & lentil patty, lettuce wrap, extra salad (no bun)', dJF: '1 tbsp JF stirred into patty mix' },
     D: { b: 'Tofu Scramble + whole wheat toast + avocado + hemp seeds',
          l: 'Jackfruit Sambar + 1.5 cups millet rice + tofu stir-fry',
          s: 'Soaked figs + almonds + flaxseed laddoo',
-         d: 'Dhansak Dal + 2 rotis + sweet potato + extra legumes' },
+         d: '🍔 BURGER NIGHT — Black bean & lentil patty, whole wheat bun, avocado + sprouts' },
     S: { b: '3-egg french toast (whole wheat, egg custard) + banana + seasonal fruit',
          l: 'Sambar rice + papad + salad',
          s: 'Healthy Bhel + fruit',
-         d: 'Dhansak dal + roti + rice' },
+         d: '🍔 BURGER NIGHT — Lentil patty, whole wheat bun, fried egg + cheddar + sauce' },
     V: { b: 'Mini whole wheat french toast + mashed banana + marinara dip', bNote: 'V shares S\'s egg custard — bread soaks up egg completely, zero taste. Add marinara on the side.',
          l: 'Soft rice + sambar (thin) + seasonal fruit',
          s: 'Mashed banana + date (1) + small cup seasonal fruit',
-         d: 'Soft dal + plain rice + roasted red capsicum' },
+         d: '🍔 BURGER NIGHT — Mini soft lentil patty mashed + soft bread pieces + marinara dip' },
     link: 'https://sharan-india.org/recipes/indian-curries/jackfruit-sambar/' },
   ],
 
@@ -224,7 +362,7 @@ const MEAL_PLAN = [
   [
   { day: 'Monday', dayShort: 'Mon',
     R: { b: 'Chilla (moong dal) + green chutney + salad', bJF: '1 tbsp JF powder in chilla batter',
-         l: 'Mixed Vegetable Sabzi + 1 roti + large salad', lJF: 'JF in roti dough',
+         l: 'Seaweed Salad (cookieandkate.com/seaweed-salad-recipe) + Quinoa Vegetable Soup with Kale (cookieandkate.com/quinoa-vegetable-soup-recipe)', lJF: '1 tbsp JF stirred into soup',
          s: 'Green smoothie + pear',
          d: 'Chettinad Curry + salad + 1 small roti', dJF: 'JF in roti dough' },
     D: { b: 'Chilla ×3 + peanut butter + banana + seeds powder',
@@ -243,7 +381,7 @@ const MEAL_PLAN = [
 
   { day: 'Tuesday', dayShort: 'Tue',
     R: { b: 'Savoury Bajra Sevai Upma + green chutney', bJF: '1 tbsp JF in upma mix',
-         l: 'Dal Makhani (SHARAN oil-free) + 1 roti + salad', lJF: 'JF in roti dough',
+         l: 'Quinoa Tabbouleh (cookieandkate.com/quinoa-tabbouleh) + Chickpea Noodle Soup (cookieandkate.com/chickpea-noodle-soup-recipe)', lJF: '1 tbsp JF stirred into soup',
          s: 'Sweet Potato Chaat + lime',
          d: 'Chana Palak + salad + 1 roti', dJF: 'JF in roti dough' },
     D: { b: 'Bajra Sevai Upma (large) + peanuts + coconut milk + banana',
@@ -262,7 +400,7 @@ const MEAL_PLAN = [
 
   { day: 'Wednesday', dayShort: 'Wed',
     R: { b: 'Colourful Millet Upma + green chutney + fruit plate', bJF: '1 tbsp JF in upma',
-         l: 'Dudhi Chana Subzi + 1 roti + large salad', lJF: 'JF in roti dough',
+         l: 'Mediterranean Lentil Salad (cookieandkate.com/lentil-salad) + Roasted Butternut Squash Soup (cookieandkate.com/roasted-butternut-squash-soup)', lJF: '1 tbsp JF stirred into soup',
          s: 'Moong Chaat + lime + coriander',
          d: 'Cauliflower Masala + 1 roti + salad', dJF: 'JF in roti dough' },
     D: { b: 'Colourful Millet Upma (large) + avocado + banana',
@@ -281,7 +419,7 @@ const MEAL_PLAN = [
 
   { day: 'Thursday', dayShort: 'Thu',
     R: { b: 'Red Rice Idli ×2 + sambar + tomato chutney', bJF: 'JF in idli batter',
-         l: 'Methi Matar Malai (SHARAN oil-free) + 1 roti + salad', lJF: 'JF in roti dough',
+         l: 'Cauliflower Salad (cookieandkate.com/cauliflower-salad) + Seriously Good Vegetable Soup (cookieandkate.com/vegetable-soup-recipe)', lJF: '1 tbsp JF stirred into soup',
          s: '10 almonds + guava',
          d: 'Bhindi Masala + 1 roti + salad', dJF: 'JF in roti dough' },
     D: { b: 'Red Rice Idli ×4 + sambar + coconut chutney + seeds powder',
@@ -300,7 +438,7 @@ const MEAL_PLAN = [
 
   { day: 'Friday', dayShort: 'Fri',
     R: { b: 'Cracked Wheat Porridge with Coconut Milk & Ginger', bJF: '1 tbsp JF in porridge',
-         l: 'Chole + salad + 1 roti', lJF: 'JF in roti dough',
+         l: 'Quinoa Salad with Chickpeas (cookieandkate.com/best-quinoa-salad-recipe) + Creamy Roasted Cauliflower Soup (cookieandkate.com/creamy-roasted-cauliflower-soup-recipe)', lJF: '1 tbsp JF stirred into soup',
          s: 'Green smoothie + guava (with skin)',
          d: 'Ramen bowl: miso broth + tofu + bok choy + brown rice noodles + mushroom' },
     D: { b: 'Cracked Wheat Porridge (large) + banana + peanut butter + seeds',
@@ -340,19 +478,19 @@ const MEAL_PLAN = [
     R: { b: 'Tropical Breakfast Parfait (Raw) + flaxseed water',
          l: 'Appam And Stew (SHARAN style) + salad',
          s: '10 walnuts + pear',
-         d: 'Baingan Bharta + 1 roti + salad', dJF: 'JF in roti dough' },
+         d: '🍕 PIZZA NIGHT — Thin whole wheat base, roasted veg, no cheese (nutritional yeast optional)', dJF: '1 tbsp JF stirred into dough' },
     D: { b: 'Tropical Breakfast Parfait + seeds powder + banana + peanut butter',
          l: 'Appam And Stew + extra coconut milk + roasted peanuts',
          s: 'Soaked figs + almonds + flaxseed laddoo',
-         d: 'Baingan Bharta + 2 rotis + dal + sesame seeds' },
+         d: '🍕 PIZZA NIGHT — Whole wheat base, roasted veg, extra toppings, nutritional yeast' },
     S: { b: '3-egg french toast (whole wheat, egg custard) + seasonal fruit',
          l: 'Appam + stew + rice',
          s: 'Corn Bhel + fruit',
-         d: 'Baingan bharta + roti + dal + rice' },
+         d: '🍕 PIZZA NIGHT — Whole wheat base, cheese, capsicum, corn, extra toppings' },
     V: { b: 'Mini whole wheat french toast + mashed banana + marinara dip', bNote: 'V shares S\'s egg custard — bread soaks up egg, zero taste. Marinara dip on the side.',
          l: 'Soft appam + mild stew (veg) + seasonal fruit',
          s: 'Banana + soft date + seasonal fruit',
-         d: 'Soft dal + rice + roasted red capsicum + banana' },
+         d: '🍕 PIZZA NIGHT — Small soft pizza piece, lots of marinara, soft roasted capsicum on top' },
     link: null },
   ],
 
@@ -360,7 +498,7 @@ const MEAL_PLAN = [
   [
   { day: 'Monday', dayShort: 'Mon',
     R: { b: 'Vegan Masala Omelette + green chutney + salad', bJF: '1 tbsp JF in batter',
-         l: 'Chickpea Curry + 1 roti + large salad', lJF: 'JF in roti dough',
+         l: 'Mediterranean Bean Salad (cookieandkate.com/mediterranean-bean-salad-recipe) + Chickpea Tomato Soup (cookieandkate.com/chickpea-tomato-soup-recipe)', lJF: '1 tbsp JF stirred into soup',
          s: 'Green smoothie + guava',
          d: 'Jackfruit Sambar + small millet rice + salad' },
     D: { b: 'Vegan Masala Omelette ×2 + whole wheat toast + avocado',
@@ -379,7 +517,7 @@ const MEAL_PLAN = [
 
   { day: 'Tuesday', dayShort: 'Tue',
     R: { b: 'Pumpkin Porridge + seeds powder', bJF: '1 tbsp JF in porridge',
-         l: 'French Beans Tossed with Peanut and Coconut + 1 roti + salad', lJF: 'JF in roti dough',
+         l: 'Seaweed Salad (cookieandkate.com/seaweed-salad-recipe) + Best Lentil Soup (cookieandkate.com/best-lentil-soup-recipe)', lJF: '1 tbsp JF stirred into soup',
          s: 'Moong Chaat + lime',
          d: 'Dal Fry (masoor) + 1 roti + large salad', dJF: 'JF in roti dough' },
     D: { b: 'Pumpkin Porridge (large) + banana + peanut butter + chia seeds',
@@ -398,7 +536,7 @@ const MEAL_PLAN = [
 
   { day: 'Wednesday', dayShort: 'Wed',
     R: { b: 'Instant Millet Dosa + sambar + green chutney + salad', bJF: 'JF in dosa batter',
-         l: 'Chickpea & Vegetable Kurma + 1 roti + salad', lJF: 'JF in roti dough',
+         l: 'Quinoa Tabbouleh (cookieandkate.com/quinoa-tabbouleh) + Spicy Black Bean Soup (cookieandkate.com/spicy-vegan-black-bean-soup)', lJF: '1 tbsp JF stirred into soup',
          s: 'Sweet Potato Chaat',
          d: 'Brinjal and Drumstick Spicy Curry + 1 roti + salad', dJF: 'JF in roti dough' },
     D: { b: 'Millet Dosa ×3 + sambar + coconut chutney + avocado',
@@ -417,7 +555,7 @@ const MEAL_PLAN = [
 
   { day: 'Thursday', dayShort: 'Thu',
     R: { b: 'Bread Upma + green chutney + fruit', bJF: '1 tbsp JF stirred into upma',
-         l: 'Bhindi Kadhi + 1 roti + salad', lJF: 'JF in roti dough',
+         l: 'Mediterranean Lentil Salad (cookieandkate.com/lentil-salad) + Roasted Red Pepper & Tomato Soup (cookieandkate.com/roasted-red-pepper-and-tomato-soup)', lJF: '1 tbsp JF stirred into soup',
          s: '10 almonds + pear (with skin)',
          d: 'Mangalorean Soy Chunks Curry + 1 roti + salad', dJF: 'JF in roti dough' },
     D: { b: 'Bread Upma (large) + banana + peanut butter + seeds',
@@ -436,7 +574,7 @@ const MEAL_PLAN = [
 
   { day: 'Friday', dayShort: 'Fri',
     R: { b: 'Red Rice Idli ×2 + sambar + green chutney', bJF: 'JF in idli batter',
-         l: 'Delicious Kootu Curry + 1 roti + salad', lJF: 'JF in roti dough',
+         l: 'Cauliflower Salad (cookieandkate.com/cauliflower-salad) + Cabbage Vegetable Soup (cookieandkate.com/cabbage-vegetable-soup)', lJF: '1 tbsp JF stirred into soup',
          s: 'Green smoothie + seasonal fruit',
          d: 'Ramen bowl: miso broth + tofu + bok choy + rice noodles + mushroom' },
     D: { b: 'Red Rice Idli ×4 + sambar + coconut chutney + seeds powder',
@@ -476,19 +614,19 @@ const MEAL_PLAN = [
     R: { b: 'Fruit plate (papaya + pear + guava) + flaxseed water + green smoothie',
          l: 'Jackfruit Sambar + small millet rice + salad',
          s: '10 almonds + 2 dates',
-         d: 'Dal Makhani (oil-free) + 1 roti + salad', dJF: 'JF in roti dough' },
+         d: '🍝 PASTA NIGHT — Small portion whole wheat pasta + lentil bolognese + extra greens (no cheese)', dJF: '1 tbsp JF stirred into bolognese' },
     D: { b: 'Tofu Akuri (scrambled tofu) + whole wheat toast + banana',
          l: 'Jackfruit Sambar + 1.5 cups millet rice + tofu stir-fry',
          s: 'Soaked figs + almonds + ragi laddoo',
-         d: 'Dal Makhani + 2 rotis + steamed sweet potato + hemp seeds' },
+         d: '🍝 PASTA NIGHT — Full portion whole wheat pasta + lentil bolognese + crushed peanuts (as parmesan)' },
     S: { b: '3-egg akuri (Parsi scrambled egg, same spices as Dhara\'s tofu akuri) + toast + fruit',
          l: 'Sambar rice + papad + salad',
          s: 'Vegan Burger (SHARAN) + fruit',
-         d: 'Dal makhani + roti + rice' },
+         d: '🍝 PASTA NIGHT — Pasta + lentil bolognese + parmesan (regular cheese)' },
     V: { b: 'Soft banana-oat pancake + roasted red/yellow capsicum + marinara dip', bNote: 'Whisk 1 egg into V\'s banana-oat batter — banana sweetness masks egg completely. R & D batter stays egg-free.',
          l: 'Soft rice + thin sambar + seasonal fruit',
          s: 'Soft banana + date (1) + small ragi pancake',
-         d: 'Soft dal + plain rice + roasted red capsicum + banana' },
+         d: '🍝 PASTA NIGHT — Small soft pasta pieces + tomato sauce + soft lentils + roasted veg' },
     link: 'https://sharan-india.org/recipes/indian-curries/jackfruit-sambar/' },
   ],
 
@@ -496,7 +634,7 @@ const MEAL_PLAN = [
   [
   { day: 'Monday', dayShort: 'Mon',
     R: { b: 'Chilla (besan) + green chutney + salad', bJF: '1 tbsp JF in batter',
-         l: 'Mixed Vegetable Makhanwala (SHARAN, oil-free) + 1 roti + salad', lJF: 'JF in roti dough',
+         l: 'Quinoa Salad with Chickpeas (cookieandkate.com/best-quinoa-salad-recipe) + Roasted Butternut Squash Soup (cookieandkate.com/roasted-butternut-squash-soup)', lJF: '1 tbsp JF stirred into soup',
          s: 'Moong Chaat + lime + coriander',
          d: 'Chole + salad + 1 roti', dJF: 'JF in roti dough' },
     D: { b: 'Besan Chilla ×3 + peanut butter + banana + coconut chutney',
@@ -515,7 +653,7 @@ const MEAL_PLAN = [
 
   { day: 'Tuesday', dayShort: 'Tue',
     R: { b: 'Overnight Oats + berries + seeds powder', bJF: 'JF stirred in night before',
-         l: 'Bitter Gourd (Karela) and Potato Mash + 1 roti + salad', lJF: 'JF in roti dough',
+         l: 'Mediterranean Bean Salad (cookieandkate.com/mediterranean-bean-salad-recipe) + Quinoa Vegetable Soup with Kale (cookieandkate.com/quinoa-vegetable-soup-recipe)', lJF: '1 tbsp JF stirred into soup',
          s: 'Green smoothie + pear (with skin)',
          d: 'Dudhi/Lauki Ki Sabzi + 1 roti + salad', dJF: 'JF in roti dough' },
     D: { b: 'Overnight Oats (large) + banana + peanut butter + dried figs + chia',
@@ -534,7 +672,7 @@ const MEAL_PLAN = [
 
   { day: 'Wednesday', dayShort: 'Wed',
     R: { b: 'Instant Millet Dosa + sambar + tomato chutney + salad', bJF: 'JF in dosa batter',
-         l: 'Chana Palak + 1 roti + large salad', lJF: 'JF in roti dough',
+         l: 'Seaweed Salad (cookieandkate.com/seaweed-salad-recipe) + Chickpea Noodle Soup (cookieandkate.com/chickpea-noodle-soup-recipe)', lJF: '1 tbsp JF stirred into soup',
          s: 'Chickpea Masala Chaat',
          d: 'Methi Palak Sweet Potato Sabzi + 1 roti + salad', dJF: 'JF in roti dough' },
     D: { b: 'Millet Dosa ×3 + sambar + coconut chutney + avocado + seeds',
@@ -553,7 +691,7 @@ const MEAL_PLAN = [
 
   { day: 'Thursday', dayShort: 'Thu',
     R: { b: 'Ragi Porridge + seeds powder + banana', bJF: '1 tbsp JF in porridge',
-         l: 'Bhindi Masala + 1 roti + large salad', lJF: 'JF in roti dough',
+         l: 'Quinoa Tabbouleh (cookieandkate.com/quinoa-tabbouleh) + Seriously Good Vegetable Soup (cookieandkate.com/vegetable-soup-recipe)', lJF: '1 tbsp JF stirred into soup',
          s: '10 walnuts + guava',
          d: 'Chettinad Curry + 1 roti + salad', dJF: 'JF in roti dough' },
     D: { b: 'Ragi Porridge (large) + banana + peanut butter + coconut milk + dates',
@@ -572,7 +710,7 @@ const MEAL_PLAN = [
 
   { day: 'Friday', dayShort: 'Fri',
     R: { b: 'Red Rice Idli ×2 + sambar + green chutney + salad', bJF: 'JF in idli batter',
-         l: 'Jackfruit Sambar + small millet rice + salad',
+         l: 'Mediterranean Lentil Salad (cookieandkate.com/lentil-salad) + Creamy Roasted Cauliflower Soup (cookieandkate.com/creamy-roasted-cauliflower-soup-recipe)', lJF: '1 tbsp JF stirred into soup',
          s: 'Green smoothie + seasonal fruit',
          d: 'Ramen bowl: miso broth + tofu + bok choy + noodles + mushroom' },
     D: { b: 'Red Rice Idli ×4 + sambar + coconut chutney + avocado + seeds',
@@ -612,19 +750,19 @@ const MEAL_PLAN = [
     R: { b: 'Fruit plate (papaya + guava + pear) + green smoothie',
          l: 'Jackfruit Sambar + small millet rice + salad',
          s: '10 almonds + 2 dates',
-         d: 'Dal Fry (masoor) + 1 roti + salad', dJF: 'JF powder stirred into dal' },
+         d: '🥣 BUDDHA BOWL NIGHT — Quinoa + roasted chickpeas + roasted veg + greens + tahini (no rice)', dJF: '1 tbsp JF stirred into roasted chickpeas' },
     D: { b: 'Tofu Scramble + whole wheat toast + avocado + hemp seeds + banana',
          l: 'Jackfruit Sambar + 1.5 cups millet rice + tofu stir-fry + peanuts',
          s: 'Soaked figs + almonds + ragi laddoo',
-         d: 'Dal Fry + 2 rotis + sweet potato + hemp seeds + sesame' },
+         d: '🥣 BUDDHA BOWL NIGHT — Quinoa + brown rice + chickpeas + roasted veg + avocado + tahini' },
     S: { b: '3-egg akuri (Parsi scrambled egg, same spices as Dhara\'s tofu scramble) + toast + fruit',
          l: 'Sambar rice + papad + salad',
          s: 'Creamy Spinach And Corn Casserole (SHARAN) + fruit',
-         d: 'Dal fry + roti + rice + salad' },
+         d: '🥣 BUDDHA BOWL NIGHT — Grain bowl + chickpeas + avocado + hard-boiled egg + tahini' },
     V: { b: 'Mini whole wheat french toast + mashed banana + marinara dip', bNote: 'V shares S\'s egg custard — bread soaks up egg completely, zero taste. Marinara dip on the side.',
          l: 'Soft rice + thin sambar + mango',
          s: 'Soft spinach-corn casserole (small portion, mild) + banana', sNote: 'Hidden spinach + corn — nutrient dense, appealing to toddlers',
-         d: 'Soft dal + plain rice + roasted red capsicum + banana' },
+         d: '🥣 BUDDHA BOWL NIGHT — Soft mashed chickpeas + soft roasted veg + tahini dip on the side' },
     link: 'https://sharan-india.org/recipes/indian-curries/jackfruit-sambar/' },
   ],
 ];
@@ -878,33 +1016,66 @@ function updateWeightCards() {
 
 // ─── MEAL PLAN ─────────────────────────────────────────────────────────────
 
+// Plan starts Monday 15 June 2026 — prep happened Saturday 13 June
+const PLAN_START = new Date('2026-06-15T00:00:00');
+
+function planWeekStartDate(weekIdx) {
+  const d = new Date(PLAN_START);
+  d.setDate(d.getDate() + weekIdx * 7);
+  return d;
+}
+function planDayDate(weekIdx, dayIdx) {
+  const d = planWeekStartDate(weekIdx);
+  d.setDate(d.getDate() + dayIdx);
+  return d;
+}
+function fmtShortDate(d) {
+  return d.getDate() + ' ' + ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()];
+}
+
+// Default to Monday (Day 0) — plan starts on Monday
 let activeWeekIdx = 0;
-let activeDayIdx = new Date().getDay() === 0 ? 6 : new Date().getDay() - 1;
+let activeDayIdx = 0;
 let activePrepWeekIdx = 0;
 
 function buildMealTabs() {
   // Week tabs
   const weekTabs = document.getElementById('week-tabs');
   weekTabs.innerHTML = '';
-  ['Week 1','Week 2','Week 3','Week 4'].forEach((label, wi) => {
+  [0,1,2,3].forEach(wi => {
+    const start = planWeekStartDate(wi);
+    const end   = planDayDate(wi, 6);
+    const label = `Week ${wi+1} · ${fmtShortDate(start)}`;
     const btn = document.createElement('button');
     btn.className = 'inner-tab' + (wi === activeWeekIdx ? ' active' : '');
     btn.textContent = label;
     btn.onclick = () => {
       activeWeekIdx = wi;
       weekTabs.querySelectorAll('.inner-tab').forEach((b,j) => b.classList.toggle('active', j===wi));
+      buildDayTabs();
       renderMealDay();
     };
     weekTabs.appendChild(btn);
   });
 
-  // Day tabs
+  buildDayTabs();
+}
+
+function buildDayTabs() {
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
   const dayTabs = document.getElementById('day-tabs');
   dayTabs.innerHTML = '';
   MEAL_PLAN[0].forEach((day, di) => {
+    const date = planDayDate(activeWeekIdx, di);
+    const isToday = date.getTime() === today.getTime();
     const btn = document.createElement('button');
-    btn.className = 'inner-tab' + (di === activeDayIdx ? ' active' : '');
-    btn.textContent = day.dayShort;
+    btn.className = 'inner-tab' + (di === activeDayIdx ? ' active' : '') + (isToday ? ' today' : '');
+    btn.innerHTML = `<span>${day.dayShort}</span><span style="font-size:10px;opacity:0.75">${date.getDate()}</span>`;
+    btn.style.flexDirection = 'column';
+    btn.style.gap = '1px';
+    btn.style.lineHeight = '1.2';
     btn.onclick = () => {
       activeDayIdx = di;
       dayTabs.querySelectorAll('.inner-tab').forEach((b,j) => b.classList.toggle('active', j===di));
@@ -921,9 +1092,13 @@ function renderMealDay() {
   const c = document.getElementById('meal-content');
   c.innerHTML = '';
 
+  const date = planDayDate(activeWeekIdx, activeDayIdx);
+  const today = new Date(); today.setHours(0,0,0,0);
+  const isToday = date.getTime() === today.getTime();
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const dayHeader = document.createElement('div');
-  dayHeader.style.cssText = 'font-size:17px;font-weight:600;margin-bottom:12px;color:var(--text)';
-  dayHeader.textContent = day.day;
+  dayHeader.style.cssText = 'font-size:17px;font-weight:600;margin-bottom:12px;color:var(--text);display:flex;align-items:center;gap:8px';
+  dayHeader.innerHTML = `${day.day}, ${date.getDate()} ${months[date.getMonth()]}${isToday ? ' <span style="font-size:11px;font-weight:600;background:var(--coral);color:white;padding:2px 7px;border-radius:10px">Today</span>' : ''}`;
   c.appendChild(dayHeader);
 
   const slots = [
@@ -1163,7 +1338,7 @@ function renderPrepContent() {
   c.innerHTML = '';
 
   // ── Batch prep checklist ──
-  PREP_TASKS.forEach((section, si) => {
+  PREP_TASKS[activePrepWeekIdx].forEach((section, si) => {
     const card = document.createElement('div');
     card.className = 'card';
     card.innerHTML = `<div class="card-title">${section.emoji} ${section.section}</div>`;
@@ -1223,7 +1398,7 @@ function copyPrepGuide(btn) {
   const weekLabel = `Week ${activePrepWeekIdx + 1}`;
   let text = `*Cook Prep Guide — ${weekLabel}*\n_For Babli Aunty_\n\n`;
 
-  PREP_TASKS.forEach(section => {
+  PREP_TASKS[activePrepWeekIdx].forEach(section => {
     text += `*${section.emoji} ${section.section.toUpperCase()}*\n`;
     section.tasks.forEach(t => { text += `☐ ${t}\n`; });
     text += '\n';
@@ -1294,6 +1469,22 @@ async function subscribePush(reg) {
   }
 }
 
+async function sendTestPush(btn) {
+  const orig = btn.textContent;
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+  try {
+    const res = await fetch('/api/test-push', { method: 'POST' });
+    const data = await res.json();
+    if (res.ok) showToast(`Test sent to ${data.sent} device(s) ✓`);
+    else showToast(data.error || 'Failed — enable notifications first');
+  } catch (e) {
+    showToast('Could not reach server');
+  }
+  btn.textContent = orig;
+  btn.disabled = false;
+}
+
 function urlBase64ToUint8Array(base64String) {
   const padding = '='.repeat((4 - base64String.length % 4) % 4);
   const base64  = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
@@ -1319,9 +1510,11 @@ async function loadReminders() {
   const list = document.getElementById('reminder-list');
   list.innerHTML = '';
 
-  // Show enable button state
+  // Show enable / test button states
   const enableBtn = document.getElementById('notif-enable-btn');
-  enableBtn.style.display = Notification.permission === 'default' ? 'block' : 'none';
+  const testBtn   = document.getElementById('notif-test-btn');
+  enableBtn.style.display = Notification.permission === 'default'  ? 'block' : 'none';
+  testBtn.style.display   = Notification.permission === 'granted'  ? 'block' : 'none';
 
   if (Notification.permission === 'denied') {
     list.innerHTML = '<div style="color:var(--text-muted);font-size:13px;padding:12px 0">Notifications are blocked. Enable them in your browser/phone settings, then reopen this app.</div>';

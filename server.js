@@ -1,9 +1,13 @@
 'use strict';
 
-const express = require('express');
-const path    = require('path');
-const cron    = require('node-cron');
-const webpush = require('web-push');
+const express          = require('express');
+const path             = require('path');
+const https            = require('https');
+const fs               = require('fs');
+const os               = require('os');
+const { execSync }     = require('child_process');
+const cron             = require('node-cron');
+const webpush          = require('web-push');
 const { DatabaseSync } = require('node:sqlite');
 
 const app  = express();
@@ -176,9 +180,53 @@ app.post('/api/snooze', (req, res) => {
   res.json({ ok: true, fireAt });
 });
 
+// Test push — fires immediately to all subscribers
+app.post('/api/test-push', (req, res) => {
+  const subs = db.prepare('SELECT data FROM subscriptions').all();
+  if (!subs.length) return res.status(400).json({ error: 'No subscribers yet — enable notifications first' });
+  pushAll({ title: '🔔 Test', body: 'Push notifications are working! 🎉', reminderId: 'test', tag: 'test' });
+  res.json({ ok: true, sent: subs.length });
+});
+
 // ─── Static ─────────────────────────────────────────────────────────────────
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 
-app.listen(PORT, () => console.log(`\n🌿 Family Health app running at http://localhost:${PORT}\n`));
+// ─── HTTP server ─────────────────────────────────────────────────────────────
+
+app.listen(PORT, () => {
+  console.log(`\n🌿 Family Health — http://localhost:${PORT}`);
+});
+
+// ─── HTTPS server (required for push notifications on phone) ─────────────────
+
+const CERT_DIR  = path.join(__dirname, 'cert');
+const KEY_FILE  = path.join(CERT_DIR, 'key.pem');
+const CERT_FILE = path.join(CERT_DIR, 'cert.pem');
+const HTTPS_PORT = process.env.HTTPS_PORT || 3443;
+
+if (!fs.existsSync(KEY_FILE) || !fs.existsSync(CERT_FILE)) {
+  fs.mkdirSync(CERT_DIR, { recursive: true });
+  try {
+    execSync(
+      `openssl req -x509 -newkey rsa:2048 -keyout "${KEY_FILE}" -out "${CERT_FILE}" -days 730 -nodes -subj "/CN=family-health"`,
+      { stdio: 'ignore' }
+    );
+    console.log('🔑 HTTPS cert auto-generated in ./cert/');
+  } catch (e) {
+    console.warn('⚠️  Could not generate HTTPS cert:', e.message);
+  }
+}
+
+if (fs.existsSync(KEY_FILE) && fs.existsSync(CERT_FILE)) {
+  https.createServer({ key: fs.readFileSync(KEY_FILE), cert: fs.readFileSync(CERT_FILE) }, app)
+    .listen(HTTPS_PORT, () => {
+      const ips = Object.values(os.networkInterfaces()).flat()
+        .filter(i => i.family === 'IPv4' && !i.internal)
+        .map(i => i.address);
+      console.log(`\n🔒 Open THIS on your phone (for push notifications):`);
+      ips.forEach(ip => console.log(`   https://${ip}:${HTTPS_PORT}`));
+      console.log(`   ↑ Accept the security warning once, then tap 🔔 and enable notifications.\n`);
+    });
+}

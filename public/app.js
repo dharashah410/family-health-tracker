@@ -1496,6 +1496,10 @@ function openReminders() {
   document.getElementById('reminder-backdrop').classList.add('open');
   document.getElementById('reminder-sheet').classList.add('open');
   loadReminders();
+  // Re-sync subscription every time sheet opens — recovers after server redeploy or DB wipe
+  if (Notification.permission === 'granted' && 'serviceWorker' in navigator) {
+    navigator.serviceWorker.ready.then(reg => subscribePush(reg)).catch(() => {});
+  }
 }
 
 function closeReminders() {

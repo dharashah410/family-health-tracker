@@ -15,7 +15,8 @@ const PORT = process.env.PORT || 3000;
 
 // ─── SQLite ────────────────────────────────────────────────────────────────
 
-const db = new DatabaseSync(path.join(__dirname, 'health.db'));
+const DB_DIR = process.env.DATA_DIR || __dirname;
+const db = new DatabaseSync(path.join(DB_DIR, 'health.db'));
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS logs (

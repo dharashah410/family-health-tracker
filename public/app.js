@@ -498,15 +498,16 @@ const MEAL_PLAN = [
   [
   { day: 'Monday', dayShort: 'Mon',
     R: { b: 'Vegan Masala Omelette + green chutney + salad', bJF: '1 tbsp JF in batter',
-         l: 'Mediterranean Bean Salad (cookieandkate.com/mediterranean-bean-salad-recipe) + Chickpea Tomato Soup (cookieandkate.com/chickpea-tomato-soup-recipe)', lJF: '1 tbsp JF stirred into soup',
+         l: 'Edamame Salad (cookieandkate.com/chopped-kale-salad-with-edamame-carrot-and-avocado) — edamame beans + ribbon carrots + finely chopped red pepper + palak + spring onion. Dressing: vinegar + ginger juice + soy sauce + grated garlic (1 clove).', lJF: '1 tbsp JF stirred into dressing',
          s: 'Green smoothie + guava',
          d: 'Jackfruit Sambar + small millet rice + salad' },
     D: { b: 'Vegan Masala Omelette ×2 + whole wheat toast + avocado',
-         l: 'Chickpea Curry + 2 rotis + steamed sweet potato + peanuts',
+         mm: 'Masala Oat Chilla ×2 — 5 tbsp oats blended with besan + onion + coriander + chilli, shallow-fried on tawa (tastes like regular chilla, oats undetectable)',
+         l: 'Rajma Chawal + side salad',
          s: 'Muesli (SHARAN) + plant milk + banana',
          d: 'Jackfruit Sambar + 1.5 cups millet rice + roasted peanuts' },
     S: { b: 'Vegan Masala Omelette (same base as family) + 3-egg masala scramble on the side',
-         l: 'School tiffin: chickpea curry + roti + fruit',
+         l: 'School tiffin: Rajma Chawal + fruit',
          s: 'Dhokla Sandwich + fruit',
          d: 'Sambar rice + papad + salad' },
     V: { b: 'Mini vegan masala omelette (besan base) + roasted red/yellow capsicum + marinara dip', bNote: 'Vegan omelette is besan-based — whisk 1 egg into V\'s cup. Besan + spices mask egg taste completely.',
@@ -517,34 +518,36 @@ const MEAL_PLAN = [
 
   { day: 'Tuesday', dayShort: 'Tue',
     R: { b: 'Pumpkin Porridge + seeds powder', bJF: '1 tbsp JF in porridge',
-         l: 'Seaweed Salad (cookieandkate.com/seaweed-salad-recipe) + Best Lentil Soup (cookieandkate.com/best-lentil-soup-recipe)', lJF: '1 tbsp JF stirred into soup',
+         l: 'Mediterranean Salad — rajma + corn + cherry tomatoes + palak cooked in broth (no liquid should remain). Toss with coriander. Cashew cream (cashew + lemon + salt) on side.', lJF: '1 tbsp JF stirred into cashew cream',
          s: 'Moong Chaat + lime',
-         d: 'Dal Fry (masoor) + 1 roti + large salad', dJF: 'JF in roti dough' },
+         d: '🫓 DOSA NIGHT — Millet Dosa ×2 + sambar + green chutney + salad', dJF: 'JF in dosa batter' },
     D: { b: 'Pumpkin Porridge (large) + banana + peanut butter + chia seeds',
-         l: 'French Beans + Peanut Coconut + 2 rotis + toor dal',
+         mm: 'Oat Kheer — 5 tbsp oats simmered in almond milk + dates + cardamom + kesar (tastes like dessert, serve cold or warm)',
+         l: 'Dal Palak + 1 roti',
          s: 'Moong Chaat + peanuts + coconut water',
-         d: 'Dal Fry + 2 rotis + steamed sweet potato + hemp seeds' },
+         d: '🫓 DOSA NIGHT — Millet Dosa ×3 + sambar + coconut chutney + avocado + seeds' },
     S: { b: 'Pumpkin Porridge (same base) + 3-egg veggie scramble on the side',
-         l: 'School tiffin: french beans + roti + fruit',
+         l: 'School tiffin: Dal Palak + roti + fruit',
          s: 'Garbanzo Waffles + fruit',
-         d: 'Dal fry + rice + roti + salad' },
+         d: '🫓 DOSA NIGHT — Millet Dosa ×2 + sambar + chutney + 3-egg scramble on side' },
     V: { b: 'Soft pumpkin porridge + mini besan chilla + marinara dip + mashed banana', bNote: 'Whisk 1 egg into V\'s besan batter, cook mini chilla alongside porridge. Pumpkin sweetness + marinara = toddler-friendly.',
          l: 'Soft french beans mash + coconut + dal + rice + mango',
          s: 'Soft banana + date + small peanut butter roti',
-         d: 'Soft dal + rice + roasted red capsicum + banana' },
+         d: '🫓 DOSA NIGHT — Mini soft millet dosa + thin sambar + papaya' },
     link: 'https://sharan-india.org/recipes/indian-curries/masoor-dal/' },
 
   { day: 'Wednesday', dayShort: 'Wed',
     R: { b: 'Instant Millet Dosa + sambar + green chutney + salad', bJF: 'JF in dosa batter',
-         l: 'Quinoa Tabbouleh (cookieandkate.com/quinoa-tabbouleh) + Spicy Black Bean Soup (cookieandkate.com/spicy-vegan-black-bean-soup)', lJF: '1 tbsp JF stirred into soup',
+         l: 'Stir Fry Vegetables (cookieandkate.com/vegetable-stir-fry) — carrots + broccoli first then vertically sliced bell peppers, cooked in broth. Keep crunch. Toast sesame seeds. Dressing: vinegar + maple syrup + chilli flakes. Spring onion garnish.', lJF: '1 tbsp JF stirred into dressing',
          s: 'Sweet Potato Chaat',
          d: 'Brinjal and Drumstick Spicy Curry + 1 roti + salad', dJF: 'JF in roti dough' },
     D: { b: 'Millet Dosa ×3 + sambar + coconut chutney + avocado',
-         l: 'Chickpea & Vegetable Kurma + 2 rotis + millet rice',
+         mm: 'Oat-Veg Tikki ×2 — 5 tbsp oats + mashed potato + carrot + peas + spices, shallow-fried on tawa (tastes like aloo tikki)',
+         l: 'Chickpea & Vegetable Kurma + 1 roti',
          s: 'Sweet Potato Chaat + peanuts + coconut water',
          d: 'Brinjal Drumstick Curry + 2 rotis + dal + roasted sesame' },
     S: { b: 'Millet Dosa (same base as family) + 3-egg scramble on the side',
-         l: 'School tiffin: kurma + roti roll + fruit',
+         l: 'School tiffin: Chickpea Kurma + roti roll + fruit',
          s: 'Ameri Khaman + green chutney + fruit',
          d: 'Brinjal drumstick + roti + rice' },
     V: { b: 'Mini millet dosa + roasted red/yellow capsicum + marinara dip', bNote: 'Pour V\'s dosa batter first, whisk 1 egg in — make her dosas first. R & D batter stays egg-free.',
@@ -555,34 +558,36 @@ const MEAL_PLAN = [
 
   { day: 'Thursday', dayShort: 'Thu',
     R: { b: 'Bread Upma + green chutney + fruit', bJF: '1 tbsp JF stirred into upma',
-         l: 'Mediterranean Lentil Salad (cookieandkate.com/lentil-salad) + Roasted Red Pepper & Tomato Soup (cookieandkate.com/roasted-red-pepper-and-tomato-soup)', lJF: '1 tbsp JF stirred into soup',
+         l: 'Capsicum-Mushroom-Palak Bowl — yellow capsicum + mushroom + palak cooked in broth. Dressing: soy sauce + apple cider vinegar + chilli flakes. Garnish: soaked sun-dried tomatoes + thinly sliced purple cabbage.', lJF: '1 tbsp JF stirred into broth',
          s: '10 almonds + pear (with skin)',
-         d: 'Mangalorean Soy Chunks Curry + 1 roti + salad', dJF: 'JF in roti dough' },
+         d: '🫓 DOSA NIGHT — Red Rice Dosa ×2 + sambar + tomato chutney + salad', dJF: 'JF in dosa batter' },
     D: { b: 'Bread Upma (large) + banana + peanut butter + seeds',
-         l: 'Bhindi Kadhi + 2 rotis + toor dal + sweet potato',
+         mm: 'Chocolate Oat Pudding — 5 tbsp oats + cocoa + banana + dates + almond milk, blended smooth (tastes like chocolate mousse, no oat texture)',
+         l: 'Bhindi Kadhi + 1 roti',
          s: 'Overnight Oats cup + dried figs + banana',
-         d: 'Mangalorean Soy Chunks Curry + 2 rotis + steamed broccoli' },
+         d: '🫓 DOSA NIGHT — Red Rice Dosa ×3 + sambar + coconut chutney + avocado' },
     S: { b: 'Bread Upma (same base as family) + 3-egg veggie scramble on the side',
-         l: 'School tiffin: kadhi + rice + roti + fruit',
+         l: 'School tiffin: Bhindi Kadhi + rice + roti + fruit',
          s: 'Raw Banana Tikkis + chutney',
-         d: 'Soy chunks curry + rice + roti' },
+         d: '🫓 DOSA NIGHT — Red Rice Dosa ×2 + sambar + chutney' },
     V: { b: 'Soft bread upma + mini besan chilla + roasted red/yellow capsicum + marinara dip', bNote: 'Whisk 1 egg into V\'s besan batter, cook mini chilla alongside upma. Both ready in 8 min.',
          l: 'Soft plain dal + rice + roasted capsicum + banana',
          s: 'Soft mashed banana + date + small soft ragi pancake',
-         d: 'Soft soy chunks (cut tiny) + rice + thin sambar + seasonal fruit' },
+         d: '🫓 DOSA NIGHT — Mini soft red rice dosa + thin sambar + mango' },
     link: 'https://sharan-india.org/recipes/indian-curries/bhindi-masala/' },
 
   { day: 'Friday', dayShort: 'Fri',
     R: { b: 'Red Rice Idli ×2 + sambar + green chutney', bJF: 'JF in idli batter',
-         l: 'Cauliflower Salad (cookieandkate.com/cauliflower-salad) + Cabbage Vegetable Soup (cookieandkate.com/cabbage-vegetable-soup)', lJF: '1 tbsp JF stirred into soup',
+         l: 'Thai Salad — toss shredded cabbage + carrot ribbons + red pepper + spring onion + coriander. Dressing: peanut butter + coconut milk + lemongrass paste + lime + soy sauce + chilli. Garnish: crushed peanuts + spring onion greens + grated coconut.', lJF: '1 tbsp JF stirred into peanut dressing',
          s: 'Green smoothie + seasonal fruit',
          d: 'Ramen bowl: miso broth + tofu + bok choy + rice noodles + mushroom' },
     D: { b: 'Red Rice Idli ×4 + sambar + coconut chutney + seeds powder',
-         l: 'Kootu Curry + 2 rotis + millet rice + peanuts',
+         mm: 'Oat Coconut Laddoo ×2 — 5 tbsp oats + desiccated coconut + dates + cardamom, rolled (no cooking needed, tastes like mithai)',
+         l: 'Kootu Curry + 1 roti',
          s: 'Ragi Porridge + coconut milk + banana + chia seeds',
          d: 'Ramen bowl (large) + extra tofu + extra noodles + sesame' },
     S: { b: 'Red Rice Idli (same base) + 3-egg veggie scramble on the side',
-         l: 'School tiffin: kootu curry + rice + fruit',
+         l: 'School tiffin: Kootu Curry + rice + fruit',
          s: 'Masala Idli + fruit',
          d: 'Ramen bowl (same family)' },
     V: { b: 'Soft idli ×2 + mini besan chilla + marinara dip + papaya', bNote: 'Quick besan chilla (1 egg in batter) alongside the idli. Marinara = pizza pancake.',
@@ -595,38 +600,38 @@ const MEAL_PLAN = [
     R: { b: 'Avocado Breakfast Superbowl + green smoothie',
          l: 'Chettinad Sorakkai Kurma + 1 roti + salad', lJF: 'JF in roti dough',
          s: 'Chickpea Masala Chaat',
-         d: '🫓 DOSA NIGHT — Thalipeeth dosa + sambar + green chutney + salad', dJF: 'JF in thalipeeth batter' },
+         d: '🍔 LENTIL BURGER NIGHT — Masoor dal patty (air-fried/tawa), lettuce wrap + tomato + onion slices + sour cashew cream. No bun.', dJF: '1 tbsp JF mixed into patty' },
     D: { b: 'Avocado Breakfast Superbowl (large) + whole wheat toast + seeds powder',
          l: 'Chettinad Sorakkai Kurma + 2 rotis + toor dal',
          s: 'Chickpea Masala Chaat + peanuts + coconut water',
-         d: '🫓 DOSA NIGHT — Thalipeeth ×3 + sambar + coconut chutney' },
+         d: '🍔 LENTIL BURGER NIGHT — Masoor dal patty, whole wheat bun, sour cashew cream (tastes like cheese), tomato + onion + pickled gherkins' },
     S: { b: 'Avocado Breakfast Superbowl (same base) + 3-egg veggie scramble on the side',
          l: 'Kurma + roti + rice',
          s: 'Vegan Banana Muffins + fruit',
-         d: '🫓 DOSA NIGHT — Thalipeeth ×2 + sambar + chutney' },
+         d: '🍔 LENTIL BURGER NIGHT — Masoor dal patty, whole wheat bun, regular sauce or cheese' },
     V: { b: 'Mashed avocado on small roti + mini besan chilla + marinara dip', bNote: 'Whisk 1 egg into V\'s besan batter, cook mini chilla alongside. Avocado on roti is her safe food — egg is in the chilla.',
          l: 'Soft kurma veg mash + rice + seasonal fruit',
          s: 'Banana muffin (half, no sugar — made with dates) + seasonal fruit',
-         d: '🫓 DOSA NIGHT — Mini soft thalipeeth + thin sambar + mango' },
+         d: '🍔 LENTIL BURGER NIGHT — Mini soft masoor patty mashed + soft bread pieces + marinara dip' },
     link: 'https://sharan-india.org/recipes/indian-snacks/chickpea-masala-chaat/' },
 
   { day: 'Sunday', dayShort: 'Sun',
     R: { b: 'Fruit plate (papaya + pear + guava) + flaxseed water + green smoothie',
          l: 'Jackfruit Sambar + small millet rice + salad',
          s: '10 almonds + 2 dates',
-         d: '🍝 PASTA NIGHT — Small portion whole wheat pasta + lentil bolognese + extra greens (no cheese)', dJF: '1 tbsp JF stirred into bolognese' },
+         d: '🍕 PIZZA NIGHT — Thin whole wheat base + roasted veg toppings (capsicum, mushroom, onion, tomato). No cheese — nutritional yeast optional.', dJF: '1 tbsp JF stirred into base dough' },
     D: { b: 'Tofu Akuri (scrambled tofu) + whole wheat toast + banana',
          l: 'Jackfruit Sambar + 1.5 cups millet rice + tofu stir-fry',
          s: 'Soaked figs + almonds + ragi laddoo',
-         d: '🍝 PASTA NIGHT — Full portion whole wheat pasta + lentil bolognese + crushed peanuts (as parmesan)' },
+         d: '🍕 PIZZA NIGHT — Whole wheat base + roasted veg + cashew cream spread + nutritional yeast' },
     S: { b: '3-egg akuri (Parsi scrambled egg, same spices as Dhara\'s tofu akuri) + toast + fruit',
          l: 'Sambar rice + papad + salad',
          s: 'Vegan Burger (SHARAN) + fruit',
-         d: '🍝 PASTA NIGHT — Pasta + lentil bolognese + parmesan (regular cheese)' },
+         d: '🍕 PIZZA NIGHT — Whole wheat base + cheese + capsicum + corn + toppings of choice' },
     V: { b: 'Soft banana-oat pancake + roasted red/yellow capsicum + marinara dip', bNote: 'Whisk 1 egg into V\'s banana-oat batter — banana sweetness masks egg completely. R & D batter stays egg-free.',
          l: 'Soft rice + thin sambar + seasonal fruit',
          s: 'Soft banana + date (1) + small ragi pancake',
-         d: '🍝 PASTA NIGHT — Small soft pasta pieces + tomato sauce + soft lentils + roasted veg' },
+         d: '🍕 PIZZA NIGHT — Small soft pizza piece + extra marinara + soft roasted capsicum on top' },
     link: 'https://sharan-india.org/recipes/indian-curries/jackfruit-sambar/' },
   ],
 
@@ -1087,6 +1092,12 @@ function buildDayTabs() {
   renderMealDay();
 }
 
+function linkify(text) {
+  // Turn bare domain/path URLs (e.g. cookieandkate.com/slug) into tappable links
+  return text.replace(/\b([a-z0-9-]+\.[a-z]{2,}\/[^\s),]*)/g,
+    url => `<a href="https://${url}" target="_blank" rel="noopener" style="color:var(--teal);font-size:11px;text-decoration:none;word-break:break-all">${url} ↗</a>`);
+}
+
 function renderMealDay() {
   const day = MEAL_PLAN[activeWeekIdx][activeDayIdx];
   const c = document.getElementById('meal-content');
@@ -1102,10 +1113,11 @@ function renderMealDay() {
   c.appendChild(dayHeader);
 
   const slots = [
-    { key: 'b', label: 'Breakfast' },
-    { key: 'l', label: 'Lunch' },
-    { key: 's', label: 'Snack' },
-    { key: 'd', label: 'Dinner' },
+    { key: 'b',  label: 'Breakfast' },
+    { key: 'mm', label: 'Mid-Morning' },
+    { key: 'l',  label: 'Lunch' },
+    { key: 's',  label: 'Snack' },
+    { key: 'd',  label: 'Dinner' },
   ];
 
   slots.forEach(slot => {
@@ -1119,10 +1131,16 @@ function renderMealDay() {
     card.appendChild(slotLabel);
 
     ['R','D','S','V'].forEach(p => {
-      const meal = day[p] && day[p][slot.key];
+      let meal = day[p] && day[p][slot.key];
       if (!meal) return;
-      const jf   = day[p][slot.key + 'JF'];
+      let jf   = day[p][slot.key + 'JF'];
       const note = day[p][slot.key + 'Note'];
+
+      // Global rule: R and D always have green smoothie + seeds powder for breakfast
+      if (slot.key === 'b' && (p === 'R' || p === 'D')) {
+        meal = 'Green smoothie — spinach + banana + flaxseed powder + 2 tsp seeds powder';
+        jf   = '1 tbsp JF blended in smoothie';
+      }
 
       const mp = document.createElement('div');
       mp.className = 'meal-person';
@@ -1130,7 +1148,7 @@ function renderMealDay() {
       mp.style.borderRadius = '0 8px 8px 0';
 
       mp.innerHTML = `<span class="badge badge-${p.toLowerCase()}">${PEOPLE[p].name}</span>
-        <div class="meal-text" style="margin-top:5px">${meal}</div>
+        <div class="meal-text" style="margin-top:5px">${linkify(meal)}</div>
         ${jf   ? `<div class="jf-note">🌿 ${jf}</div>` : ''}
         ${note ? `<div class="vasu-note">💡 ${note}</div>` : ''}`;
       card.appendChild(mp);
@@ -1372,8 +1390,8 @@ function renderPrepContent() {
     tr.style.borderBottom = '0.5px solid var(--border)';
     tr.innerHTML = `
       <td style="padding:6px 0;color:var(--text-muted);white-space:nowrap;font-weight:500">${day.dayShort}</td>
-      <td style="padding:6px 6px;color:var(--text)">${day.R.l}</td>
-      <td style="padding:6px 0;color:var(--text)">${day.R.d}</td>`;
+      <td style="padding:6px 6px;color:var(--text)">${linkify(day.R.l)}</td>
+      <td style="padding:6px 0;color:var(--text)">${linkify(day.R.d)}</td>`;
     tbody.appendChild(tr);
   });
   table.appendChild(tbody);

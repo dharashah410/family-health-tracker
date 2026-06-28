@@ -228,19 +228,19 @@ const MEAL_PLAN = [
     R: { b: 'Green smoothie (spinach + banana + flaxseed powder) + fruit plate', bJF: '1 tbsp JF powder blended in',
          l: 'Mediterranean Lentil Salad (cookieandkate.com/lentil-salad) + Chickpea Tomato Soup (cookieandkate.com/chickpea-tomato-soup-recipe)', lJF: '1 tbsp JF stirred into soup',
          s: '10 almonds + cucumber sticks + green smoothie',
-         d: 'Dal Fry (masoor) + large salad + 1 small jowar roti', dJF: '1 tbsp JF powder in roti dough' },
+         d: 'Lauki Sabzi + large salad + 1 small jowar roti', dJF: '1 tbsp JF powder in roti dough' },
     D: { b: 'Fluffy pancakes (banana-oat) + peanut butter + seasonal fruit',
          l: 'Chana Palak + 2 jowar rotis + steamed sweet potato',
          s: 'Soaked almonds + dried figs + coconut water',
-         d: 'Dal Fry + 2 rotis + steamed broccoli + roasted peanuts' },
+         d: 'Lauki Sabzi + 2 rotis + steamed broccoli + roasted peanuts' },
     S: { b: 'Banana-oat pancakes (same base as Dhara) + 3-egg veggie scramble on the side',
          l: 'School tiffin: jowar roti + chana palak + small fruit',
          s: 'Fruit plate + handful roasted peanuts',
-         d: 'Dal fry + rice + papad + salad' },
+         d: 'Lauki Sabzi + rice + papad + salad' },
     V: { b: 'Banana-oat pancake + roasted red/yellow capsicum + marinara dip', bNote: 'Take V\'s batter cup first, whisk 1 egg in — banana flavour masks it completely. R & D batter stays egg-free.',
          l: 'Soft dal-rice mash + roasted yellow capsicum fingers + small cup mango',
          s: 'Seasonal fruit + small banana pancake (leftover from morning)',
-         d: 'Soft dal + plain rice + roasted red capsicum' },
+         d: 'Soft lauki mash + plain rice + roasted red capsicum' },
     link: 'https://sharan-india.org/recipes/indian-curries/chana-palak/' },
 
   { day: 'Tuesday', dayShort: 'Tue',
@@ -266,7 +266,7 @@ const MEAL_PLAN = [
     R: { b: 'Instant Millet Dosa + sambar + tomato chutney + salad', bJF: '1 tbsp JF powder in dosa batter',
          l: 'Cauliflower Salad (cookieandkate.com/cauliflower-salad) + Roasted Red Pepper & Tomato Soup (cookieandkate.com/roasted-red-pepper-and-tomato-soup)', lJF: '1 tbsp JF stirred into soup',
          s: 'Sweet Potato Chaat + green chutney',
-         d: 'Vegetable Khichdi (moong dal heavy, small bowl) + salad' },
+         d: 'Jeera Rice + mixed roasted vegetables + salad' },
     D: { b: 'Millet Dosa ×3 + sambar + coconut chutney + avocado slice',
          l: 'Methi Palak Sweet Potato Sabzi + 2 rotis + toor dal',
          s: 'Sweet Potato Chaat + roasted peanuts + coconut water',
@@ -289,15 +289,15 @@ const MEAL_PLAN = [
     D: { b: 'Thalipeeth ×2 + peanut butter + banana',
          l: 'Jackfruit Sambar + 1.5 cups millet rice + tofu stir-fry side',
          s: 'Soaked almonds + dried apricots + makhana',
-         d: 'Baingan Bharta + 2 rotis + toor dal + sesame seeds side' },
+         d: 'Baingan Bharta + 2 rotis + roasted sesame seeds + salad' },
     S: { b: 'Thalipeeth (same base as family) + 3-egg scramble on the side',
          l: 'School tiffin: sambar rice packed warm + papad + fruit',
          s: 'Whole wheat toast + peanut butter + banana',
-         d: 'Baingan bharta + roti + dal' },
+         d: 'Baingan bharta + roti + salad' },
     V: { b: 'Mini thalipeeth + mashed banana + marinara dip', bNote: 'Mix 1 egg into V\'s small thalipeeth dough before shaping — ragi+jowar flavour masks egg completely.',
          l: 'Soft rice + sambar (thin) + mango slice',
          s: 'Soft banana pancake (mini, from batch) + seasonal fruit',
-         d: 'Plain dal + rice + roasted red capsicum strips' },
+         d: 'Sabzi + rice + roasted red capsicum strips' },
     link: 'https://sharan-india.org/recipes/indian-curries/jackfruit-sambar/' },
 
   { day: 'Friday', dayShort: 'Fri',
@@ -342,19 +342,19 @@ const MEAL_PLAN = [
     R: { b: 'Fruit plate (papaya + guava + pear with skin) + flaxseed water',
          l: 'Jackfruit Sambar + small millet rice + large salad',
          s: '10 almonds + 2 dates',
-         d: '🍔 BURGER NIGHT — Black bean & lentil patty, lettuce wrap, extra salad (no bun)', dJF: '1 tbsp JF stirred into patty mix' },
+         d: '🍔 BURGER NIGHT — Sweet potato + oat + carrot patty, lettuce wrap, extra salad (no bun)', dJF: '1 tbsp JF mixed into patty' },
     D: { b: 'Tofu Scramble + whole wheat toast + avocado + hemp seeds',
          l: 'Jackfruit Sambar + 1.5 cups millet rice + tofu stir-fry',
          s: 'Soaked figs + almonds + flaxseed laddoo',
-         d: '🍔 BURGER NIGHT — Black bean & lentil patty, whole wheat bun, avocado + sprouts' },
+         d: '🍔 BURGER NIGHT — Sweet potato + oat + carrot patty, whole wheat bun, avocado + lettuce' },
     S: { b: '3-egg french toast (whole wheat, egg custard) + banana + seasonal fruit',
          l: 'Sambar rice + papad + salad',
          s: 'Healthy Bhel + fruit',
-         d: '🍔 BURGER NIGHT — Lentil patty, whole wheat bun, fried egg + cheddar + sauce' },
+         d: '🍔 BURGER NIGHT — Sweet potato + oat patty, whole wheat bun, fried egg + cheddar + sauce' },
     V: { b: 'Mini whole wheat french toast + mashed banana + marinara dip', bNote: 'V shares S\'s egg custard — bread soaks up egg completely, zero taste. Add marinara on the side.',
          l: 'Soft rice + sambar (thin) + seasonal fruit',
          s: 'Mashed banana + date (1) + small cup seasonal fruit',
-         d: '🍔 BURGER NIGHT — Mini soft lentil patty mashed + soft bread pieces + marinara dip' },
+         d: '🍔 BURGER NIGHT — Mini soft sweet potato + oat patty mashed + soft bread pieces + marinara dip' },
     link: 'https://sharan-india.org/recipes/indian-curries/jackfruit-sambar/' },
   ],
 
@@ -383,19 +383,19 @@ const MEAL_PLAN = [
     R: { b: 'Savoury Bajra Sevai Upma + green chutney', bJF: '1 tbsp JF in upma mix',
          l: 'Quinoa Tabbouleh (cookieandkate.com/quinoa-tabbouleh) + Chickpea Noodle Soup (cookieandkate.com/chickpea-noodle-soup-recipe)', lJF: '1 tbsp JF stirred into soup',
          s: 'Sweet Potato Chaat + lime',
-         d: 'Chana Palak + salad + 1 roti', dJF: 'JF in roti dough' },
+         d: 'Palak Mushroom Sabzi + salad + 1 roti', dJF: 'JF in roti dough' },
     D: { b: 'Bajra Sevai Upma (large) + peanuts + coconut milk + banana',
          l: 'Dal Makhani + 2 rotis + steamed sweet potato',
          s: 'Sweet Potato Chaat + peanuts + coconut water',
-         d: 'Chana Palak + 2 rotis + millet rice + hemp seeds' },
+         d: 'Palak Mushroom Sabzi + 2 rotis + millet rice + hemp seeds' },
     S: { b: 'Bajra Sevai Upma (same base as family) + 3-egg scramble on the side',
          l: 'School tiffin: dal makhani + rice + fruit',
          s: 'Alu Tikki (SHARAN baked) + chutney',
-         d: 'Chana palak + roti + rice' },
+         d: 'Palak Mushroom Sabzi + roti + rice' },
     V: { b: 'Soft bajra upma + mini besan chilla + roasted red/yellow capsicum + marinara dip', bNote: 'Whisk 1 egg into V\'s besan batter cup, cook mini chilla alongside upma. Marinara = her pizza pancake.',
          l: 'Soft rajma-dal mash + plain rice + mango',
          s: 'Soft steamed sweet potato + mashed banana',
-         d: 'Soft chana mash + dal + rice + roasted red capsicum' },
+         d: 'Soft palak + mushroom mash + rice + roasted red capsicum' },
     link: 'https://sharan-india.org/recipes/indian-curries/chana-palak/' },
 
   { day: 'Wednesday', dayShort: 'Wed',
@@ -406,7 +406,7 @@ const MEAL_PLAN = [
     D: { b: 'Colourful Millet Upma (large) + avocado + banana',
          l: 'Dudhi Chana Subzi + 2 rotis + toor dal',
          s: 'Moong Chaat + roasted peanuts + coconut water',
-         d: 'Cauliflower Masala + 2 rotis + dal + roasted peanuts' },
+         d: 'Cauliflower Masala + 2 rotis + roasted peanuts + salad' },
     S: { b: 'Colourful Millet Upma (same base as family) + 3-egg scramble on the side',
          l: 'School tiffin: dudhi chana + roti roll + fruit',
          s: 'Khaman Dhokla + green chutney',
@@ -414,7 +414,7 @@ const MEAL_PLAN = [
     V: { b: 'Soft millet upma + mini besan chilla + roasted red/yellow capsicum + marinara dip', bNote: 'Whisk 1 egg into V\'s besan batter cup, cook mini chilla alongside upma. Marinara = her pizza pancake.',
          l: 'Soft dudhi-dal mash + rice + seasonal fruit',
          s: 'Soft steamed dhokla piece (mild) + banana',
-         d: 'Soft cauliflower mash + dal + rice + seasonal fruit' },
+         d: 'Soft cauliflower mash + rice + seasonal fruit' },
     link: null },
 
   { day: 'Thursday', dayShort: 'Thu',
@@ -425,7 +425,7 @@ const MEAL_PLAN = [
     D: { b: 'Red Rice Idli ×4 + sambar + coconut chutney + seeds powder',
          l: 'Methi Matar Malai + 2 rotis + steamed sweet potato',
          s: 'Overnight oats cup + dried figs + chia seeds',
-         d: 'Bhindi Masala + 2 rotis + toor dal + sesame' },
+         d: 'Bhindi Masala + 2 rotis + roasted sesame + salad' },
     S: { b: 'Red Rice Idli (same base) + 3-egg masala scramble on the side',
          l: 'School tiffin: methi matar + roti + fruit',
          s: 'Frankie (whole wheat) + fruit',
@@ -433,7 +433,7 @@ const MEAL_PLAN = [
     V: { b: 'Soft idli ×2 + mini besan chilla + marinara dip + papaya', bNote: 'Idli is steamed so egg can\'t be added to batter — quick besan chilla (1 egg) alongside. Marinara = pizza pancake.',
          l: 'Soft peas-potato mash + dal + rice + mango',
          s: 'Mashed banana + date (1) + soft ragi biscuit (no sugar)',
-         d: 'Plain dal + rice + roasted yellow capsicum + banana' },
+         d: 'Sabzi + rice + roasted yellow capsicum + banana' },
     link: 'https://sharan-india.org/recipes/breakfast/red-rice-idli-or-dosa/' },
 
   { day: 'Friday', dayShort: 'Fri',
@@ -545,7 +545,7 @@ const MEAL_PLAN = [
          mm: 'Oat-Veg Tikki ×2 — 5 tbsp oats + mashed potato + carrot + peas + spices, shallow-fried on tawa (tastes like aloo tikki)',
          l: 'Chickpea & Vegetable Kurma + 1 roti',
          s: 'Sweet Potato Chaat + peanuts + coconut water',
-         d: 'Brinjal Drumstick Curry + 2 rotis + dal + roasted sesame' },
+         d: 'Brinjal Drumstick Curry + 2 rotis + roasted sesame + salad' },
     S: { b: 'Millet Dosa (same base as family) + 3-egg scramble on the side',
          l: 'School tiffin: Chickpea Kurma + roti roll + fruit',
          s: 'Ameri Khaman + green chutney + fruit',
@@ -553,7 +553,7 @@ const MEAL_PLAN = [
     V: { b: 'Mini millet dosa + roasted red/yellow capsicum + marinara dip', bNote: 'Pour V\'s dosa batter first, whisk 1 egg in — make her dosas first. R & D batter stays egg-free.',
          l: 'Soft kurma vegetables + dal + rice + seasonal fruit',
          s: 'Soft steamed sweet potato + banana',
-         d: 'Plain dal + rice + roasted yellow capsicum + seasonal fruit' },
+         d: 'Sabzi + rice + roasted yellow capsicum + seasonal fruit' },
     link: 'https://sharan-india.org/recipes/breakfast/red-rice-idli-or-dosa/' },
 
   { day: 'Thursday', dayShort: 'Thu',
@@ -600,19 +600,19 @@ const MEAL_PLAN = [
     R: { b: 'Avocado Breakfast Superbowl + green smoothie',
          l: 'Chettinad Sorakkai Kurma + 1 roti + salad', lJF: 'JF in roti dough',
          s: 'Chickpea Masala Chaat',
-         d: '🍔 LENTIL BURGER NIGHT — Masoor dal patty (air-fried/tawa), lettuce wrap + tomato + onion slices + sour cashew cream. No bun.', dJF: '1 tbsp JF mixed into patty' },
+         d: '🍔 VEGGIE BURGER NIGHT — Sweet potato + oat + beetroot patty (tawa/air-fried), lettuce wrap + tomato + onion + sour cashew cream. No bun.', dJF: '1 tbsp JF mixed into patty' },
     D: { b: 'Avocado Breakfast Superbowl (large) + whole wheat toast + seeds powder',
          l: 'Chettinad Sorakkai Kurma + 2 rotis + toor dal',
          s: 'Chickpea Masala Chaat + peanuts + coconut water',
-         d: '🍔 LENTIL BURGER NIGHT — Masoor dal patty, whole wheat bun, sour cashew cream (tastes like cheese), tomato + onion + pickled gherkins' },
+         d: '🍔 VEGGIE BURGER NIGHT — Sweet potato + oat + beetroot patty, whole wheat bun, sour cashew cream, tomato + onion + pickled gherkins' },
     S: { b: 'Avocado Breakfast Superbowl (same base) + 3-egg veggie scramble on the side',
          l: 'Kurma + roti + rice',
          s: 'Vegan Banana Muffins + fruit',
-         d: '🍔 LENTIL BURGER NIGHT — Masoor dal patty, whole wheat bun, regular sauce or cheese' },
+         d: '🍔 VEGGIE BURGER NIGHT — Sweet potato + oat + beetroot patty, whole wheat bun, regular sauce or cheese' },
     V: { b: 'Mashed avocado on small roti + mini besan chilla + marinara dip', bNote: 'Whisk 1 egg into V\'s besan batter, cook mini chilla alongside. Avocado on roti is her safe food — egg is in the chilla.',
          l: 'Soft kurma veg mash + rice + seasonal fruit',
          s: 'Banana muffin (half, no sugar — made with dates) + seasonal fruit',
-         d: '🍔 LENTIL BURGER NIGHT — Mini soft masoor patty mashed + soft bread pieces + marinara dip' },
+         d: '🍔 VEGGIE BURGER NIGHT — Mini soft sweet potato + oat patty mashed + soft bread pieces + marinara dip' },
     link: 'https://sharan-india.org/recipes/indian-snacks/chickpea-masala-chaat/' },
 
   { day: 'Sunday', dayShort: 'Sun',
@@ -664,7 +664,7 @@ const MEAL_PLAN = [
     D: { b: 'Overnight Oats (large) + banana + peanut butter + dried figs + chia',
          l: 'Bitter Gourd Potato Mash + 2 rotis + toor dal + sweet potato',
          s: 'Creamy Oatmeal Porridge + banana + sunflower seeds',
-         d: 'Dudhi Sabzi + 2 rotis + moong dal + roasted peanuts' },
+         d: 'Dudhi Sabzi + 2 rotis + roasted peanuts + salad' },
     S: { b: 'Overnight Oats (same base) + 3-egg scramble with capsicum + spinach on the side',
          l: 'School tiffin: potato mash + roti (skip karela if disliked) + fruit',
          s: 'Adzuki Bean Burger (SHARAN) + fruit',
@@ -672,7 +672,7 @@ const MEAL_PLAN = [
     V: { b: 'Overnight Oats (small) + mini besan chilla + roasted red/yellow capsicum + marinara dip', bNote: 'Whisk 1 egg into V\'s besan batter, cook mini chilla alongside oats. Marinara = pizza pancake.',
          l: 'Soft potato mash + dal + rice + mango (skip bitter gourd)',
          s: 'Soft ragi porridge + mashed banana + roasted capsicum',
-         d: 'Soft dudhi mash + dal + rice + seasonal fruit' },
+         d: 'Soft dudhi mash + rice + seasonal fruit' },
     link: null },
 
   { day: 'Wednesday', dayShort: 'Wed',
@@ -683,7 +683,7 @@ const MEAL_PLAN = [
     D: { b: 'Millet Dosa ×3 + sambar + coconut chutney + avocado + seeds',
          l: 'Chana Palak + 2 rotis + steamed sweet potato + peanuts',
          s: 'Chickpea Masala Chaat + coconut water + peanuts',
-         d: 'Methi Palak Sweet Potato Sabzi + 2 rotis + toor dal + sesame' },
+         d: 'Methi Palak Sweet Potato Sabzi + 2 rotis + roasted sesame + salad' },
     S: { b: 'Millet Dosa (same base as family) + 3-egg scramble on the side',
          l: 'School tiffin: chana palak + roti + fruit',
          s: 'Quesadilla with Mushrooms (SHARAN) + fruit',
@@ -691,7 +691,7 @@ const MEAL_PLAN = [
     V: { b: 'Mini soft millet dosa + roasted red/yellow capsicum + marinara dip', bNote: 'Pour V\'s dosa batter first, whisk 1 egg in — make her dosas before R & D. Same batter, one extra step.',
          l: 'Soft chana mash + dal + rice + roasted capsicum',
          s: 'Soft banana + date + small soft roti piece',
-         d: 'Soft sweet potato + plain dal + rice + seasonal fruit' },
+         d: 'Soft sweet potato + plain rice + seasonal fruit' },
     link: 'https://sharan-india.org/recipes/indian-curries/chana-palak/' },
 
   { day: 'Thursday', dayShort: 'Thu',
@@ -755,19 +755,19 @@ const MEAL_PLAN = [
     R: { b: 'Fruit plate (papaya + guava + pear) + green smoothie',
          l: 'Jackfruit Sambar + small millet rice + salad',
          s: '10 almonds + 2 dates',
-         d: '🥣 BUDDHA BOWL NIGHT — Quinoa + roasted chickpeas + roasted veg + greens + tahini (no rice)', dJF: '1 tbsp JF stirred into roasted chickpeas' },
+         d: '🥣 BUDDHA BOWL NIGHT — Quinoa + roasted tofu + roasted veg + greens + tahini (no rice)', dJF: '1 tbsp JF stirred into tahini dressing' },
     D: { b: 'Tofu Scramble + whole wheat toast + avocado + hemp seeds + banana',
          l: 'Jackfruit Sambar + 1.5 cups millet rice + tofu stir-fry + peanuts',
          s: 'Soaked figs + almonds + ragi laddoo',
-         d: '🥣 BUDDHA BOWL NIGHT — Quinoa + brown rice + chickpeas + roasted veg + avocado + tahini' },
+         d: '🥣 BUDDHA BOWL NIGHT — Quinoa + brown rice + roasted tofu + roasted veg + avocado + tahini' },
     S: { b: '3-egg akuri (Parsi scrambled egg, same spices as Dhara\'s tofu scramble) + toast + fruit',
          l: 'Sambar rice + papad + salad',
          s: 'Creamy Spinach And Corn Casserole (SHARAN) + fruit',
-         d: '🥣 BUDDHA BOWL NIGHT — Grain bowl + chickpeas + avocado + hard-boiled egg + tahini' },
+         d: '🥣 BUDDHA BOWL NIGHT — Grain bowl + roasted tofu + avocado + hard-boiled egg + tahini' },
     V: { b: 'Mini whole wheat french toast + mashed banana + marinara dip', bNote: 'V shares S\'s egg custard — bread soaks up egg completely, zero taste. Marinara dip on the side.',
          l: 'Soft rice + thin sambar + mango',
          s: 'Soft spinach-corn casserole (small portion, mild) + banana', sNote: 'Hidden spinach + corn — nutrient dense, appealing to toddlers',
-         d: '🥣 BUDDHA BOWL NIGHT — Soft mashed chickpeas + soft roasted veg + tahini dip on the side' },
+         d: '🥣 BUDDHA BOWL NIGHT — Soft mashed roasted veg + soft tofu + tahini dip on the side' },
     link: 'https://sharan-india.org/recipes/indian-curries/jackfruit-sambar/' },
   ],
 ];
@@ -1448,14 +1448,13 @@ async function initPush() {
 
   const reg = await navigator.serviceWorker.ready;
 
-  // Show enable button if not yet granted
   if (Notification.permission === 'default') {
     document.getElementById('notif-enable-btn').style.display = 'block';
   }
 
   if (Notification.permission !== 'granted') return;
 
-  // Already granted — subscribe silently
+  // Already granted — re-sync subscription (handles VAPID key rotation after redeploy)
   await subscribePush(reg);
 }
 
@@ -1473,18 +1472,73 @@ async function requestNotifPermission() {
 async function subscribePush(reg) {
   try {
     const { publicKey } = await fetch('/api/vapid-key').then(r => r.json());
+
+    // Detect VAPID key rotation (happens when server redeploys with wiped DB).
+    // If the key changed we MUST unsubscribe the old subscription first —
+    // calling subscribe() with a different key throws without this step.
+    const storedKey = localStorage.getItem('vapid_public_key');
+    if (storedKey && storedKey !== publicKey) {
+      const existing = await reg.pushManager.getSubscription();
+      if (existing) {
+        await existing.unsubscribe();
+        console.log('[push] VAPID key changed — old subscription cleared');
+      }
+    }
+    localStorage.setItem('vapid_public_key', publicKey);
+
     const sub = await reg.pushManager.subscribe({
       userVisibleOnly: true,
       applicationServerKey: urlBase64ToUint8Array(publicKey),
     });
-    await fetch('/api/subscribe', {
+
+    const res = await fetch('/api/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(sub),
     });
+    if (!res.ok) throw new Error(`Server returned ${res.status}`);
+
+    updateNotifStatus(true);
+    return true;
   } catch (e) {
-    console.warn('Push subscription failed:', e);
+    console.error('[push] Subscription failed:', e);
+    updateNotifStatus(false, e.message);
+    return false;
   }
+}
+
+function updateNotifStatus(ok, errMsg) {
+  const el = document.getElementById('notif-status');
+  const resyncBtn = document.getElementById('notif-resync-btn');
+  if (!el) return;
+  if (Notification.permission !== 'granted') { el.style.display = 'none'; return; }
+  el.style.display = 'block';
+  if (ok) {
+    el.style.cssText = 'display:block;font-size:12px;padding:8px 12px;border-radius:8px;margin-bottom:8px;background:rgba(0,180,120,0.1);color:var(--teal)';
+    el.textContent = '✓ Subscribed — notifications will deliver to this device';
+    if (resyncBtn) resyncBtn.style.display = 'none';
+  } else {
+    el.style.cssText = 'display:block;font-size:12px;padding:8px 12px;border-radius:8px;margin-bottom:8px;background:rgba(220,60,60,0.08);color:#c0392b';
+    el.textContent = '⚠ Subscription failed' + (errMsg ? ': ' + errMsg : '') + ' — tap Re-subscribe below';
+    if (resyncBtn) resyncBtn.style.display = 'block';
+  }
+}
+
+async function forceResubscribe(btn) {
+  btn.textContent = 'Resubscribing…';
+  btn.disabled = true;
+  try {
+    const reg = await navigator.serviceWorker.ready;
+    localStorage.removeItem('vapid_public_key'); // force key comparison to treat as changed
+    const existing = await reg.pushManager.getSubscription();
+    if (existing) await existing.unsubscribe();
+    const ok = await subscribePush(reg);
+    showToast(ok ? 'Re-subscribed ✓ — test notification to confirm' : 'Still failed — check console for details');
+  } catch (e) {
+    showToast('Error: ' + e.message);
+  }
+  btn.textContent = 'Re-subscribe 🔄';
+  btn.disabled = false;
 }
 
 async function sendTestPush(btn) {
@@ -1495,7 +1549,7 @@ async function sendTestPush(btn) {
     const res = await fetch('/api/test-push', { method: 'POST' });
     const data = await res.json();
     if (res.ok) showToast(`Test sent to ${data.sent} device(s) ✓`);
-    else showToast(data.error || 'Failed — enable notifications first');
+    else showToast((data.error || 'Failed') + ' — tap Re-subscribe 🔄 below');
   } catch (e) {
     showToast('Could not reach server');
   }
@@ -1533,10 +1587,12 @@ async function loadReminders() {
   list.innerHTML = '';
 
   // Show enable / test button states
-  const enableBtn = document.getElementById('notif-enable-btn');
-  const testBtn   = document.getElementById('notif-test-btn');
-  enableBtn.style.display = Notification.permission === 'default'  ? 'block' : 'none';
-  testBtn.style.display   = Notification.permission === 'granted'  ? 'block' : 'none';
+  const enableBtn   = document.getElementById('notif-enable-btn');
+  const testBtn     = document.getElementById('notif-test-btn');
+  const resyncBtn   = document.getElementById('notif-resync-btn');
+  enableBtn.style.display = Notification.permission === 'default' ? 'block' : 'none';
+  testBtn.style.display   = Notification.permission === 'granted' ? 'block' : 'none';
+  // resync button visibility is controlled by updateNotifStatus()
 
   if (Notification.permission === 'denied') {
     list.innerHTML = '<div style="color:var(--text-muted);font-size:13px;padding:12px 0">Notifications are blocked. Enable them in your browser/phone settings, then reopen this app.</div>';

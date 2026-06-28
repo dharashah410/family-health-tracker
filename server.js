@@ -55,14 +55,20 @@ db.exec(`
 // ─── VAPID keys (generate once, persist in DB) ────────────────────────────
 
 let vapidKeys;
-const storedKeys = db.prepare("SELECT val FROM config WHERE key = 'vapid'").get();
-if (storedKeys) {
-  vapidKeys = JSON.parse(storedKeys.val);
+// Prefer env vars (set VAPID_PUBLIC_KEY + VAPID_PRIVATE_KEY in Railway to survive redeploys)
+if (process.env.VAPID_PUBLIC_KEY && process.env.VAPID_PRIVATE_KEY) {
+  vapidKeys = { publicKey: process.env.VAPID_PUBLIC_KEY, privateKey: process.env.VAPID_PRIVATE_KEY };
 } else {
-  vapidKeys = webpush.generateVAPIDKeys();
-  db.prepare("INSERT INTO config (key, val) VALUES ('vapid', ?)").run(JSON.stringify(vapidKeys));
+  const storedKeys = db.prepare("SELECT val FROM config WHERE key = 'vapid'").get();
+  if (storedKeys) {
+    vapidKeys = JSON.parse(storedKeys.val);
+  } else {
+    vapidKeys = webpush.generateVAPIDKeys();
+    db.prepare("INSERT INTO config (key, val) VALUES ('vapid', ?)").run(JSON.stringify(vapidKeys));
+  }
 }
 webpush.setVapidDetails('mailto:health@family.local', vapidKeys.publicKey, vapidKeys.privateKey);
+console.log('VAPID public key:', vapidKeys.publicKey);
 
 // ─── Seed default reminders ────────────────────────────────────────────────
 

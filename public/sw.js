@@ -1,4 +1,4 @@
-const CACHE = 'family-health-v2';
+const CACHE = 'family-health-v4';
 const ASSETS = ['/', '/index.html', '/app.js', '/manifest.json'];
 
 self.addEventListener('install', e => {

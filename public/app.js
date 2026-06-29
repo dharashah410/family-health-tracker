@@ -1543,16 +1543,48 @@ async function forceResubscribe(btn) {
 
 async function sendTestPush(btn) {
   const orig = btn.textContent;
-  btn.textContent = 'Sending…';
   btn.disabled = true;
-  try {
+
+  const tryTest = async () => {
     const res = await fetch('/api/test-push', { method: 'POST' });
-    const data = await res.json();
-    if (res.ok) showToast(`Test sent to ${data.sent} device(s) ✓`);
-    else showToast((data.error || 'Failed') + ' — tap Re-subscribe 🔄 below');
+    return { res, data: await res.json() };
+  };
+
+  try {
+    btn.textContent = 'Sending…';
+    let { res, data } = await tryTest();
+
+    if (res.ok) {
+      showToast(`Test sent to ${data.sent} device(s) ✓`);
+    } else {
+      // No subscribers → force fresh subscription then retry once
+      btn.textContent = 'Re-subscribing…';
+      showToast('No subscription found — re-subscribing automatically…');
+
+      if ('serviceWorker' in navigator) {
+        const reg = await navigator.serviceWorker.ready;
+        // Force full re-subscribe (clear stored key so VAPID comparison triggers unsubscribe)
+        localStorage.removeItem('vapid_public_key');
+        const existing = await reg.pushManager.getSubscription();
+        if (existing) await existing.unsubscribe();
+        const ok = await subscribePush(reg);
+        if (ok) {
+          // Retry test push
+          const retry = await tryTest();
+          showToast(retry.res.ok
+            ? `Subscribed & test sent ✓`
+            : 'Subscribed but test still failed — wait 10s and try again');
+        } else {
+          showToast('Re-subscribe failed — are notifications allowed in your browser/phone settings?');
+        }
+      } else {
+        showToast('Service worker not available — try reopening the app');
+      }
+    }
   } catch (e) {
-    showToast('Could not reach server');
+    showToast('Could not reach server — check your connection');
   }
+
   btn.textContent = orig;
   btn.disabled = false;
 }

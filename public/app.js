@@ -786,36 +786,64 @@ const GROCERY = {
 
 // ─── API (logs — shared via SQLite on server) ──────────────────────────────
 
-async function fetchLogs() {
-  const res = await fetch('/api/logs');
-  if (!res.ok) throw new Error('Failed to load logs');
-  return res.json();
+// Fetch from server and merge into IDB (server → IDB sync on startup)
+async function syncLogsFromServer() {
+  try {
+    const res = await fetch('/api/logs');
+    if (!res.ok) return;
+    const serverLogs = await res.json();
+    // Write any server entries not yet in IDB (keyed by ts)
+    const local = await dbGetAll('logs');
+    const localTs = new Set(local.map(l => l.ts));
+    await Promise.all(serverLogs
+      .filter(l => l.ts && !localTs.has(l.ts))
+      .map(l => dbPut('logs', l)));
+  } catch (_) {}
+}
+
+// Push any IDB entries the server is missing (IDB → server sync on startup)
+async function syncLogsToServer() {
+  try {
+    const res = await fetch('/api/logs');
+    if (!res.ok) return;
+    const serverLogs = await res.json();
+    const serverTs = new Set(serverLogs.map(l => l.ts));
+    const local = await dbGetAll('logs');
+    await Promise.all(local
+      .filter(l => !serverTs.has(l.ts))
+      .map(l => fetch('/api/logs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(l),
+      }).catch(() => {})));
+  } catch (_) {}
 }
 
 async function postLog(entry) {
-  const res = await fetch('/api/logs', {
+  // Save to IDB immediately — this is the durable copy
+  await dbPut('logs', entry);
+  // Best-effort sync to server
+  fetch('/api/logs', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(entry),
-  });
-  if (!res.ok) throw new Error('Failed to save log');
-  return res.json();
+  }).catch(() => {});
 }
 
-// ─── DB (IndexedDB — grocery & prefs only) ─────────────────────────────────
+// ─── DB (IndexedDB — logs primary + grocery + prefs) ───────────────────────
 
 let db;
-const DB_NAME = 'FamilyHealth', DB_VER = 1;
+const DB_NAME = 'FamilyHealth', DB_VER = 2;
 
 function openDB() {
   return new Promise((resolve, reject) => {
     const req = indexedDB.open(DB_NAME, DB_VER);
     req.onupgradeneeded = e => {
       const d = e.target.result;
-      if (!d.objectStoreNames.contains('logs')) {
-        const s = d.createObjectStore('logs', { keyPath: 'id', autoIncrement: true });
-        s.createIndex('person_date', ['person','date'], { unique: false });
-      }
+      // v2: recreate logs store keyed by ts so it survives server resets
+      if (d.objectStoreNames.contains('logs')) d.deleteObjectStore('logs');
+      const s = d.createObjectStore('logs', { keyPath: 'ts' });
+      s.createIndex('person', 'person', { unique: false });
       if (!d.objectStoreNames.contains('grocery')) {
         d.createObjectStore('grocery', { keyPath: 'key' });
       }
@@ -880,8 +908,17 @@ async function init() {
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('log-date').value = today;
 
-    // Load data
-    allLogs = await fetchLogs();
+    // Load logs from IDB (always survives redeployments)
+    allLogs = await dbGetAll('logs');
+    // Background sync: pull server → IDB, then push IDB → server
+    syncLogsFromServer().then(() => {
+      syncLogsToServer().then(async () => {
+        allLogs = await dbGetAll('logs');
+        updateWeightCards();
+        renderProgress();
+      });
+    });
+
     const grocItems = await dbGetAll('grocery');
     grocItems.forEach(i => { groceryState[i.key] = i.checked; });
 
@@ -958,7 +995,7 @@ async function saveLog() {
 
   const entry = { person: activePerson, date, weight, sleep, energy: eLabels[energyLevel] || '', meals, ts: Date.now() };
   await postLog(entry);
-  allLogs = await fetchLogs();
+  allLogs = await dbGetAll('logs');
 
   // Reset form
   document.getElementById('log-weight').value = '';

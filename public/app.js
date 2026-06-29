@@ -1443,14 +1443,25 @@ function copyPrepGuide(btn) {
 
 // ─── PUSH NOTIFICATIONS & REMINDERS ──────────────────────────────────────
 
-// Returns the SW registration instantly without waiting for activation.
-// navigator.serviceWorker.ready hangs forever if the SW is stuck installing —
-// getRegistration() just returns whatever exists right now.
+// Register SW if not yet registered, then return the registration.
+// Uses register() which is idempotent — safe to call every time.
 async function getSwReg() {
-  if (!('serviceWorker' in navigator)) throw new Error('Service workers not supported');
-  const reg = await navigator.serviceWorker.getRegistration('/');
-  if (!reg) throw new Error('No service worker registered yet — reopen the app');
-  return reg;
+  if (!('serviceWorker' in navigator)) throw new Error('Service workers not supported in this browser');
+  return navigator.serviceWorker.register('/sw.js', { scope: '/' })
+    .then(reg => {
+      // If the SW is installing for the first time, wait for it to activate
+      if (reg.installing || reg.waiting) {
+        return new Promise(resolve => {
+          const sw = reg.installing || reg.waiting;
+          sw.addEventListener('statechange', function handler() {
+            if (sw.state === 'activated') { sw.removeEventListener('statechange', handler); resolve(reg); }
+          });
+          // Safety timeout — resolve anyway after 5s so we don't hang
+          setTimeout(() => resolve(reg), 5000);
+        });
+      }
+      return reg;
+    });
 }
 
 async function initPush() {

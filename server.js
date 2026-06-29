@@ -153,6 +153,11 @@ app.get('/api/vapid-key', (req, res) => {
   res.json({ publicKey: vapidKeys.publicKey });
 });
 
+// TEMPORARY — copy keys into Railway env vars then delete this route
+app.get('/api/vapid-debug', (req, res) => {
+  res.json({ publicKey: vapidKeys.publicKey, privateKey: vapidKeys.privateKey });
+});
+
 // Push subscription
 app.post('/api/subscribe', (req, res) => {
   const sub = req.body;

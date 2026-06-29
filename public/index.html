@@ -431,9 +431,13 @@
 
 <!-- MEALS -->
 <div id="screen-meals" class="screen">
-  <div class="inner-tabs" id="week-tabs" style="margin-bottom:8px"></div>
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+    <div class="inner-tabs" id="week-tabs" style="margin-bottom:0;flex:1;overflow-x:auto"></div>
+    <button id="cal-toggle-btn" onclick="toggleCalView()" style="flex-shrink:0;margin-left:8px;padding:6px 10px;border:1.5px solid var(--teal);color:var(--teal);background:none;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer">📅 Cal</button>
+  </div>
   <div class="inner-tabs" id="day-tabs"></div>
   <div id="meal-content"></div>
+  <div id="meal-calendar" style="display:none"></div>
 </div>
 
 <!-- PROGRESS -->

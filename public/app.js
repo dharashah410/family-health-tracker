@@ -1038,18 +1038,29 @@ function fmtShortDate(d) {
   return d.getDate() + ' ' + ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()];
 }
 
-// Default to Monday (Day 0) — plan starts on Monday
 let activeWeekIdx = 0;
-let activeDayIdx = 0;
+let activeDayIdx  = 0;
 let activePrepWeekIdx = 0;
+let calViewActive = false;
+
+// Jump to today's week/day if today falls within the plan
+function jumpToToday() {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const start = new Date(PLAN_START); start.setHours(0,0,0,0);
+  const diff = Math.round((today - start) / 86400000);
+  if (diff >= 0 && diff < 28) {
+    activeWeekIdx = Math.floor(diff / 7);
+    activeDayIdx  = diff % 7;
+  }
+}
 
 function buildMealTabs() {
-  // Week tabs
+  jumpToToday();
+
   const weekTabs = document.getElementById('week-tabs');
   weekTabs.innerHTML = '';
   [0,1,2,3].forEach(wi => {
     const start = planWeekStartDate(wi);
-    const end   = planDayDate(wi, 6);
     const label = `Week ${wi+1} · ${fmtShortDate(start)}`;
     const btn = document.createElement('button');
     btn.className = 'inner-tab' + (wi === activeWeekIdx ? ' active' : '');
@@ -1057,8 +1068,7 @@ function buildMealTabs() {
     btn.onclick = () => {
       activeWeekIdx = wi;
       weekTabs.querySelectorAll('.inner-tab').forEach((b,j) => b.classList.toggle('active', j===wi));
-      buildDayTabs();
-      renderMealDay();
+      if (calViewActive) renderCalendar(); else { buildDayTabs(); renderMealDay(); }
     };
     weekTabs.appendChild(btn);
   });
@@ -1090,6 +1100,89 @@ function buildDayTabs() {
   });
 
   renderMealDay();
+}
+
+function toggleCalView() {
+  calViewActive = !calViewActive;
+  const btn    = document.getElementById('cal-toggle-btn');
+  const dayTab = document.getElementById('day-tabs');
+  const detail = document.getElementById('meal-content');
+  const cal    = document.getElementById('meal-calendar');
+  if (calViewActive) {
+    btn.textContent = '☰ List';
+    btn.style.background = 'var(--teal)';
+    btn.style.color = 'white';
+    dayTab.style.display = 'none';
+    detail.style.display = 'none';
+    cal.style.display = 'block';
+    renderCalendar();
+  } else {
+    btn.textContent = '📅 Cal';
+    btn.style.background = 'none';
+    btn.style.color = 'var(--teal)';
+    dayTab.style.display = '';
+    detail.style.display = '';
+    cal.style.display = 'none';
+    buildDayTabs();
+  }
+}
+
+function renderCalendar() {
+  const cal   = document.getElementById('meal-calendar');
+  const today = new Date(); today.setHours(0,0,0,0);
+  cal.innerHTML = '';
+
+  // Day-of-week header
+  const header = document.createElement('div');
+  header.style.cssText = 'display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:4px';
+  ['M','T','W','T','F','S','S'].forEach(d => {
+    const h = document.createElement('div');
+    h.style.cssText = 'text-align:center;font-size:11px;font-weight:600;color:var(--text-muted);padding:4px 0';
+    h.textContent = d;
+    header.appendChild(h);
+  });
+  cal.appendChild(header);
+
+  // 4 weeks × 7 days
+  [0,1,2,3].forEach(wi => {
+    const row = document.createElement('div');
+    row.style.cssText = 'display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:3px';
+    MEAL_PLAN[wi].forEach((day, di) => {
+      const date    = planDayDate(wi, di);
+      const isToday = date.getTime() === today.getTime();
+      const isActive = wi === activeWeekIdx && di === activeDayIdx;
+      const isFuture = date > today;
+
+      const cell = document.createElement('div');
+      cell.style.cssText = `border-radius:10px;padding:6px 3px;cursor:pointer;text-align:center;
+        background:${isToday ? 'var(--teal)' : isActive ? 'var(--border)' : 'var(--card)'};
+        border:1.5px solid ${isToday ? 'var(--teal)' : isActive ? 'var(--teal)' : 'var(--border)'};
+        opacity:${isFuture && !isToday ? '0.55' : '1'};
+        min-height:62px;display:flex;flex-direction:column;align-items:center;gap:2px`;
+
+      const dateNum = document.createElement('div');
+      dateNum.style.cssText = `font-size:13px;font-weight:700;padding-top:2px;
+        color:${isToday ? 'white' : 'var(--text)'}`;
+      dateNum.textContent = date.getDate();
+
+      const lunch = document.createElement('div');
+      lunch.style.cssText = `font-size:8px;line-height:1.3;overflow:hidden;max-height:32px;padding:0 2px;
+        color:${isToday ? 'rgba(255,255,255,0.88)' : 'var(--text-muted)'}`;
+      lunch.textContent = (day.R && day.R.l) ? day.R.l.split(' ').slice(0,3).join(' ') : '';
+
+      cell.appendChild(dateNum);
+      cell.appendChild(lunch);
+      cell.onclick = () => {
+        activeWeekIdx = wi;
+        activeDayIdx  = di;
+        document.querySelectorAll('#week-tabs .inner-tab')
+          .forEach((b,j) => b.classList.toggle('active', j === wi));
+        toggleCalView();
+      };
+      row.appendChild(cell);
+    });
+    cal.appendChild(row);
+  });
 }
 
 function linkify(text) {

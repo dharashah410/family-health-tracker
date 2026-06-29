@@ -1464,6 +1464,11 @@ async function getSwReg() {
     });
 }
 
+function isStandalone() {
+  return window.matchMedia('(display-mode: standalone)').matches
+    || window.navigator.standalone === true;
+}
+
 async function initPush() {
   if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
 
@@ -1637,7 +1642,15 @@ async function loadReminders() {
   const resyncBtn   = document.getElementById('notif-resync-btn');
   enableBtn.style.display = Notification.permission === 'default' ? 'block' : 'none';
   testBtn.style.display   = Notification.permission === 'granted' ? 'block' : 'none';
-  // resync button visibility is controlled by updateNotifStatus()
+
+  // Warn if running in browser instead of installed PWA — push won't work in background
+  if (!isStandalone()) {
+    const statusEl = document.getElementById('notif-status');
+    if (statusEl) {
+      statusEl.style.cssText = 'display:block;font-size:12px;padding:8px 12px;border-radius:8px;margin-bottom:8px;background:rgba(255,160,0,0.1);color:#b8730a';
+      statusEl.textContent = '⚠ You\'re in the browser — add this app to your Home Screen and open it from there for background notifications';
+    }
+  }
 
   if (Notification.permission === 'denied') {
     list.innerHTML = '<div style="color:var(--text-muted);font-size:13px;padding:12px 0">Notifications are blocked. Enable them in your browser/phone settings, then reopen this app.</div>';

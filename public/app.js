@@ -1608,8 +1608,12 @@ function urlBase64ToUint8Array(base64String) {
 function openReminders() {
   document.getElementById('reminder-backdrop').classList.add('open');
   document.getElementById('reminder-sheet').classList.add('open');
-  loadReminders();
-  // Re-sync subscription every time sheet opens — recovers after server redeploy or DB wipe
+
+  // Restore any user-customised reminder times/toggles from localStorage
+  // then reload the list. This recovers after server DB wipe on redeploy.
+  syncRemindersToServer().finally(() => loadReminders());
+
+  // Re-sync push subscription every open — recovers after server redeploy
   if (Notification.permission === 'granted' && 'serviceWorker' in navigator) {
     getSwReg().then(reg => syncSubscription(reg)).catch(() => {});
   }
@@ -1663,19 +1667,45 @@ async function loadReminders() {
   });
 }
 
+// ─── Reminder persistence (survives server DB wipes on redeploy) ──────────────
+// Every change is saved to localStorage so openReminders() can restore them.
+
+function saveReminderLocal(id, patch) {
+  const all = JSON.parse(localStorage.getItem('reminder_overrides') || '{}');
+  all[id] = Object.assign(all[id] || {}, patch);
+  localStorage.setItem('reminder_overrides', JSON.stringify(all));
+}
+
+async function syncRemindersToServer() {
+  const all = JSON.parse(localStorage.getItem('reminder_overrides') || '{}');
+  const ids = Object.keys(all);
+  if (!ids.length) return;
+  await Promise.all(ids.map(id =>
+    fetch(`/api/reminders/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(all[id]),
+    }).catch(() => {})
+  ));
+}
+
 async function toggleReminder(id, enabled) {
+  const patch = { enabled: enabled ? 1 : 0 };
+  saveReminderLocal(id, patch);
   await fetch(`/api/reminders/${id}`, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ enabled: enabled ? 1 : 0 }),
+    body: JSON.stringify(patch),
   });
 }
 
 async function updateReminderTime(id, time) {
+  const patch = { time };
+  saveReminderLocal(id, patch);
   await fetch(`/api/reminders/${id}`, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ time }),
+    body: JSON.stringify(patch),
   });
   showToast('Reminder time updated ✓');
 }

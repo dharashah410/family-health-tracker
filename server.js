@@ -68,7 +68,8 @@ if (process.env.VAPID_PUBLIC_KEY && process.env.VAPID_PRIVATE_KEY) {
   }
 }
 webpush.setVapidDetails('mailto:health@family.local', vapidKeys.publicKey, vapidKeys.privateKey);
-console.log('VAPID public key:', vapidKeys.publicKey);
+console.log('VAPID public key: ', vapidKeys.publicKey);
+console.log('VAPID private key:', vapidKeys.privateKey);
 
 // ─── Seed default reminders ────────────────────────────────────────────────
 

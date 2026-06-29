@@ -1544,49 +1544,61 @@ async function forceResubscribe(btn) {
 async function sendTestPush(btn) {
   const orig = btn.textContent;
   btn.disabled = true;
-
-  const tryTest = async () => {
-    const res = await fetch('/api/test-push', { method: 'POST' });
-    return { res, data: await res.json() };
-  };
+  btn.textContent = 'Sending…';
 
   try {
-    btn.textContent = 'Sending…';
-    let { res, data } = await tryTest();
+    const res  = await fetch('/api/test-push', { method: 'POST' });
+    const data = await res.json();
 
     if (res.ok) {
       showToast(`Test sent to ${data.sent} device(s) ✓`);
     } else {
-      // No subscribers → force fresh subscription then retry once
-      btn.textContent = 'Re-subscribing…';
-      showToast('No subscription found — re-subscribing automatically…');
-
-      if ('serviceWorker' in navigator) {
-        const reg = await navigator.serviceWorker.ready;
-        // Force full re-subscribe (clear stored key so VAPID comparison triggers unsubscribe)
-        localStorage.removeItem('vapid_public_key');
-        const existing = await reg.pushManager.getSubscription();
-        if (existing) await existing.unsubscribe();
-        const ok = await subscribePush(reg);
-        if (ok) {
-          // Retry test push
-          const retry = await tryTest();
-          showToast(retry.res.ok
-            ? `Subscribed & test sent ✓`
-            : 'Subscribed but test still failed — wait 10s and try again');
-        } else {
-          showToast('Re-subscribe failed — are notifications allowed in your browser/phone settings?');
-        }
+      // Server has no record of this device → re-register without unsubscribing
+      // (unsubscribe+subscribe back-to-back hangs on mobile browsers)
+      btn.textContent = 'Registering…';
+      showToast('Re-registering this device…');
+      const ok = await reregisterPush();
+      if (ok) {
+        const r2 = await fetch('/api/test-push', { method: 'POST' });
+        showToast(r2.ok ? 'Registered & test sent ✓' : 'Registered — tap test again in a moment');
       } else {
-        showToast('Service worker not available — try reopening the app');
+        showToast('Registration failed — close & reopen the app, then try again');
       }
     }
   } catch (e) {
-    showToast('Could not reach server — check your connection');
+    showToast('Could not reach server');
   }
 
   btn.textContent = orig;
   btn.disabled = false;
+}
+
+// Re-POST the existing browser push subscription to the server without touching
+// the subscription itself (avoids the unsubscribe→subscribe hang on mobile).
+async function reregisterPush() {
+  try {
+    const swReady = await Promise.race([
+      navigator.serviceWorker.ready,
+      new Promise((_, rej) => setTimeout(() => rej(new Error('SW timeout')), 8000)),
+    ]);
+    const sub = await swReady.pushManager.getSubscription();
+    if (!sub) {
+      // No subscription at all — do a fresh one via the normal path
+      return await subscribePush(swReady);
+    }
+    // Subscription exists in browser — just tell the server about it
+    const res = await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(sub),
+    });
+    updateNotifStatus(res.ok);
+    return res.ok;
+  } catch (e) {
+    console.error('[push] reregisterPush failed:', e);
+    updateNotifStatus(false, e.message);
+    return false;
+  }
 }
 
 function urlBase64ToUint8Array(base64String) {

@@ -1443,68 +1443,80 @@ function copyPrepGuide(btn) {
 
 // ─── PUSH NOTIFICATIONS & REMINDERS ──────────────────────────────────────
 
+// Returns the SW registration instantly without waiting for activation.
+// navigator.serviceWorker.ready hangs forever if the SW is stuck installing —
+// getRegistration() just returns whatever exists right now.
+async function getSwReg() {
+  if (!('serviceWorker' in navigator)) throw new Error('Service workers not supported');
+  const reg = await navigator.serviceWorker.getRegistration('/');
+  if (!reg) throw new Error('No service worker registered yet — reopen the app');
+  return reg;
+}
+
 async function initPush() {
   if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
-
-  const reg = await navigator.serviceWorker.ready;
 
   if (Notification.permission === 'default') {
     document.getElementById('notif-enable-btn').style.display = 'block';
   }
-
   if (Notification.permission !== 'granted') return;
 
-  // Already granted — re-sync subscription (handles VAPID key rotation after redeploy)
-  await subscribePush(reg);
+  try {
+    const reg = await getSwReg();
+    await syncSubscription(reg);
+  } catch (e) {
+    console.warn('[push] initPush:', e.message);
+  }
 }
 
 async function requestNotifPermission() {
   const permission = await Notification.requestPermission();
   if (permission === 'granted') {
     document.getElementById('notif-enable-btn').style.display = 'none';
-    const reg = await navigator.serviceWorker.ready;
-    await subscribePush(reg);
+    try {
+      const reg = await getSwReg();
+      await syncSubscription(reg);
+    } catch (e) { console.warn('[push] requestNotifPermission:', e.message); }
     loadReminders();
     showToast('Notifications enabled ✓');
   }
 }
 
-async function subscribePush(reg) {
-  try {
-    const { publicKey } = await fetch('/api/vapid-key').then(r => r.json());
+// Core subscription sync: re-POSTs existing subscription OR creates a new one.
+// Does NOT call pushManager.subscribe() if a subscription already exists —
+// that call can hang on mobile. Just re-POSTing the existing object is enough
+// to tell the server about this device.
+async function syncSubscription(reg) {
+  const { publicKey } = await fetch('/api/vapid-key').then(r => r.json());
+  const storedKey = localStorage.getItem('vapid_public_key');
+  let sub = await reg.pushManager.getSubscription();
 
-    // Detect VAPID key rotation (happens when server redeploys with wiped DB).
-    // If the key changed we MUST unsubscribe the old subscription first —
-    // calling subscribe() with a different key throws without this step.
-    const storedKey = localStorage.getItem('vapid_public_key');
-    if (storedKey && storedKey !== publicKey) {
-      const existing = await reg.pushManager.getSubscription();
-      if (existing) {
-        await existing.unsubscribe();
-        console.log('[push] VAPID key changed — old subscription cleared');
-      }
-    }
-    localStorage.setItem('vapid_public_key', publicKey);
-
-    const sub = await reg.pushManager.subscribe({
-      userVisibleOnly: true,
-      applicationServerKey: urlBase64ToUint8Array(publicKey),
-    });
-
-    const res = await fetch('/api/subscribe', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(sub),
-    });
-    if (!res.ok) throw new Error(`Server returned ${res.status}`);
-
-    updateNotifStatus(true);
-    return true;
-  } catch (e) {
-    console.error('[push] Subscription failed:', e);
-    updateNotifStatus(false, e.message);
-    return false;
+  // VAPID key rotated (server redeployed with wiped DB) — must unsubscribe old
+  // sub first, then create a new one. This is the only time we call subscribe().
+  if (sub && storedKey && storedKey !== publicKey) {
+    await sub.unsubscribe();
+    sub = null;
+    console.log('[push] VAPID key changed — unsubscribed stale subscription');
   }
+  localStorage.setItem('vapid_public_key', publicKey);
+
+  if (!sub) {
+    // No sub at all — create one. Wrap in timeout; subscribe() can hang on mobile.
+    sub = await Promise.race([
+      reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: urlBase64ToUint8Array(publicKey) }),
+      new Promise((_, rej) => setTimeout(() => rej(new Error('subscribe() timed out — reopen app and try again')), 12000)),
+    ]);
+  }
+
+  // Re-POST to server (handles the common case: server DB wiped but sub still valid)
+  const res = await fetch('/api/subscribe', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(sub),
+  });
+  if (!res.ok) throw new Error(`Server returned ${res.status}`);
+  updateNotifStatus(true);
+  return true;
 }
 
 function updateNotifStatus(ok, errMsg) {
@@ -1512,30 +1524,31 @@ function updateNotifStatus(ok, errMsg) {
   const resyncBtn = document.getElementById('notif-resync-btn');
   if (!el) return;
   if (Notification.permission !== 'granted') { el.style.display = 'none'; return; }
-  el.style.display = 'block';
   if (ok) {
     el.style.cssText = 'display:block;font-size:12px;padding:8px 12px;border-radius:8px;margin-bottom:8px;background:rgba(0,180,120,0.1);color:var(--teal)';
-    el.textContent = '✓ Subscribed — notifications will deliver to this device';
+    el.textContent = '✓ Subscribed — this device will receive notifications';
     if (resyncBtn) resyncBtn.style.display = 'none';
   } else {
     el.style.cssText = 'display:block;font-size:12px;padding:8px 12px;border-radius:8px;margin-bottom:8px;background:rgba(220,60,60,0.08);color:#c0392b';
-    el.textContent = '⚠ Subscription failed' + (errMsg ? ': ' + errMsg : '') + ' — tap Re-subscribe below';
+    el.textContent = '⚠ ' + (errMsg || 'Subscription failed') + ' — tap Re-subscribe below';
     if (resyncBtn) resyncBtn.style.display = 'block';
   }
 }
 
 async function forceResubscribe(btn) {
-  btn.textContent = 'Resubscribing…';
+  btn.textContent = 'Working…';
   btn.disabled = true;
   try {
-    const reg = await navigator.serviceWorker.ready;
-    localStorage.removeItem('vapid_public_key'); // force key comparison to treat as changed
+    const reg = await getSwReg();
+    // Force fresh subscription by clearing stored key so VAPID check triggers
+    localStorage.removeItem('vapid_public_key');
     const existing = await reg.pushManager.getSubscription();
     if (existing) await existing.unsubscribe();
-    const ok = await subscribePush(reg);
-    showToast(ok ? 'Re-subscribed ✓ — test notification to confirm' : 'Still failed — check console for details');
+    await syncSubscription(reg);
+    showToast('Re-subscribed ✓ — tap test notification to confirm');
   } catch (e) {
-    showToast('Error: ' + e.message);
+    updateNotifStatus(false, e.message);
+    showToast('Failed: ' + e.message);
   }
   btn.textContent = 'Re-subscribe 🔄';
   btn.disabled = false;
@@ -1553,52 +1566,25 @@ async function sendTestPush(btn) {
     if (res.ok) {
       showToast(`Test sent to ${data.sent} device(s) ✓`);
     } else {
-      // Server has no record of this device → re-register without unsubscribing
-      // (unsubscribe+subscribe back-to-back hangs on mobile browsers)
+      // Server has no record of this device — re-sync subscription then retry
       btn.textContent = 'Registering…';
-      showToast('Re-registering this device…');
-      const ok = await reregisterPush();
-      if (ok) {
-        const r2 = await fetch('/api/test-push', { method: 'POST' });
-        showToast(r2.ok ? 'Registered & test sent ✓' : 'Registered — tap test again in a moment');
-      } else {
-        showToast('Registration failed — close & reopen the app, then try again');
+      try {
+        const reg = await getSwReg();
+        await syncSubscription(reg);
+        const r2   = await fetch('/api/test-push', { method: 'POST' });
+        const d2   = await r2.json();
+        showToast(r2.ok ? `Registered & test sent ✓` : (d2.error || 'Still failed — try again'));
+      } catch (e) {
+        updateNotifStatus(false, e.message);
+        showToast('Could not subscribe: ' + e.message);
       }
     }
   } catch (e) {
-    showToast('Could not reach server');
+    showToast('Could not reach server — check your connection');
   }
 
   btn.textContent = orig;
   btn.disabled = false;
-}
-
-// Re-POST the existing browser push subscription to the server without touching
-// the subscription itself (avoids the unsubscribe→subscribe hang on mobile).
-async function reregisterPush() {
-  try {
-    const swReady = await Promise.race([
-      navigator.serviceWorker.ready,
-      new Promise((_, rej) => setTimeout(() => rej(new Error('SW timeout')), 8000)),
-    ]);
-    const sub = await swReady.pushManager.getSubscription();
-    if (!sub) {
-      // No subscription at all — do a fresh one via the normal path
-      return await subscribePush(swReady);
-    }
-    // Subscription exists in browser — just tell the server about it
-    const res = await fetch('/api/subscribe', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(sub),
-    });
-    updateNotifStatus(res.ok);
-    return res.ok;
-  } catch (e) {
-    console.error('[push] reregisterPush failed:', e);
-    updateNotifStatus(false, e.message);
-    return false;
-  }
 }
 
 function urlBase64ToUint8Array(base64String) {
@@ -1614,7 +1600,7 @@ function openReminders() {
   loadReminders();
   // Re-sync subscription every time sheet opens — recovers after server redeploy or DB wipe
   if (Notification.permission === 'granted' && 'serviceWorker' in navigator) {
-    navigator.serviceWorker.ready.then(reg => subscribePush(reg)).catch(() => {});
+    getSwReg().then(reg => syncSubscription(reg)).catch(() => {});
   }
 }
 

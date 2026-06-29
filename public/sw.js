@@ -1,8 +1,14 @@
-const CACHE = 'family-health-v4';
+const CACHE = 'family-health-v5';
 const ASSETS = ['/', '/index.html', '/app.js', '/manifest.json'];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));
+  // Don't block SW activation on cache failures — a failed fetch during install
+  // would leave the SW stuck in "installing" state, causing .ready to hang forever.
+  e.waitUntil(
+    caches.open(CACHE)
+      .then(c => c.addAll(ASSETS))
+      .catch(err => console.warn('[sw] Cache install failed (non-fatal):', err))
+  );
   self.skipWaiting();
 });
 

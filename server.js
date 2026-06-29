@@ -112,6 +112,7 @@ cron.schedule('* * * * *', () => {
   const now  = new Date();
   const day  = now.getDay();
   const time = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+  if (now.getMinutes() === 0) console.log(`[cron] ${time} day=${day} tz=${Intl.DateTimeFormat().resolvedOptions().timeZone}`);
 
   // Regular schedule-based reminders
   db.prepare('SELECT * FROM reminders WHERE enabled = 1').all().forEach(r => {

@@ -108,16 +108,31 @@ function pushAll(payload) {
 
 // ─── Cron: fire reminders every minute ─────────────────────────────────────
 
+const TIMEZONE = process.env.TZ || 'Asia/Kolkata';
+
+function nowInTZ() {
+  const now = new Date();
+  // Use Intl explicitly — avoids relying on Node's process TZ being set correctly
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: TIMEZONE,
+    hour: '2-digit', minute: '2-digit', hour12: false,
+    weekday: 'short',
+  }).formatToParts(now);
+  const get = type => parts.find(p => p.type === type).value;
+  const day = { Sun:0, Mon:1, Tue:2, Wed:3, Thu:4, Fri:5, Sat:6 }[get('weekday')];
+  const time = `${get('hour').padStart(2,'0')}:${get('minute').padStart(2,'0')}`;
+  return { day, time };
+}
+
 cron.schedule('* * * * *', () => {
-  const now  = new Date();
-  const day  = now.getDay();
-  const time = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-  if (now.getMinutes() === 0) console.log(`[cron] ${time} day=${day} tz=${Intl.DateTimeFormat().resolvedOptions().timeZone}`);
+  const { day, time } = nowInTZ();
+  console.log(`[cron] ${time} day=${day} tz=${TIMEZONE}`);
 
   // Regular schedule-based reminders
   db.prepare('SELECT * FROM reminders WHERE enabled = 1').all().forEach(r => {
     const days = JSON.parse(r.days);
     if (!days.includes(day) || r.time !== time) return;
+    console.log(`[cron] firing reminder: ${r.id} (${r.label}) at ${time}`);
     pushAll({ title: 'Family Health', body: r.message, reminderId: r.id, tag: r.id });
   });
 
@@ -186,6 +201,21 @@ app.post('/api/snooze', (req, res) => {
   const fireAt = Date.now() + minutes * 60 * 1000;
   db.prepare('INSERT OR REPLACE INTO snoozes (id, fire_at) VALUES (?, ?)').run(reminderId, fireAt);
   res.json({ ok: true, fireAt });
+});
+
+// Debug — shows server time, timezone, subscribers, enabled reminders
+app.get('/api/debug', (req, res) => {
+  const { day, time } = nowInTZ();
+  const subscribers = db.prepare('SELECT COUNT(*) as n FROM subscriptions').get().n;
+  const reminders = db.prepare('SELECT id, label, time, days, enabled FROM reminders').all();
+  res.json({
+    serverTime: time,
+    serverDay: day,
+    timezone: TIMEZONE,
+    utcTime: new Date().toISOString(),
+    subscribers,
+    reminders,
+  });
 });
 
 // Test push — fires immediately to all subscribers

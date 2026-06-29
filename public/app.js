@@ -819,6 +819,22 @@ async function syncLogsToServer() {
   } catch (_) {}
 }
 
+async function deleteLog(ts) {
+  // Remove from IDB
+  await new Promise((resolve, reject) => {
+    const tx = db.transaction('logs', 'readwrite');
+    tx.objectStore('logs').delete(ts);
+    tx.oncomplete = resolve;
+    tx.onerror = () => reject(tx.error);
+  });
+  // Best-effort remove from server
+  fetch(`/api/logs/${ts}`, { method: 'DELETE' }).catch(() => {});
+  allLogs = await dbGetAll('logs');
+  updateWeightCards();
+  renderProgress();
+  showToast('Entry deleted');
+}
+
 async function postLog(entry) {
   // Save to IDB immediately — this is the durable copy
   await dbPut('logs', entry);
@@ -1505,7 +1521,7 @@ function renderProgress() {
     return;
   }
   histEl.innerHTML = hist.map(l => `
-    <div class="log-entry">
+    <div class="log-entry" style="position:relative">
       <div class="log-meta">
         <span class="log-date">${l.date}</span>
         <span class="badge badge-${l.person.toLowerCase()}">${PEOPLE[l.person].name}</span>
@@ -1514,6 +1530,9 @@ function renderProgress() {
         ${l.energy ? `<span class="log-stat">⚡ ${l.energy}</span>` : ''}
       </div>
       ${l.meals ? `<div class="log-meals">${l.meals}</div>` : ''}
+      <button onclick="if(confirm('Delete this entry?')) deleteLog(${l.ts})"
+        style="position:absolute;top:8px;right:0;background:none;border:none;cursor:pointer;font-size:15px;color:var(--text-muted);padding:2px 6px;line-height:1"
+        title="Delete entry">✕</button>
     </div>`).join('');
 }
 

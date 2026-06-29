@@ -153,6 +153,10 @@ app.use(express.json());
 app.get('/api/logs', (req, res) => {
   res.json(db.prepare('SELECT * FROM logs ORDER BY ts DESC').all());
 });
+app.delete('/api/logs/:ts', (req, res) => {
+  db.prepare('DELETE FROM logs WHERE ts = ?').run(Number(req.params.ts));
+  res.json({ ok: true });
+});
 app.post('/api/logs', (req, res) => {
   const { person, date, weight, sleep, energy, meals, ts } = req.body;
   if (!person || !date || !ts) return res.status(400).json({ error: 'person, date and ts are required' });

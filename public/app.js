@@ -1115,6 +1115,8 @@ function toggleCalView() {
     dayTab.style.display = 'none';
     detail.style.display = 'none';
     cal.style.display = 'block';
+    calSelectedWeek = activeWeekIdx;
+    calSelectedDay  = activeDayIdx;
     renderCalendar();
   } else {
     btn.textContent = '📅 Cal';
@@ -1127,62 +1129,116 @@ function toggleCalView() {
   }
 }
 
+let calSelectedWeek = 0;
+let calSelectedDay  = 0;
+
 function renderCalendar() {
   const cal   = document.getElementById('meal-calendar');
   const today = new Date(); today.setHours(0,0,0,0);
   cal.innerHTML = '';
 
-  // Day-of-week header
+  // ── Day-of-week header ──
   const header = document.createElement('div');
-  header.style.cssText = 'display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:4px';
-  ['M','T','W','T','F','S','S'].forEach(d => {
+  header.style.cssText = 'display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px;padding:0 2px';
+  ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].forEach(d => {
     const h = document.createElement('div');
-    h.style.cssText = 'text-align:center;font-size:11px;font-weight:600;color:var(--text-muted);padding:4px 0';
+    h.style.cssText = 'text-align:center;font-size:10px;font-weight:600;color:var(--text-muted)';
     h.textContent = d;
     header.appendChild(h);
   });
   cal.appendChild(header);
 
-  // 4 weeks × 7 days
+  // ── 4 week rows ──
   [0,1,2,3].forEach(wi => {
+    const weekLabel = document.createElement('div');
+    weekLabel.style.cssText = 'font-size:10px;color:var(--text-muted);font-weight:500;padding:2px 2px 2px;margin-top:2px';
+    weekLabel.textContent = `Wk ${wi+1}`;
+    cal.appendChild(weekLabel);
+
     const row = document.createElement('div');
-    row.style.cssText = 'display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:3px';
+    row.style.cssText = 'display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:2px;padding:0 2px';
+
     MEAL_PLAN[wi].forEach((day, di) => {
-      const date    = planDayDate(wi, di);
-      const isToday = date.getTime() === today.getTime();
-      const isActive = wi === activeWeekIdx && di === activeDayIdx;
-      const isFuture = date > today;
+      const date     = planDayDate(wi, di);
+      const isToday  = date.getTime() === today.getTime();
+      const isSel    = wi === calSelectedWeek && di === calSelectedDay;
+      const isPast   = date < today && !isToday;
 
       const cell = document.createElement('div');
-      cell.style.cssText = `border-radius:10px;padding:6px 3px;cursor:pointer;text-align:center;
-        background:${isToday ? 'var(--teal)' : isActive ? 'var(--border)' : 'var(--card)'};
-        border:1.5px solid ${isToday ? 'var(--teal)' : isActive ? 'var(--teal)' : 'var(--border)'};
-        opacity:${isFuture && !isToday ? '0.55' : '1'};
-        min-height:62px;display:flex;flex-direction:column;align-items:center;gap:2px`;
+      cell.style.cssText = `
+        border-radius:50%;width:100%;aspect-ratio:1/1;
+        display:flex;align-items:center;justify-content:center;
+        cursor:pointer;position:relative;flex-direction:column;
+        background:${isToday ? 'var(--teal)' : isSel ? 'var(--border)' : 'transparent'};
+        border:2px solid ${isToday ? 'var(--teal)' : isSel ? 'var(--teal)' : 'transparent'};
+        opacity:${isPast ? '0.45' : '1'};
+      `;
 
-      const dateNum = document.createElement('div');
-      dateNum.style.cssText = `font-size:13px;font-weight:700;padding-top:2px;
+      const num = document.createElement('span');
+      num.style.cssText = `font-size:clamp(12px,3.5vw,16px);font-weight:${isToday||isSel?'700':'400'};
         color:${isToday ? 'white' : 'var(--text)'}`;
-      dateNum.textContent = date.getDate();
+      num.textContent = date.getDate();
+      cell.appendChild(num);
 
-      const lunch = document.createElement('div');
-      lunch.style.cssText = `font-size:8px;line-height:1.3;overflow:hidden;max-height:32px;padding:0 2px;
-        color:${isToday ? 'rgba(255,255,255,0.88)' : 'var(--text-muted)'}`;
-      lunch.textContent = (day.R && day.R.l) ? day.R.l.split(' ').slice(0,3).join(' ') : '';
+      // Dot under date if there are meals
+      if (day.R && day.R.l) {
+        const dot = document.createElement('span');
+        dot.style.cssText = `width:4px;height:4px;border-radius:50%;margin-top:1px;
+          background:${isToday ? 'rgba(255,255,255,0.7)' : 'var(--teal)'}`;
+        cell.appendChild(dot);
+      }
 
-      cell.appendChild(dateNum);
-      cell.appendChild(lunch);
       cell.onclick = () => {
-        activeWeekIdx = wi;
-        activeDayIdx  = di;
+        calSelectedWeek = wi;
+        calSelectedDay  = di;
+        activeWeekIdx   = wi;
+        activeDayIdx    = di;
         document.querySelectorAll('#week-tabs .inner-tab')
           .forEach((b,j) => b.classList.toggle('active', j === wi));
-        toggleCalView();
+        renderCalendar(); // re-render to move selection ring
+        renderCalDayPreview(wi, di);
       };
       row.appendChild(cell);
     });
     cal.appendChild(row);
   });
+
+  // ── Day detail preview card ──
+  const preview = document.createElement('div');
+  preview.id = 'cal-day-preview';
+  preview.style.cssText = 'margin-top:14px';
+  cal.appendChild(preview);
+  renderCalDayPreview(calSelectedWeek, calSelectedDay);
+}
+
+function renderCalDayPreview(wi, di) {
+  const preview = document.getElementById('cal-day-preview');
+  if (!preview) return;
+  const day  = MEAL_PLAN[wi][di];
+  const date = planDayDate(wi, di);
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+  preview.innerHTML = `
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <div class="card-title" style="margin:0">${dayNames[date.getDay()]}, ${date.getDate()} ${months[date.getMonth()]}</div>
+        <button onclick="activeWeekIdx=${wi};activeDayIdx=${di};toggleCalView()"
+          style="font-size:12px;font-weight:600;color:var(--teal);background:none;border:none;cursor:pointer;padding:4px 8px">
+          Full detail →
+        </button>
+      </div>
+      ${['R','D','S','V'].map(p => {
+        const m = day[p];
+        if (!m || !m.l) return '';
+        return `<div style="margin-bottom:8px">
+          <span class="badge badge-${p.toLowerCase()}" style="margin-bottom:4px">${PEOPLE[p].name}</span>
+          <div style="font-size:12px;color:var(--text);margin:3px 0 1px"><strong>L:</strong> ${m.l.split('—')[0].trim()}</div>
+          <div style="font-size:12px;color:var(--text-muted)"><strong>D:</strong> ${(m.d||'').split('—')[0].replace(/[🍔🍕🫓🥣🍝]/g,'').trim()}</div>
+        </div>`;
+      }).join('')}
+    </div>
+  `;
 }
 
 function linkify(text) {

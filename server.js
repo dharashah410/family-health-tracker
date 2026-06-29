@@ -68,8 +68,6 @@ if (process.env.VAPID_PUBLIC_KEY && process.env.VAPID_PRIVATE_KEY) {
   }
 }
 webpush.setVapidDetails('mailto:health@family.local', vapidKeys.publicKey, vapidKeys.privateKey);
-console.log('VAPID public key: ', vapidKeys.publicKey);
-console.log('VAPID private key:', vapidKeys.privateKey);
 
 // ─── Seed default reminders ────────────────────────────────────────────────
 
@@ -153,10 +151,6 @@ app.get('/api/vapid-key', (req, res) => {
   res.json({ publicKey: vapidKeys.publicKey });
 });
 
-// TEMPORARY — copy keys into Railway env vars then delete this route
-app.get('/api/vapid-debug', (req, res) => {
-  res.json({ publicKey: vapidKeys.publicKey, privateKey: vapidKeys.privateKey });
-});
 
 // Push subscription
 app.post('/api/subscribe', (req, res) => {

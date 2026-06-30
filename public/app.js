@@ -1422,6 +1422,8 @@ function buildMedList() {
 
   meds.forEach((med, i) => {
     const isDueToday = med.days.includes(today);
+    // Skip if has a schedule and today isn't in it
+    if (med.days.length > 0 && !isDueToday) return;
     const row = document.createElement('div');
     row.className = 'check-row';
     row.innerHTML = `

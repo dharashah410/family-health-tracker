@@ -1772,7 +1772,16 @@ function renderProgress() {
 
 // ─── MEAL PREP ────────────────────────────────────────────────────────────
 
+function prepTargetWeek() {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const start = new Date(PLAN_START); start.setHours(0,0,0,0);
+  const diff = Math.round((today - start) / 86400000);
+  const wi = Math.max(0, Math.min(3, Math.floor(diff / 7)));
+  return Math.min(3, wi + 1); // prep always targets next week
+}
+
 function buildPrepScreen() {
+  activePrepWeekIdx = prepTargetWeek();
   // Week tabs
   const weekTabs = document.getElementById('prep-week-tabs');
   weekTabs.innerHTML = '';

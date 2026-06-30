@@ -1346,9 +1346,9 @@ function renderCalDayPreview(wi, di) {
 }
 
 function linkify(text) {
-  // Turn bare domain/path URLs (e.g. cookieandkate.com/slug) into tappable links
-  return text.replace(/\b([a-z0-9-]+\.[a-z]{2,}\/[^\s),]*)/g,
-    url => `<a href="https://${url}" target="_blank" rel="noopener" style="color:var(--teal);font-size:11px;text-decoration:none;word-break:break-all">${url} ↗</a>`);
+  // "Recipe Name (domain.com/path)" → recipe name becomes the clickable link, URL hidden
+  return text.replace(/([^(+]+?)\s*\(([a-z0-9-]+\.[a-z]{2,}\/[^\s)]*)\)/g,
+    (_, name, url) => `<a href="https://${url}" target="_blank" rel="noopener" style="color:var(--teal);font-weight:600;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:2px">${name.trim()} ↗</a>`);
 }
 
 function renderMealDay() {

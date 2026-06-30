@@ -1830,15 +1830,22 @@ async function downloadBabliAudio(wi, si) {
     });
     if (!res.ok) throw new Error(await res.text());
     const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
     const labels = ['shukravar-raat', 'shanivar-subah', 'shanivar-dopahar'];
-    a.href = url;
-    a.download = `babli-week${wi + 1}-${labels[si]}.mp3`;
-    a.click();
-    URL.revokeObjectURL(url);
+    const filename = `babli-week${wi + 1}-${labels[si]}.mp3`;
+    const file = new File([blob], filename, { type: 'audio/mpeg' });
+
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      // Mobile: opens native share sheet — user picks WhatsApp directly
+      await navigator.share({ files: [file], title: 'बब्ली आंटी prep guide' });
+    } else {
+      // Desktop fallback: download the file
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = filename; a.click();
+      URL.revokeObjectURL(url);
+    }
   } catch (e) {
-    alert('Audio नहीं बना। Please try again.\n' + e.message);
+    if (e.name !== 'AbortError') alert('Audio नहीं बना। Please try again.\n' + e.message);
   } finally {
     btn.textContent = orig;
     btn.disabled = false;

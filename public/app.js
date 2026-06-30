@@ -772,17 +772,40 @@ const MEAL_PLAN = [
   ],
 ];
 
-const GROCERY = {
-  'Fruits (organic)': ['Bananas ×14','Papaya ×2','Guava ×6','Pears ×6','Apples ×6','Watermelon ×1 small','Lemon ×10','Avocado ×4','Berries (frozen) 250g'],
-  'Vegetables': ['Spinach / palak 500g','Bok choy 250g','Broccoli 500g','Cauliflower ×1','Bhindi 300g','Tomatoes ×10','Cucumber ×8','Capsicum ×4','Mushrooms 300g','Sweet potato ×6','Onion 1kg','Garlic ×2 bulbs','Ginger ×1 piece','Methi leaves 200g','Coriander 2 bunches','Carrot ×6','Jackfruit (raw, for Sunday sambar) ×1 small'],
-  'Grains & millets': ['Millet (bajra/jowar) 1kg','Ragi flour 500g','Brown rice 1kg','Whole wheat flour 1kg','Red rice 500g','Oats (rolled) 500g','Brown rice noodles 200g'],
-  'Legumes & pulses': ['Masoor dal 500g','Moong dal 500g','Chana (chickpeas) 500g','Rajma 500g','Toor dal 500g','Moong sprouts 300g'],
+// Online list is the same every week (staples reordered weekly)
+const GROCERY_ONLINE = {
+  'Grains & millets': ['Millet (bajra/jowar) 1kg','Ragi flour 500g','Brown rice 1kg','Whole wheat flour 1kg','Red rice 500g','Oats (rolled) 500g','Brown rice noodles 200g','Quinoa 300g'],
+  'Legumes & pulses': ['Masoor dal 500g','Moong dal 500g','Chana / chickpeas 500g','Rajma 500g','Toor dal 500g','Moong (whole, for sprouts) 300g'],
   'Nuts & seeds': ['Almonds 200g','Walnuts 150g','Peanuts (raw) 500g','Flaxseed (whole) 200g','Sesame seeds 200g','Chia seeds 100g','Hemp seeds 100g','Dried figs 150g','Dates 200g','Dry apricots 100g'],
-  'Proteins': ['Tofu (firm) ×3 packs (400g each)','Tempeh ×1 pack (optional)'],
-  'Pantry': ['Miso paste 200g','Tamarind paste 100g','Coconut (grated fresh or frozen) 200g','Whole grain bread (or homemade)','Almond / peanut butter 200g','Mustard seeds','Cumin seeds','Turmeric','Coriander powder','Green chillies ×10'],
+  'Proteins': ['Tofu (firm) ×3 packs 400g each','Tempeh ×1 pack (optional)'],
+  'Pantry': ['Miso paste 200g','Tamarind paste 100g','Coconut (desiccated / grated frozen) 200g','Whole grain bread (or homemade)','Peanut butter 200g','Almond butter 200g','Mustard seeds','Cumin seeds','Turmeric','Coriander powder','Green chillies (paste or fresh)','Soy sauce 200ml','Apple cider vinegar 250ml','Coconut milk 2 cans'],
   '🌿 Jackfruit powder — Ritvij only': ['Green jackfruit powder 200g (1 tbsp/day in food, ~3-week supply)'],
-  'Supplements (both)': ['Methylcobalamin B12 500 mcg — Nurokind Gold or Methycobal 500','Cholecalciferol 60K Vitamin D'],
+  'Supplements': ['Methylcobalamin B12 500 mcg — Nurokind Gold or Methycobal 500','Cholecalciferol 60K Vitamin D'],
 };
+
+// Vendor list (fresh veg + fruit) varies by week
+const GROCERY_VENDOR = [
+  // Week 1 (Jun 15–21)
+  {
+    'Vegetables': ['Spinach / palak 500g','Lauki / bottle gourd ×2','Baingan / eggplant ×3','Cauliflower ×1','Broccoli 300g','Sweet potato ×6','Tomatoes ×10','Cucumber ×6','Capsicum (mix) ×4','Onion 1kg','Garlic 2 bulbs','Ginger 1 piece','Green chillies ×10','Coriander 2 bunches','Bok choy 200g','Mushrooms 200g','Drumstick / moringa ×4'],
+    'Fruits': ['Bananas ×14','Papaya ×2','Guava ×6','Pears ×6','Lemon ×10','Avocado ×3','Jackfruit (raw, for sambar) ×1 small'],
+  },
+  // Week 2 (Jun 22–28)
+  {
+    'Vegetables': ['Spinach / palak 500g','Dudhi / bottle gourd ×2','Bhindi / okra 300g','Methi leaves 200g','Cauliflower ×1','Broccoli 300g','Sweet potato ×6','Butternut squash ×1','Mushrooms 200g','Bok choy 200g','Capsicum (mix) ×4','Tomatoes ×10','Cucumber ×6','Onion 1kg','Garlic 2 bulbs','Ginger 1 piece','Coriander 2 bunches','Peas (fresh or frozen) 200g','Undhiyo mix (yam, raw banana, surti lilva, tindora) — as per vendor'],
+    'Fruits': ['Bananas ×14','Papaya ×2','Guava ×6','Pears ×6','Lemon ×10','Avocado ×3','Berries (frozen) 250g','Mango ×4'],
+  },
+  // Week 3 (Jun 29–Jul 5)
+  {
+    'Vegetables': ['Spinach / palak 500g','Baingan / brinjal ×3','Drumstick / moringa ×4','Beetroot ×3','Capsicum (yellow, red, green) ×6','Mushrooms 250g','Carrot ×6','Broccoli 300g','Sweet potato ×6','Bok choy 200g','Cabbage (small, for Thai salad) ×1','Spring onion 1 bunch','Edamame (frozen) 200g','Tomatoes ×10','Cucumber ×6','Onion 1kg','Garlic 2 bulbs','Ginger 1 piece','Coriander 2 bunches','Sorakkai / bottle gourd ×2','Pumpkin / kaddu 300g'],
+    'Fruits': ['Bananas ×14','Papaya ×2','Guava ×6','Pears ×6','Lemon ×10','Avocado ×3','Jackfruit (raw, for sambar) ×1 small','Mango ×4'],
+  },
+  // Week 4 (Jul 6–12)
+  {
+    'Vegetables': ['Spinach / palak 500g','Lauki / bottle gourd ×2','Karela / bitter gourd ×3','Potato ×6','Bhindi / okra 300g','Methi leaves 200g','Mushrooms 200g','Bok choy 200g','Broccoli 300g','Sweet potato ×6','Capsicum (mix) ×4','Tomatoes ×10','Cucumber ×6','Onion 1kg','Garlic 2 bulbs','Ginger 1 piece','Coriander 2 bunches','Drumstick / moringa ×4'],
+    'Fruits': ['Bananas ×14','Papaya ×2','Guava ×6','Pears ×6','Lemon ×10','Avocado ×3','Jackfruit (raw, for sambar) ×1 small','Seasonal fruit ×6'],
+  },
+];
 
 // ─── API (logs — shared via SQLite on server) ──────────────────────────────
 
@@ -1958,21 +1981,95 @@ async function updateReminderTime(id, time) {
 
 // ─── GROCERY ──────────────────────────────────────────────────────────────
 
+let groceryWeekIdx = 0;   // which week's list is showing
+let groceryTab = 'vendor'; // 'vendor' | 'online'
+
+function groceryTargetWeek() {
+  // Thu(4)/Fri(5)/Sat(6)/Sun(0) → order for next week; Mon–Wed → current week
+  const today = new Date();
+  const dow = today.getDay(); // 0=Sun
+  const todayStr = today.toISOString().split('T')[0];
+  const start = new Date(PLAN_START); start.setHours(0,0,0,0);
+  const diff = Math.round((today - start) / 86400000);
+  let wi = Math.max(0, Math.min(3, Math.floor(diff / 7)));
+  if (dow === 0 || dow >= 4) wi = Math.min(3, wi + 1); // Thu/Fri/Sat/Sun → next week
+  return wi;
+}
+
 function buildGrocery() {
+  groceryWeekIdx = groceryTargetWeek();
+  renderGroceryScreen();
+}
+
+function renderGroceryScreen() {
   const c = document.getElementById('grocery-content');
-  c.innerHTML = '';
-  Object.entries(GROCERY).forEach(([cat, items]) => {
+  const wi = groceryWeekIdx;
+  const weekStart = planWeekStartDate(wi);
+  const weekEnd   = planDayDate(wi, 6);
+  const fmt = d => `${d.getDate()} ${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()]}`;
+
+  // Header: week selector + tab switcher
+  c.innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:8px;flex-wrap:wrap">
+      <div style="font-size:13px;font-weight:600;color:var(--text)">
+        Week ${wi+1} &nbsp;<span style="font-weight:400;color:var(--text-muted)">${fmt(weekStart)} – ${fmt(weekEnd)}</span>
+      </div>
+      <div style="display:flex;gap:6px">
+        ${wi > 0 ? `<button onclick="groceryWeekIdx=${wi-1};renderGroceryScreen()" style="padding:4px 10px;border:1px solid var(--border);border-radius:20px;font-size:11px;background:var(--card);cursor:pointer;color:var(--text)">← Prev</button>` : ''}
+        ${wi < 3 ? `<button onclick="groceryWeekIdx=${wi+1};renderGroceryScreen()" style="padding:4px 10px;border:1px solid var(--border);border-radius:20px;font-size:11px;background:var(--card);cursor:pointer;color:var(--text)">Next →</button>` : ''}
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px">
+      <button id="tab-vendor" onclick="groceryTab='vendor';renderGroceryItems()"
+        style="padding:10px;border-radius:10px;border:1.5px solid ${groceryTab==='vendor'?'var(--teal)':'var(--border)'};background:${groceryTab==='vendor'?'var(--teal)':'var(--card)'};color:${groceryTab==='vendor'?'white':'var(--text)'};font-size:13px;font-weight:600;cursor:pointer">
+        🥦 Vendor<br><span style="font-size:10px;font-weight:400;opacity:0.8">Veg &amp; fruits</span>
+      </button>
+      <button id="tab-online" onclick="groceryTab='online';renderGroceryItems()"
+        style="padding:10px;border-radius:10px;border:1.5px solid ${groceryTab==='online'?'var(--teal)':'var(--border)'};background:${groceryTab==='online'?'var(--teal)':'var(--card)'};color:${groceryTab==='online'?'white':'var(--text)'};font-size:13px;font-weight:600;cursor:pointer">
+        🛒 Online<br><span style="font-size:10px;font-weight:400;opacity:0.8">Zepto / BigBasket</span>
+      </button>
+    </div>
+
+    <div id="grocery-items"></div>
+
+    <div style="display:flex;gap:8px;margin-top:14px">
+      <button class="btn" style="flex:1;padding:10px;font-size:13px" onclick="copyGroceryList(this)">📋 Copy list</button>
+      <button class="btn" style="padding:10px;font-size:13px;color:var(--coral)" onclick="resetGrocery()">Reset ✕</button>
+    </div>
+  `;
+  renderGroceryItems();
+}
+
+function renderGroceryItems() {
+  // Update tab button styles
+  ['vendor','online'].forEach(t => {
+    const btn = document.getElementById('tab-' + t);
+    if (!btn) return;
+    const active = groceryTab === t;
+    btn.style.borderColor = active ? 'var(--teal)' : 'var(--border)';
+    btn.style.background   = active ? 'var(--teal)' : 'var(--card)';
+    btn.style.color        = active ? 'white' : 'var(--text)';
+  });
+
+  const dict = groceryTab === 'vendor' ? GROCERY_VENDOR[groceryWeekIdx] : GROCERY_ONLINE;
+  const el = document.getElementById('grocery-items');
+  if (!el) return;
+  el.innerHTML = '';
+  const prefix = `w${groceryWeekIdx}:${groceryTab}:`;
+
+  Object.entries(dict).forEach(([cat, items]) => {
     const title = document.createElement('div');
     title.className = 'grocery-cat-title';
     title.textContent = cat;
-    c.appendChild(title);
+    el.appendChild(title);
 
     items.forEach(item => {
-      const key = cat + ':' + item;
-      const el = document.createElement('label');
-      el.className = 'grocery-item' + (groceryState[key] ? ' checked' : '');
-      el.innerHTML = `<input type="checkbox" ${groceryState[key] ? 'checked' : ''} onchange="toggleGrocery('${CSS.escape(key)}', this.checked, this.closest('label'))"> <span>${item}</span>`;
-      c.appendChild(el);
+      const key = prefix + cat + ':' + item;
+      const label = document.createElement('label');
+      label.className = 'grocery-item' + (groceryState[key] ? ' checked' : '');
+      label.innerHTML = `<input type="checkbox" ${groceryState[key] ? 'checked' : ''} onchange="toggleGrocery('${CSS.escape(key)}', this.checked, this.closest('label'))"> <span>${item}</span>`;
+      el.appendChild(label);
     });
   });
 }
@@ -1984,9 +2081,17 @@ async function toggleGrocery(key, checked, el) {
 }
 
 function copyGroceryList(btn) {
+  const dict = groceryTab === 'vendor' ? GROCERY_VENDOR[groceryWeekIdx] : GROCERY_ONLINE;
+  const prefix = `w${groceryWeekIdx}:${groceryTab}:`;
   const lines = [];
-  Object.entries(GROCERY).forEach(([cat, items]) => {
-    const unchecked = items.filter(item => !groceryState[cat + ':' + item]);
+  const wi = groceryWeekIdx;
+  const weekStart = planWeekStartDate(wi);
+  const fmt = d => `${d.getDate()} ${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()]}`;
+  const listName = groceryTab === 'vendor' ? 'Vegetables & Fruits' : 'Online (Zepto/BigBasket)';
+  lines.push(`Grocery — Week ${wi+1} (${fmt(weekStart)}) — ${listName}`);
+  lines.push('');
+  Object.entries(dict).forEach(([cat, items]) => {
+    const unchecked = items.filter(item => !groceryState[prefix + cat + ':' + item]);
     if (unchecked.length) {
       lines.push(cat);
       unchecked.forEach(item => lines.push('• ' + item));
@@ -2025,11 +2130,13 @@ function fallbackCopy(text, onSuccess) {
 }
 
 async function resetGrocery() {
-  groceryState = {};
-  await openDB();
+  const prefix = `w${groceryWeekIdx}:${groceryTab}:`;
+  Object.keys(groceryState).filter(k => k.startsWith(prefix)).forEach(k => delete groceryState[k]);
   const tx = db.transaction('grocery', 'readwrite');
-  tx.objectStore('grocery').clear();
-  buildGrocery();
+  const store = tx.objectStore('grocery');
+  const req = store.getAllKeys();
+  req.onsuccess = () => req.result.filter(k => k.startsWith(prefix)).forEach(k => store.delete(k));
+  renderGroceryItems();
 }
 
 // ─── START ─────────────────────────────────────────────────────────────────

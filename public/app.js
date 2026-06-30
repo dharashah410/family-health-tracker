@@ -788,22 +788,22 @@ const GROCERY_VENDOR = [
   // Week 1 (Jun 15–21)
   {
     'Vegetables': ['Spinach / palak 500g','Lauki / bottle gourd 500g','Baingan / eggplant 400g','Cauliflower 500g','Broccoli 300g','Sweet potato 600g','Tomatoes 500g','Cucumber 500g','Capsicum (mix) 400g','Onion 1kg','Garlic 2 bulbs','Ginger 100g','Green chillies 50g','Coriander 2 bunches','Bok choy 200g','Mushrooms 200g','Drumstick / moringa 300g'],
-    'Fruits': ['Bananas ×14','Papaya ×2','Guava ×6','Pears ×6','Lemon ×10','Avocado ×3','Jackfruit (raw, for sambar) ×1 small'],
+    'Fruits': ['Bananas 1.5kg','Papaya 1kg','Guava 500g','Pears 600g','Lemon 250g','Avocado 400g','Jackfruit (raw, for sambar) 500g'],
   },
   // Week 2 (Jun 22–28)
   {
     'Vegetables': ['Spinach / palak 500g','Dudhi / bottle gourd 500g','Bhindi / okra 300g','Methi leaves 200g','Cauliflower 500g','Broccoli 300g','Sweet potato 600g','Butternut squash 500g','Mushrooms 200g','Bok choy 200g','Capsicum (mix) 400g','Tomatoes 500g','Cucumber 500g','Onion 1kg','Garlic 2 bulbs','Ginger 100g','Coriander 2 bunches','Peas (fresh or frozen) 200g','Undhiyo mix (yam, raw banana, surti lilva, tindora) — as per vendor'],
-    'Fruits': ['Bananas ×14','Papaya ×2','Guava ×6','Pears ×6','Lemon ×10','Avocado ×3','Berries (frozen) 250g','Mango ×4'],
+    'Fruits': ['Bananas 1.5kg','Papaya 1kg','Guava 500g','Pears 600g','Lemon 250g','Avocado 400g','Berries (frozen) 250g','Mango 600g'],
   },
   // Week 3 (Jun 29–Jul 5)
   {
     'Vegetables': ['Spinach / palak 500g','Baingan / brinjal 400g','Drumstick / moringa 300g','Beetroot 400g','Capsicum (yellow, red, green) 600g','Mushrooms 250g','Carrot 400g','Broccoli 300g','Sweet potato 600g','Bok choy 200g','Cabbage 300g','Spring onion 1 bunch','Edamame (frozen) 200g','Tomatoes 500g','Cucumber 500g','Onion 1kg','Garlic 2 bulbs','Ginger 100g','Coriander 2 bunches','Sorakkai / bottle gourd 500g','Pumpkin / kaddu 300g'],
-    'Fruits': ['Bananas ×14','Papaya ×2','Guava ×6','Pears ×6','Lemon ×10','Avocado ×3','Jackfruit (raw, for sambar) ×1 small','Mango ×4'],
+    'Fruits': ['Bananas 1.5kg','Papaya 1kg','Guava 500g','Pears 600g','Lemon 250g','Avocado 400g','Jackfruit (raw, for sambar) 500g','Mango 600g'],
   },
   // Week 4 (Jul 6–12)
   {
     'Vegetables': ['Spinach / palak 500g','Lauki / bottle gourd 500g','Karela / bitter gourd 400g','Potato 600g','Bhindi / okra 300g','Methi leaves 200g','Mushrooms 200g','Bok choy 200g','Broccoli 300g','Sweet potato 600g','Capsicum (mix) 400g','Tomatoes 500g','Cucumber 500g','Onion 1kg','Garlic 2 bulbs','Ginger 100g','Coriander 2 bunches','Drumstick / moringa 300g'],
-    'Fruits': ['Bananas ×14','Papaya ×2','Guava ×6','Pears ×6','Lemon ×10','Avocado ×3','Jackfruit (raw, for sambar) ×1 small','Seasonal fruit 500g'],
+    'Fruits': ['Bananas 1.5kg','Papaya 1kg','Guava 500g','Pears 600g','Lemon 250g','Avocado 400g','Jackfruit (raw, for sambar) 500g','Mango 600g'],
   },
 ];
 

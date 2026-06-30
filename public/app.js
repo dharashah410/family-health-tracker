@@ -1985,15 +1985,12 @@ let groceryWeekIdx = 0;   // which week's list is showing
 let groceryTab = 'vendor'; // 'vendor' | 'online'
 
 function groceryTargetWeek() {
-  // Thu(4)/Fri(5)/Sat(6)/Sun(0) → order for next week; Mon–Wed → current week
-  const today = new Date();
-  const dow = today.getDay(); // 0=Sun
-  const todayStr = today.toISOString().split('T')[0];
+  // Always show next week's list — groceries for the current week are already bought
+  const today = new Date(); today.setHours(0,0,0,0);
   const start = new Date(PLAN_START); start.setHours(0,0,0,0);
   const diff = Math.round((today - start) / 86400000);
-  let wi = Math.max(0, Math.min(3, Math.floor(diff / 7)));
-  if (dow === 0 || dow >= 4) wi = Math.min(3, wi + 1); // Thu/Fri/Sat/Sun → next week
-  return wi;
+  const wi = Math.max(0, Math.min(3, Math.floor(diff / 7)));
+  return Math.min(3, wi + 1);
 }
 
 function buildGrocery() {

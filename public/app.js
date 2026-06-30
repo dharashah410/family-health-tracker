@@ -51,13 +51,13 @@ const PREP_TASKS = [
 
 // ── WEEK 1 (15–21 Jun) ────────────────────────────────────────────────────────
 [
-  { section: 'Saturday Night — Soak', emoji: '🌙', tasks: [
+  { section: 'Friday Night — Soak', emoji: '🌙', tasks: [
     'Red rice + urad dal (4:1 ratio) — large pot, water 3 inches above grains. For idli (Fri) and dosa (Sat dosa night) batter.',
     'Moong dal — 1 cup, separate bowl. For Vasu\'s daily besan-moong chilla batter (half moong, half besan).',
     'Chickpeas (chole) — 250 g, large bowl. Used Tue dinner (chole) and Fri lunch (chole).',
     'Toor dal — 1 cup, separate bowl. For jackfruit sambar base (Thu, Sat dosa night) and Dhansak dal (Fri dinner, Sun dinner).',
   ]},
-  { section: 'Sunday Morning — Grind & Cook', emoji: '☀️', tasks: [
+  { section: 'Saturday Morning — Grind & Cook', emoji: '☀️', tasks: [
     'Grind idli/dosa batter from soaked red rice + urad dal — thick pourable (like heavy cream). Set aside 2 cups for Ritvij, stir in 1 tbsp JF powder. Ferment all batter at room temp 6–8 hrs.',
     'Grind Vasu\'s chilla batter: 1 cup besan + ½ cup soaked moong + water to thin pourable. Pinch of cumin, turmeric. No salt. Refrigerate.',
     'Pressure cook chickpeas — 3 whistles high, 10 min low. Firm, not mushy. Drain, labelled box. Reserve cooking water (use in chole gravy).',
@@ -67,7 +67,7 @@ const PREP_TASKS = [
     'Make green chutney — blend 1 bunch coriander (roughly cut) + ½ cup grated coconut + 2 green chillies + juice of 1 lime + small piece ginger. Smooth, jar, fridge. Lasts the week.',
     'Make Vasu\'s marinara dip — blanch 5 tomatoes (score, boil 2 min, peel), blend smooth with 1 garlic clove + pinch dried basil. No oil, no salt, no sugar. Small jar, fridge.',
   ]},
-  { section: 'Sunday Afternoon — Cut & Prep', emoji: '🌤️', tasks: [
+  { section: 'Saturday Afternoon — Cut & Prep', emoji: '🌤️', tasks: [
     '🫙 Seeds powder jar: dry roast flaxseeds, sesame, chia separately until fragrant. Cool, lightly crush (keep texture — not fine powder). Glass jar on counter.',
     '🫙 JF roti dough: knead 2 cups jowar flour + 1 tbsp JF powder + warm water. Smooth and soft. Wrap tightly, refrigerate. For Ritvij and Dhara\'s rotis Mon–Sat.',
     '🥒 Cucumber — two cuts: (1) thin half-moon slices (3mm) for daily salads, (2) finger-length sticks for Ritvij\'s snack. Same box.',
@@ -91,13 +91,13 @@ const PREP_TASKS = [
 
 // ── WEEK 2 (22–28 Jun) ────────────────────────────────────────────────────────
 [
-  { section: 'Saturday Night — Soak', emoji: '🌙', tasks: [
+  { section: 'Friday Night — Soak', emoji: '🌙', tasks: [
     'Red rice + urad dal (4:1 ratio) — for Red Rice Idli (Fri breakfast) and Sat dosa night. Large pot, 3 inches above grains.',
     'Moong dal — 1 cup, separate bowl. For Vasu\'s daily besan-moong chilla batter.',
     'Chickpeas — 200 g. For Chole (Fri lunch).',
     'Toor dal — 1 cup. For sambar base (Sat dosa night) and any dal sides.',
   ]},
-  { section: 'Sunday Morning — Grind & Cook', emoji: '☀️', tasks: [
+  { section: 'Saturday Morning — Grind & Cook', emoji: '☀️', tasks: [
     'Grind idli/dosa batter — thick pourable. Set 2 cups for Ritvij + 1 tbsp JF. Ferment 6–8 hrs.',
     'Grind Vasu\'s chilla batter — besan + soaked moong, thin pourable, no salt. Refrigerate.',
     'Pressure cook chickpeas — firm, not mushy. Reserve cooking water.',
@@ -106,7 +106,7 @@ const PREP_TASKS = [
     'Make Vasu\'s marinara dip — blanched tomatoes blended smooth, no oil, no salt. Jar, fridge.',
     'Make Methi Matar Malai base (Mon lunch) — grind cashews + onion + ginger + garlic. No oil, no cream. Sauté spices dry, add paste + peas + fenugreek leaves. Refrigerate.',
   ]},
-  { section: 'Sunday Afternoon — Cut & Prep', emoji: '🌤️', tasks: [
+  { section: 'Saturday Afternoon — Cut & Prep', emoji: '🌤️', tasks: [
     '🫙 Refill seeds powder jar if running low.',
     '🫙 Fresh JF roti dough — knead jowar flour + 1 tbsp JF + warm water. Refrigerate.',
     '🥒 Cucumber — half-moon slices (3mm) for salads + finger sticks for snack.',
@@ -130,14 +130,14 @@ const PREP_TASKS = [
 
 // ── WEEK 3 (29 Jun – 5 Jul) ──────────────────────────────────────────────────
 [
-  { section: 'Saturday Night — Soak', emoji: '🌙', tasks: [
+  { section: 'Friday Night — Soak', emoji: '🌙', tasks: [
     'Red rice + urad dal (4:1) — for Fri Red Rice Idli and Sat Thalipeeth dosa night batter.',
     'Moong dal — 1 cup. For Vasu\'s daily chilla batter and Tue Moong Chaat.',
     'Chickpeas — 200 g. For Mon Chickpea Curry and Sat Chickpea Masala Chaat.',
     'Toor dal — 1 cup. For Jackfruit Sambar (Mon dinner, Sun lunch) and Kootu Curry base (Fri).',
     'Soy chunks for Mangalorean Curry (Thu dinner) — soak in warm water Sunday morning, 30 min.',
   ]},
-  { section: 'Sunday Morning — Grind & Cook', emoji: '☀️', tasks: [
+  { section: 'Saturday Morning — Grind & Cook', emoji: '☀️', tasks: [
     'Grind idli/dosa batter — ferment 6–8 hrs. Set 2 cups for Ritvij + JF. Also base for Sat Thalipeeth batter (mix in jowar + other grains then).',
     'Grind Vasu\'s chilla batter — besan + soaked moong, thin, no salt. Refrigerate.',
     'Pressure cook chickpeas — firm. Reserve cooking water.',
@@ -147,7 +147,7 @@ const PREP_TASKS = [
     'Make green chutney — coriander + coconut + lime + chilli. Jar, fridge.',
     'Make Vasu\'s marinara dip. Jar, fridge.',
   ]},
-  { section: 'Sunday Afternoon — Cut & Prep', emoji: '🌤️', tasks: [
+  { section: 'Saturday Afternoon — Cut & Prep', emoji: '🌤️', tasks: [
     '🫙 Seeds powder jar, JF roti dough — as every week.',
     '🥒 Cucumber — half-moon slices (3mm) for salads.',
     '🍅 Tomato — roughly diced (2cm) for salads.',
@@ -173,14 +173,14 @@ const PREP_TASKS = [
 
 // ── WEEK 4 (6–12 Jul) ─────────────────────────────────────────────────────────
 [
-  { section: 'Saturday Night — Soak', emoji: '🌙', tasks: [
+  { section: 'Friday Night — Soak', emoji: '🌙', tasks: [
     'Red rice + urad dal (4:1) — for Wed Millet Dosa and Fri Red Rice Idli. Large pot.',
     'Moong dal — 1 cup. For Vasu\'s daily chilla batter and Tue Moong Chaat.',
     'Chickpeas — 200 g. For Mon Chole and Wed Chana Palak.',
     'Toor dal — 1 cup. For dal sides and sambar.',
     '🥣 Overnight oats (Tue): mix oats + chia + seeds powder + mashed banana + plant milk in jars (R and D separately). Refrigerate tonight.',
   ]},
-  { section: 'Sunday Morning — Grind & Cook', emoji: '☀️', tasks: [
+  { section: 'Saturday Morning — Grind & Cook', emoji: '☀️', tasks: [
     'Grind idli/dosa batter — for Wed Millet Dosa. Ferment 6–8 hrs. Set 2 cups for Ritvij + JF.',
     'Grind Vasu\'s chilla batter — besan + soaked moong, thin, no salt. Refrigerate.',
     'Pressure cook chickpeas — for Mon Chole and Wed Chana Palak. Firm, reserve cooking water.',
@@ -189,7 +189,7 @@ const PREP_TASKS = [
     'Make green chutney. Jar, fridge.',
     'Make Vasu\'s marinara dip. Jar, fridge.',
   ]},
-  { section: 'Sunday Afternoon — Cut & Prep', emoji: '🌤️', tasks: [
+  { section: 'Saturday Afternoon — Cut & Prep', emoji: '🌤️', tasks: [
     '🫙 Seeds powder jar, JF roti dough — as every week.',
     '🥒 Cucumber — half-moon slices (3mm) for salads.',
     '🍅 Tomato — roughly diced (2cm) for salads.',
@@ -205,6 +205,172 @@ const PREP_TASKS = [
     '🥣 Large millet pot — for the week.',
     '🫙 Coconut chutney for Wed dosa.',
     '🫙 Date-tamarind chutney for Mon Moong Chaat and Wed Chickpea Chaat.',
+  ]},
+],
+
+];
+
+// ─── BABLI AUNTY — HINDI AUDIO ────────────────────────────────────────────────
+const BABLI_PHONE = '919582302823';
+
+const PREP_TASKS_HI = [
+
+// ── WEEK 1 ──
+[
+  { section: 'शुक्रवार रात — भिगोना', tasks: [
+    'लाल चावल और उड़द दाल, चार और एक के अनुपात में, बड़े बर्तन में भिगोएं। पानी ऊपर से तीन इंच। इडली और डोसा बैटर के लिए।',
+    'मूंग दाल, एक कप, अलग कटोरे में भिगोएं। वासु के चिल्ला बैटर के लिए।',
+    'छोले, ढाई सौ ग्राम, बड़े कटोरे में भिगोएं।',
+    'तूवर दाल, एक कप, अलग कटोरे में भिगोएं।',
+  ]},
+  { section: 'शनिवार सुबह — पीसना और पकाना', tasks: [
+    'चावल और उड़द दाल का बैटर पीसें। गाढ़ा रखें। दो कप ऋत्विज के लिए अलग निकालें, एक चम्मच जेएफ पाउडर मिलाएं। बाकी बैटर छह से आठ घंटे बाहर रखें।',
+    'वासु का चिल्ला बैटर: एक कप बेसन और आधा कप भीगी मूंग पीसें, पतला करें। जीरा और हल्दी चुटकी भर। नमक नहीं। फ्रिज में रखें।',
+    'छोले प्रेशर कुकर में पकाएं। तेज आंच पर तीन सीटी, धीमी आंच पर दस मिनट। दाने ठोस रहें। पानी बचाकर रखें।',
+    'तूवर दाल दो कप पानी में तीन सीटी दें।',
+    'जैकफ्रूट सांभर बेस बनाएं: तूवर दाल, कच्चा जैकफ्रूट, टमाटर, ड्रमस्टिक, सांभर पाउडर और इमली पानी। तेल नहीं। गाढ़ा होने तक उबालें। फ्रिज में रखें।',
+    'धनसाक दाल: मसूर, तूवर, मूंग, लौकी के टुकड़े, पालक, टमाटर और पारसी मसाले मिलाएं। तेल नहीं। तीन सीटी। फ्रिज में।',
+    'हरी चटनी: धनिया, नारियल, हरी मिर्च, नींबू, अदरक पीसें। जार में फ्रिज में।',
+    'वासु की मरिनारा डिप: पांच टमाटर उबालकर छीलें। लहसुन और सूखी तुलसी के साथ पीसें। तेल, नमक, चीनी नहीं। जार में।',
+  ]},
+  { section: 'शनिवार दोपहर — काटना और तैयारी', tasks: [
+    'बीज पाउडर: अलसी, तिल और चिया अलग-अलग सूखे भूनें। ठंडा करें, हल्का कूटें। शीशे के जार में।',
+    'रोटी आटा: दो कप ज्वार आटा, एक चम्मच जेएफ पाउडर और गर्म पानी मिलाकर मुलायम गूंधें। कसकर लपेटें, फ्रिज में।',
+    'खीरा दो तरह से काटें: पहला, तीन मिलीमीटर के पतले टुकड़े सलाद के लिए। दूसरा, लंबी स्टिक ऋत्विज के नाश्ते के लिए। एक ही डब्बे में।',
+    'टमाटर मोटे दो सेंटीमीटर के टुकड़े। नमक नहीं। तीन दिन चलेगा।',
+    'गाजर पतली माचिस जैसी जूलियन में काटें।',
+    'लाल और पीली शिमला मिर्च दो तरह: पहला, पांच सेंटीमीटर की लंबी पट्टियां वासु की थाली के लिए। दूसरा, बारीक टुकड़े साबी के अंडे के लिए।',
+    'पालक धोएं, मोटे डंठल हटाएं, हाथ से मोटे-मोटे तोड़ें। बारीक नहीं काटना। गीले कपड़े में फ्रिज में।',
+    'भिंडी अभी धोकर अच्छे से सुखाएं। कपड़े से पोंछें, नमी बिल्कुल नहीं। फ्रिज में। मंगलवार सुबह पकाने से पहले तीन मिलीमीटर के तिरछे टुकड़े काटें।',
+    'शकरकंद छीलकर दो सेंटीमीटर के टुकड़े काटें, पानी में रखें। दो तीन साबुत भी रखें।',
+    'बैगन साबुत धोकर रखें। काटें नहीं। गुरुवार सुबह सीधे आंच पर भूनना है।',
+    'मेथी: पत्ते तोड़ें, मोटे डंठल फेंकें, मोटे काटें। किचन पेपर वाले डब्बे में।',
+    'मशरूम गीले कपड़े से पोंछें। धोएं नहीं। चार से पांच मिलीमीटर के पतले टुकड़े।',
+    'बोक चॉय धोएं, लंबाई में आधा काटें। अच्छे से सुखाएं।',
+    'टोफू किचन पेपर के बीच बीस मिनट दबाएं। दो सेंटीमीटर के टुकड़े। रविवार के लिए एक टुकड़ा साबुत।',
+    'नारियल चटनी: नारियल, हरी मिर्च, अदरक, नींबू पीसें। जार में।',
+    'खजूर इमली चटनी: खजूर और इमली गर्म पानी में दस मिनट भिगोएं, पीसें। जार में।',
+    'मिसो शोरबा: पानी में मिसो पेस्ट, अदरक, लहसुन, सूखे मशरूम डालें। उबालें नहीं, सिर्फ दस मिनट गर्म करें। जार में।',
+    'मिलेट का बर्तन: दो कप मिलेट धोएं, एक मिनट सूखा भूनें, चार कप पानी डालें, बारह मिनट ढककर पकाएं।',
+  ]},
+],
+
+// ── WEEK 2 ──
+[
+  { section: 'शुक्रवार रात — भिगोना', tasks: [
+    'लाल चावल और उड़द दाल, चार और एक के अनुपात में, बड़े बर्तन में भिगोएं। इडली और डोसा के लिए।',
+    'मूंग दाल, एक कप, अलग कटोरे में। वासु के चिल्ला के लिए।',
+    'छोले, दो सौ ग्राम।',
+    'तूवर दाल, एक कप। सांभर के लिए।',
+  ]},
+  { section: 'शनिवार सुबह — पीसना और पकाना', tasks: [
+    'इडली-डोसा बैटर पीसें। दो कप ऋत्विज के लिए, जेएफ पाउडर मिलाएं। छह से आठ घंटे किण्वन।',
+    'वासु का चिल्ला बैटर। बेसन और मूंग, नमक नहीं। फ्रिज में।',
+    'छोले पकाएं। ठोस रखें। पानी बचाएं।',
+    'सांभर बेस: तूवर दाल, टमाटर, सब्जियां, सांभर पाउडर, इमली। तेल नहीं। फ्रिज में।',
+    'हरी चटनी। जार में।',
+    'वासु की मरिनारा डिप। जार में।',
+    'मेथी मटर मलाई बेस: काजू, प्याज, अदरक, लहसुन पीसें। सूखे मसाले भूनें, मटर और मेथी पत्ते मिलाएं। फ्रिज में।',
+  ]},
+  { section: 'शनिवार दोपहर — काटना और तैयारी', tasks: [
+    'बीज पाउडर जार भरें।',
+    'रोटी आटा गूंधें। ज्वार और जेएफ पाउडर। फ्रिज में।',
+    'खीरा: सलाद के लिए पतले टुकड़े और नाश्ते के लिए लंबी स्टिक।',
+    'टमाटर मोटे टुकड़े। नमक नहीं।',
+    'गाजर पतली जूलियन।',
+    'शिमला मिर्च दो तरह: वासु के लिए लंबी पट्टियां, साबी के लिए बारीक टुकड़े।',
+    'पालक धोएं, मोटे-मोटे तोड़ें। गीले कपड़े में।',
+    'भिंडी धोकर अच्छे से सुखाएं। नमी बिल्कुल नहीं। सोमवार खाना बनाने से पहले तिरछे काटें।',
+    'शकरकंद छीलकर दो सेंटीमीटर टुकड़े। पानी में।',
+    'बैगन साबुत। रविवार शाम भूनना है।',
+    'मेथी पत्ते तोड़ें, डंठल हटाएं, मोटे काटें।',
+    'टोफू बीस मिनट दबाएं। दो सेंटीमीटर टुकड़े।',
+    'मशरूम गीले कपड़े से पोंछें। पतले टुकड़े।',
+    'बोक चॉय काटें, सुखाएं।',
+    'मिसो शोरबा। उबालें नहीं। जार में।',
+    'मिलेट का बर्तन पकाएं।',
+    'नारियल चटनी। जार में।',
+    'खजूर इमली चटनी। जार में।',
+  ]},
+],
+
+// ── WEEK 3 ──
+[
+  { section: 'शुक्रवार रात — भिगोना', tasks: [
+    'लाल चावल और उड़द दाल भिगोएं। इडली और थालीपीठ डोसा के लिए।',
+    'मूंग दाल भिगोएं। वासु के चिल्ला और मूंग चाट के लिए।',
+    'छोले, दो सौ ग्राम।',
+    'तूवर दाल।',
+    'सोया चंक्स रविवार सुबह गर्म पानी में आधे घंटे के लिए भिगोने हैं।',
+  ]},
+  { section: 'शनिवार सुबह — पीसना और पकाना', tasks: [
+    'इडली-डोसा बैटर पीसें। दो कप ऋत्विज के लिए, जेएफ मिलाएं। छह से आठ घंटे किण्वन।',
+    'वासु का चिल्ला बैटर। नमक नहीं। फ्रिज में।',
+    'छोले पकाएं। ठोस। पानी बचाएं।',
+    'जैकफ्रूट सांभर बेस: तूवर दाल, जैकफ्रूट, टमाटर, सांभर पाउडर, इमली। तेल नहीं। फ्रिज में।',
+    'दाल मखनी बेस: साबुत मसूर और राजमा तीन से चार सीटी। फिर आधे घंटे धीमी आंच पर। तेल और मलाई नहीं।',
+    'कद्दू की प्यूरी: कद्दू पकाएं, नारियल दूध से पीसें। मंगलवार के नाश्ते के लिए। फ्रिज में।',
+    'हरी चटनी। जार में।',
+    'वासु की मरिनारा डिप। जार में।',
+  ]},
+  { section: 'शनिवार दोपहर — काटना और तैयारी', tasks: [
+    'बीज पाउडर जार और रोटी आटा। हर हफ्ते की तरह।',
+    'खीरा पतले टुकड़े।',
+    'टमाटर मोटे टुकड़े। नमक नहीं।',
+    'गाजर पतली जूलियन।',
+    'शिमला मिर्च दो तरह।',
+    'पालक धोएं, मोटे-मोटे तोड़ें।',
+    'भिंडी धोकर अच्छे से सुखाएं। गुरुवार के लिए। पकाने से पहले दो से तीन मिलीमीटर तिरछे काटें।',
+    'शकरकंद दो सेंटीमीटर टुकड़े। पानी में।',
+    'ब्रोकोली: मध्यम फूल, तीन से चार सेंटीमीटर।',
+    'फ्रेंच बीन्स: सिरे काटें, तीन सेंटीमीटर के तिरछे टुकड़े।',
+    'बैगन और ड्रमस्टिक बुधवार को ताजा काटना है।',
+    'ब्रेड: डेढ़ सेंटीमीटर के मोटे टुकड़े तोड़ें। गुरुवार के ब्रेड उपमा के लिए।',
+    'टोफू बीस मिनट दबाएं। दो सेंटीमीटर टुकड़े।',
+    'मशरूम गीले कपड़े से पोंछें। पतले टुकड़े।',
+    'बोक चॉय काटें, सुखाएं।',
+    'मिसो शोरबा। उबालें नहीं। जार में।',
+    'मिलेट का बर्तन पकाएं।',
+    'नारियल चटनी। जार में।',
+    'खजूर इमली चटनी। जार में।',
+    'एवोकाडो साबुत रखें। अगर कड़ा है तो बाहर पकने दें।',
+  ]},
+],
+
+// ── WEEK 4 ──
+[
+  { section: 'शुक्रवार रात — भिगोना', tasks: [
+    'लाल चावल और उड़द दाल भिगोएं। बुधवार का मिलेट डोसा और शुक्रवार की इडली के लिए।',
+    'मूंग दाल भिगोएं।',
+    'छोले, दो सौ ग्राम।',
+    'तूवर दाल।',
+    'ओवरनाइट ओट्स आज रात बनाएं: ओट्स, चिया, बीज पाउडर, केला और प्लांट मिल्क। ऋत्विज और धारा के अलग-अलग जार। फ्रिज में।',
+  ]},
+  { section: 'शनिवार सुबह — पीसना और पकाना', tasks: [
+    'इडली-डोसा बैटर पीसें। दो कप ऋत्विज के लिए, जेएफ मिलाएं। छह से आठ घंटे किण्वन।',
+    'वासु का चिल्ला बैटर। नमक नहीं। फ्रिज में।',
+    'छोले पकाएं। ठोस। पानी बचाएं।',
+    'मिक्स वेजिटेबल मखनवाला बेस: गोभी, मटर, गाजर पकाएं। काजू, प्याज, अदरक, लहसुन पीसें। तेल और मलाई नहीं। मिलाएं। फ्रिज में।',
+    'करेला: गोल पतले टुकड़े काटें, एक चम्मच नमक मिलाएं, आधे घंटे रखें, निचोड़ें। धोएं, फ्रिज में।',
+    'हरी चटनी। जार में।',
+    'वासु की मरिनारा डिप। जार में।',
+  ]},
+  { section: 'शनिवार दोपहर — काटना और तैयारी', tasks: [
+    'बीज पाउडर जार और रोटी आटा। हर हफ्ते की तरह।',
+    'खीरा पतले टुकड़े।',
+    'टमाटर मोटे टुकड़े। नमक नहीं।',
+    'गाजर पतली जूलियन।',
+    'शिमला मिर्च दो तरह।',
+    'पालक और मेथी: चना पालक और मेथी पालक सब्जी के लिए। धोएं, मोटे-मोटे तोड़ें।',
+    'मेथी पत्ते अलग से: डंठल हटाएं, मोटे काटें।',
+    'भिंडी धोकर अच्छे से सुखाएं। गुरुवार के लिए।',
+    'शकरकंद दो सेंटीमीटर टुकड़े। पानी में।',
+    'करेला फ्रिज में रखें। मंगलवार सुबह पकाएं।',
+    'लौकी छीलें, दो से तीन सेंटीमीटर के मध्यम टुकड़े। पानी में।',
+    'रागी पेस्ट: रागी आटा पानी में घोलें, गांठ न हो। फ्रिज में। गुरुवार सुबह नारियल दूध से पकाएं।',
+    'मिलेट का बर्तन पकाएं।',
+    'नारियल चटनी। जार में।',
+    'खजूर इमली चटनी। जार में।',
   ]},
 ],
 
@@ -1125,7 +1291,7 @@ function updateWeightCards() {
 
 // ─── MEAL PLAN ─────────────────────────────────────────────────────────────
 
-// Plan starts Monday 15 June 2026 — prep happened Saturday 13 June
+// Plan starts Monday 15 June 2026 — prep happens Friday + Saturday before each week
 const PLAN_START = new Date('2026-06-15T00:00:00');
 
 function planWeekStartDate(weekIdx) {
@@ -1350,7 +1516,7 @@ const LINK_STYLE = 'color:var(--teal);font-weight:600;text-decoration:underline;
 function linkify(text, sharanUrl) {
   let out = text;
 
-  // 1. "Recipe Name (domain.com/path)" — cookieandkate style
+  // 1. "Recipe Name (domain.com/path)" — cookieandkate style inline URLs
   out = out.replace(/([^(+]+?)\s*\(([a-z0-9-]+\.[a-z]{2,}\/[^\s)]*)\)/g,
     (_, name, url) => `<a href="https://${url}" target="_blank" rel="noopener" style="${LINK_STYLE}">${name.trim()} ↗</a>`);
 
@@ -1359,15 +1525,16 @@ function linkify(text, sharanUrl) {
     out = out.replace(/([^(+]+?)\s*\(SHARAN[^)]*\)/gi,
       (_, name) => `<a href="${sharanUrl}" target="_blank" rel="noopener" style="${LINK_STYLE}">${name.trim()} ↗</a>`);
 
-    // 3. Slug-based match for the day's primary SHARAN recipe name
-    //    e.g. "jackfruit-sambar" → try to find "Jackfruit Sambar" in text
+    // 3. Slug-based: derive recipe name from SHARAN URL and link first occurrence in plain text
     const slug = sharanUrl.replace(/\/$/, '').split('/').pop();
     const primarySlug = slug.split('-or-')[0]; // "red-rice-idli-or-dosa" → "red-rice-idli"
     const recipeName  = primarySlug.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join(' ');
-    const escaped     = recipeName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    // Only link if not already inside an <a> tag
-    out = out.replace(new RegExp(`(?<!">)(${escaped})(?![^<]*<\\/a>)`, 'i'),
-      (_, m) => `<a href="${sharanUrl}" target="_blank" rel="noopener" style="${LINK_STYLE}">${m} ↗</a>`);
+    // Check original text (not HTML) to avoid matching inside existing <a> tags
+    if (text.toLowerCase().includes(recipeName.toLowerCase())) {
+      const escaped = recipeName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      out = out.replace(new RegExp(escaped, 'i'),
+        m => `<a href="${sharanUrl}" target="_blank" rel="noopener" style="${LINK_STYLE}">${m} ↗</a>`);
+    }
   }
 
   return out;
@@ -1623,9 +1790,60 @@ function buildPrepScreen() {
   renderPrepContent();
 }
 
+function playPrepHindi(wi, si) {
+  if (!('speechSynthesis' in window)) { alert('आपके browser में Hindi audio support नहीं है।'); return; }
+  window.speechSynthesis.cancel();
+  const sec = PREP_TASKS_HI[wi][si];
+  const fullText = sec.section + '। ' + sec.tasks.join('। ');
+  const utt = new SpeechSynthesisUtterance(fullText);
+  utt.lang = 'hi-IN';
+  utt.rate = 0.82;
+  utt.pitch = 1;
+  // Update button state
+  const btn = document.getElementById(`babli-play-${si}`);
+  if (btn) { btn.textContent = '⏸ रुको'; btn.onclick = () => stopPrepHindi(si); }
+  utt.onend = utt.onerror = () => {
+    const b = document.getElementById(`babli-play-${si}`);
+    if (b) { b.textContent = '▶ सुनो'; b.onclick = () => playPrepHindi(activePrepWeekIdx, si); }
+  };
+  window.speechSynthesis.speak(utt);
+}
+
+function stopPrepHindi(si) {
+  window.speechSynthesis.cancel();
+  const btn = document.getElementById(`babli-play-${si}`);
+  if (btn) { btn.textContent = '▶ सुनो'; btn.onclick = () => playPrepHindi(activePrepWeekIdx, si); }
+}
+
+function sendBabliWhatsApp(wi, si) {
+  const sec = PREP_TASKS_HI[wi][si];
+  const msg = `*${sec.section}*\n\n` + sec.tasks.map((t, i) => `${i + 1}. ${t}`).join('\n');
+  const phone = BABLI_PHONE || '';
+  const base = phone ? `https://wa.me/${phone}` : 'https://wa.me/';
+  window.open(`${base}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
 function renderPrepContent() {
   const c = document.getElementById('prep-content');
   c.innerHTML = '';
+
+  // ── Babli Aunty Hindi audio card ──
+  const babliCard = document.createElement('div');
+  babliCard.className = 'card';
+  const sectionNames = ['🌙 शुक्रवार रात', '☀️ शनिवार सुबह', '🌤️ शनिवार दोपहर'];
+  babliCard.innerHTML = `
+    <div class="card-title">🎙️ बब्ली आंटी के लिए (Hindi Audio)</div>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px">▶ सुनो — phone पर Hindi में सुनाएं &nbsp;|&nbsp; 📲 WhatsApp पर भेजें</div>
+    ${sectionNames.map((name, si) => `
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:0.5px solid var(--border)">
+        <span style="flex:1;font-size:13px;font-weight:500">${name}</span>
+        <button id="babli-play-${si}" onclick="playPrepHindi(${activePrepWeekIdx},${si})"
+          style="background:var(--teal);color:#fff;border:none;border-radius:8px;padding:6px 12px;font-size:13px;cursor:pointer">▶ सुनो</button>
+        <button onclick="sendBabliWhatsApp(${activePrepWeekIdx},${si})"
+          style="background:#25D366;color:#fff;border:none;border-radius:8px;padding:6px 12px;font-size:13px;cursor:pointer">📲 WA</button>
+      </div>`).join('')}
+  `;
+  c.appendChild(babliCard);
 
   // ── Batch prep checklist ──
   PREP_TASKS[activePrepWeekIdx].forEach((section, si) => {

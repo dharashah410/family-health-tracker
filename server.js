@@ -78,7 +78,7 @@ if (reminderCount === 0) {
   );
   [
     ['d3',       'all', 'Vitamin D (Sunday)',        '[0]',             '13:30', 1, 'Time for your Vitamin D 🌞 — take with lunch'],
-    ['b12',      'all', 'Vitamin B12',               '[0,2,4]',         '20:00', 1, 'Time for your B12 💊 — sublingual, after dinner'],
+    ['b12',      'all', 'Vitamin B12',               '[0,3]',           '20:00', 1, 'Time for your B12 500 mcg 💊 — sublingual, after dinner'],
     ['log_r',    'R',   'Daily log — Ritvij',        '[0,1,2,3,4,5,6]', '19:00', 1, 'Log your day, Ritvij — weight, sleep, energy 📋'],
     ['log_d',    'D',   'Daily log — Dhara',         '[0,1,2,3,4,5,6]', '19:00', 1, 'Log your day, Dhara — weight, sleep, energy 📋'],
     ['grocery',  'all', 'Grocery reminder',          '[3]',             '18:00', 1, 'Time to send the grocery list to vendor 🥬'],
@@ -90,6 +90,10 @@ if (reminderCount === 0) {
     ['reorder',  'all', 'Supplement reorder',        '[]',              '10:00', 0, 'Time to reorder supplements — stock running low 💊'],
   ].forEach(r => ins.run(...r));
 }
+
+// ─── One-time migrations ────────────────────────────────────────────────────
+// Update B12 reminder to 500 mcg, Sun+Wed only
+db.prepare(`UPDATE reminders SET days='[0,3]', message='Time for your B12 500 mcg 💊 — sublingual, after dinner' WHERE id='b12'`).run();
 
 // ─── Push helper ────────────────────────────────────────────────────────────
 

@@ -12,12 +12,12 @@ const PEOPLE = {
 const MEDS = {
   R: [
     { name: 'Vitamin D — Cholecalciferol 60K', freq: 'Once a week (Sunday)', days: [0] },
-    { name: 'Vitamin B12 — Methylcobalamin 250 mcg', freq: '2–3 times a week', days: [1,3,5] },
+    { name: 'Vitamin B12 — Methylcobalamin 500 mcg', freq: 'Twice a week (Sunday + Wednesday)', days: [0,3] },
     { name: 'Isabgol (Psyllium Husk)', freq: 'As needed — tapering off as gut improves on WFPB', days: [] },
   ],
   D: [
     { name: 'Vitamin D — Cholecalciferol 60K', freq: 'Once a week (Sunday)', days: [0] },
-    { name: 'Vitamin B12 — Methylcobalamin 500 mcg', freq: 'Daily for 3 months, then 2–3×/week', days: [0,1,2,3,4,5,6] },
+    { name: 'Vitamin B12 — Methylcobalamin 500 mcg', freq: 'Twice a week (Sunday + Wednesday)', days: [0,3] },
   ]
 };
 
@@ -781,7 +781,7 @@ const GROCERY = {
   'Proteins': ['Tofu (firm) ×3 packs (400g each)','Tempeh ×1 pack (optional)'],
   'Pantry': ['Miso paste 200g','Tamarind paste 100g','Coconut (grated fresh or frozen) 200g','Whole grain bread (or homemade)','Almond / peanut butter 200g','Mustard seeds','Cumin seeds','Turmeric','Coriander powder','Green chillies ×10'],
   '🌿 Jackfruit powder — Ritvij only': ['Green jackfruit powder 200g (1 tbsp/day in food, ~3-week supply)'],
-  'Supplements (both)': ['Methylcobalamin B12 — Nurokind or Methycobal','Cholecalciferol 60K Vitamin D'],
+  'Supplements (both)': ['Methylcobalamin B12 500 mcg — Nurokind Gold or Methycobal 500','Cholecalciferol 60K Vitamin D'],
 };
 
 // ─── API (logs — shared via SQLite on server) ──────────────────────────────
@@ -1002,27 +1002,53 @@ function setEnergy(n) {
 
 // ─── LOGGING ───────────────────────────────────────────────────────────────
 
-async function saveLog() {
-  const date = document.getElementById('log-date').value;
-  const weight = parseFloat(document.getElementById('log-weight').value) || null;
-  const sleep = parseFloat(document.getElementById('log-sleep').value) || null;
-  const meals = document.getElementById('log-meals').value.trim();
-  const eLabels = ['','Low','OK','Good','Great'];
+// Find today's existing entry for this person (to merge morning + evening)
+function findTodayEntry(date) {
+  return allLogs.find(l => l.person === activePerson && l.date === date) || null;
+}
 
-  const entry = { person: activePerson, date, weight, sleep, energy: eLabels[energyLevel] || '', meals, ts: Date.now() };
+async function saveMorningLog() {
+  const date   = document.getElementById('log-date').value;
+  const weight = parseFloat(document.getElementById('log-weight').value) || null;
+  const sleep  = parseFloat(document.getElementById('log-sleep').value) || null;
+  if (!weight && !sleep) { showToast('Enter weight or sleep first'); return; }
+
+  const existing = findTodayEntry(date);
+  const entry = Object.assign(
+    { person: activePerson, date, weight: null, sleep: null, energy: '', meals: '', ts: Date.now() },
+    existing || {},
+    { weight: weight ?? existing?.weight ?? null, sleep: sleep ?? existing?.sleep ?? null, ts: existing ? existing.ts : Date.now() }
+  );
   await postLog(entry);
   allLogs = await dbGetAll('logs');
 
-  // Reset form
   document.getElementById('log-weight').value = '';
-  document.getElementById('log-sleep').value = '';
+  document.getElementById('log-sleep').value  = '';
+  updateWeightCards();
+  showToast(`${PEOPLE[activePerson].name}'s morning saved ✓`);
+}
+
+async function saveEveningLog() {
+  const date   = document.getElementById('log-date').value;
+  const meals  = document.getElementById('log-meals').value.trim();
+  const eLabels = ['','Low','OK','Good','Great'];
+  const energy = eLabels[energyLevel] || '';
+  if (!energy && !meals) { showToast('Select energy or add meals first'); return; }
+
+  const existing = findTodayEntry(date);
+  const entry = Object.assign(
+    { person: activePerson, date, weight: null, sleep: null, energy: '', meals: '', ts: Date.now() },
+    existing || {},
+    { energy: energy || existing?.energy || '', meals: meals || existing?.meals || '', ts: existing ? existing.ts : Date.now() }
+  );
+  await postLog(entry);
+  allLogs = await dbGetAll('logs');
+
   document.getElementById('log-meals').value = '';
   energyLevel = 0;
   [1,2,3,4].forEach(i => document.getElementById('en'+i).classList.remove('active'));
   document.querySelectorAll('.check-circle').forEach(c => c.classList.remove('done'));
-
-  updateWeightCards();
-  showToast(`${PEOPLE[activePerson].name}'s entry saved ✓`);
+  showToast(`${PEOPLE[activePerson].name}'s evening saved ✓`);
 }
 
 function showToast(msg) {

@@ -276,6 +276,65 @@ app.get('/api/grocery-whatsapp', (req, res) => {
   res.json({ url: groceryWhatsAppUrl() });
 });
 
+// ─── Babli Aunty Hindi TTS audio ─────────────────────────────────────────────
+
+function splitTTSChunks(text, maxLen = 100) {
+  const chunks = [];
+  const sentences = text.split(/(?<=[।.!?,])\s+/);
+  let cur = '';
+  for (const s of sentences) {
+    if (!s.trim()) continue;
+    if (cur.length + s.length + 1 <= maxLen) {
+      cur = cur ? cur + ' ' + s : s;
+    } else {
+      if (cur) chunks.push(cur.trim());
+      if (s.length > maxLen) {
+        const words = s.split(' ');
+        let wc = '';
+        for (const w of words) {
+          if (wc.length + w.length + 1 <= maxLen) { wc = wc ? wc + ' ' + w : w; }
+          else { if (wc) chunks.push(wc.trim()); wc = w; }
+        }
+        cur = wc;
+      } else { cur = s; }
+    }
+  }
+  if (cur.trim()) chunks.push(cur.trim());
+  return chunks.filter(c => c.length > 0);
+}
+
+async function generateHindiMp3(text) {
+  const chunks = splitTTSChunks(text);
+  const buffers = [];
+  for (const [i, chunk] of chunks.entries()) {
+    const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=hi&client=tw-ob&q=${encodeURIComponent(chunk)}&total=${chunks.length}&idx=${i}&textlen=${chunk.length}`;
+    const r = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36',
+        'Referer': 'https://translate.google.com/',
+      },
+    });
+    if (!r.ok) throw new Error(`Google TTS chunk ${i} failed: ${r.status}`);
+    buffers.push(Buffer.from(await r.arrayBuffer()));
+    if (i < chunks.length - 1) await new Promise(res => setTimeout(res, 120));
+  }
+  return Buffer.concat(buffers);
+}
+
+app.post('/api/babli-audio', async (req, res) => {
+  const { text } = req.body;
+  if (!text || typeof text !== 'string') return res.status(400).json({ error: 'text required' });
+  try {
+    const mp3 = await generateHindiMp3(text.slice(0, 4000)); // safety cap
+    res.setHeader('Content-Type', 'audio/mpeg');
+    res.setHeader('Content-Disposition', 'attachment; filename="babli-prep.mp3"');
+    res.send(mp3);
+  } catch (err) {
+    console.error('TTS error:', err.message);
+    res.status(502).json({ error: 'Audio generation failed — ' + err.message });
+  }
+});
+
 // Debug — shows server time, timezone, subscribers, enabled reminders
 app.get('/api/debug', (req, res) => {
   const { day, time } = nowInTZ();

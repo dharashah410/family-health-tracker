@@ -1815,12 +1815,34 @@ function stopPrepHindi(si) {
   if (btn) { btn.textContent = '▶ सुनो'; btn.onclick = () => playPrepHindi(activePrepWeekIdx, si); }
 }
 
-function sendBabliWhatsApp(wi, si) {
-  const sec = PREP_TASKS_HI[wi][si];
-  const msg = `*${sec.section}*\n\n` + sec.tasks.map((t, i) => `${i + 1}. ${t}`).join('\n');
-  const phone = BABLI_PHONE || '';
-  const base = phone ? `https://wa.me/${phone}` : 'https://wa.me/';
-  window.open(`${base}?text=${encodeURIComponent(msg)}`, '_blank');
+async function downloadBabliAudio(wi, si) {
+  const btn = document.getElementById(`babli-dl-${si}`);
+  const orig = btn.textContent;
+  btn.textContent = '⏳ बन रहा है...';
+  btn.disabled = true;
+  try {
+    const sec = PREP_TASKS_HI[wi][si];
+    const text = sec.section + '। ' + sec.tasks.join('। ');
+    const res = await fetch('/api/babli-audio', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text }),
+    });
+    if (!res.ok) throw new Error(await res.text());
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const labels = ['shukravar-raat', 'shanivar-subah', 'shanivar-dopahar'];
+    a.href = url;
+    a.download = `babli-week${wi + 1}-${labels[si]}.mp3`;
+    a.click();
+    URL.revokeObjectURL(url);
+  } catch (e) {
+    alert('Audio नहीं बना। Please try again.\n' + e.message);
+  } finally {
+    btn.textContent = orig;
+    btn.disabled = false;
+  }
 }
 
 function renderPrepContent() {
@@ -1833,14 +1855,12 @@ function renderPrepContent() {
   const sectionNames = ['🌙 शुक्रवार रात', '☀️ शनिवार सुबह', '🌤️ शनिवार दोपहर'];
   babliCard.innerHTML = `
     <div class="card-title">🎙️ बब्ली आंटी के लिए (Hindi Audio)</div>
-    <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px">▶ सुनो — phone पर Hindi में सुनाएं &nbsp;|&nbsp; 📲 WhatsApp पर भेजें</div>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px">Download करें → WhatsApp पर voice note की तरह भेजें</div>
     ${sectionNames.map((name, si) => `
       <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:0.5px solid var(--border)">
         <span style="flex:1;font-size:13px;font-weight:500">${name}</span>
-        <button id="babli-play-${si}" onclick="playPrepHindi(${activePrepWeekIdx},${si})"
-          style="background:var(--teal);color:#fff;border:none;border-radius:8px;padding:6px 12px;font-size:13px;cursor:pointer">▶ सुनो</button>
-        <button onclick="sendBabliWhatsApp(${activePrepWeekIdx},${si})"
-          style="background:#25D366;color:#fff;border:none;border-radius:8px;padding:6px 12px;font-size:13px;cursor:pointer">📲 WA</button>
+        <button id="babli-dl-${si}" onclick="downloadBabliAudio(${activePrepWeekIdx},${si})"
+          style="background:#25D366;color:#fff;border:none;border-radius:8px;padding:6px 12px;font-size:13px;cursor:pointer">📥 Audio</button>
       </div>`).join('')}
   `;
   c.appendChild(babliCard);

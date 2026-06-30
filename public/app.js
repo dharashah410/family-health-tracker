@@ -1001,6 +1001,8 @@ function showScreen(name) {
 
   const titles = { today: 'Today', meals: 'Weekly meal plan', progress: 'Progress', grocery: 'Grocery list', prep: 'Meal prep guide' };
   document.getElementById('header-title').textContent = titles[name];
+  const hideToggle = name === 'grocery' || name === 'prep';
+  document.querySelector('.person-toggle').style.display = hideToggle ? 'none' : '';
 
   if (name === 'progress') renderProgress();
   if (name === 'prep') buildPrepScreen();

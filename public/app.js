@@ -2033,7 +2033,8 @@ function renderGroceryScreen() {
     <div id="grocery-items"></div>
 
     <div style="display:flex;gap:8px;margin-top:14px">
-      <button class="btn" style="flex:1;padding:10px;font-size:13px" onclick="copyGroceryList(this)">📋 Copy list</button>
+      ${groceryTab === 'vendor' ? `<button class="btn" style="flex:1;padding:10px;font-size:13px;background:#25D366;color:white;border:none" onclick="sendVendorWhatsApp()">💬 Send to vendor</button>` : ''}
+      <button class="btn" style="flex:1;padding:10px;font-size:13px" onclick="copyGroceryList(this)">📋 Copy</button>
       <button class="btn" style="padding:10px;font-size:13px;color:var(--coral)" onclick="resetGrocery()">Reset ✕</button>
     </div>
   `;
@@ -2126,6 +2127,12 @@ function fallbackCopy(text, onSuccess) {
     alert('Could not copy. Please copy manually:\n\n' + text);
   }
   document.body.removeChild(ta);
+}
+
+async function sendVendorWhatsApp() {
+  const res = await fetch('/api/grocery-whatsapp');
+  const { url } = await res.json();
+  window.open(url, '_blank');
 }
 
 async function resetGrocery() {

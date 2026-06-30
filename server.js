@@ -10,6 +10,64 @@ const cron             = require('node-cron');
 const webpush          = require('web-push');
 const { DatabaseSync } = require('node:sqlite');
 
+// ─── Grocery WhatsApp config ───────────────────────────────────────────────
+
+const VENDOR_PHONE = '919818882261'; // vegetable vendor
+const PLAN_START   = new Date('2026-06-15T00:00:00'); // Week 1 Monday
+
+const GROCERY_VENDOR = [
+  // Week 1 (Jun 15–21)
+  {
+    'Vegetables': ['Spinach / palak 500g','Lauki / bottle gourd 500g','Baingan / eggplant 400g','Cauliflower 500g','Broccoli 300g','Sweet potato 600g','Tomatoes 500g','Cucumber 500g','Capsicum (mix) 400g','Onion 1kg','Garlic 2 bulbs','Ginger 100g','Green chillies 50g','Coriander 2 bunches','Bok choy 200g','Mushrooms 200g','Drumstick / moringa 300g'],
+    'Fruits':     ['Bananas 1.5kg','Papaya 1kg','Guava 500g','Pears 600g','Lemon 250g','Avocado 400g','Jackfruit (raw) 500g'],
+  },
+  // Week 2 (Jun 22–28)
+  {
+    'Vegetables': ['Spinach / palak 500g','Dudhi / bottle gourd 500g','Bhindi / okra 300g','Methi leaves 200g','Cauliflower 500g','Broccoli 300g','Sweet potato 600g','Butternut squash 500g','Mushrooms 200g','Bok choy 200g','Capsicum (mix) 400g','Tomatoes 500g','Cucumber 500g','Onion 1kg','Garlic 2 bulbs','Ginger 100g','Coriander 2 bunches','Peas (fresh/frozen) 200g'],
+    'Fruits':     ['Bananas 1.5kg','Papaya 1kg','Guava 500g','Pears 600g','Lemon 250g','Avocado 400g','Berries (frozen) 250g','Mango 600g'],
+  },
+  // Week 3 (Jun 29–Jul 5)
+  {
+    'Vegetables': ['Spinach / palak 500g','Baingan / brinjal 400g','Drumstick / moringa 300g','Beetroot 400g','Capsicum (yellow, red, green) 600g','Mushrooms 250g','Carrot 400g','Broccoli 300g','Sweet potato 600g','Bok choy 200g','Cabbage 300g','Spring onion 1 bunch','Edamame (frozen) 200g','Tomatoes 500g','Cucumber 500g','Onion 1kg','Garlic 2 bulbs','Ginger 100g','Coriander 2 bunches','Sorakkai / bottle gourd 500g','Pumpkin / kaddu 300g'],
+    'Fruits':     ['Bananas 1.5kg','Papaya 1kg','Guava 500g','Pears 600g','Lemon 250g','Avocado 400g','Jackfruit (raw) 500g','Mango 600g'],
+  },
+  // Week 4 (Jul 6–12)
+  {
+    'Vegetables': ['Spinach / palak 500g','Lauki / bottle gourd 500g','Karela / bitter gourd 400g','Potato 600g','Bhindi / okra 300g','Methi leaves 200g','Mushrooms 200g','Bok choy 200g','Broccoli 300g','Sweet potato 600g','Capsicum (mix) 400g','Tomatoes 500g','Cucumber 500g','Onion 1kg','Garlic 2 bulbs','Ginger 100g','Coriander 2 bunches','Drumstick / moringa 300g'],
+    'Fruits':     ['Bananas 1.5kg','Papaya 1kg','Guava 500g','Pears 600g','Lemon 250g','Avocado 400g','Jackfruit (raw) 500g','Mango 600g'],
+  },
+];
+
+function groceryWhatsAppUrl() {
+  const now   = new Date();
+  const start = new Date(PLAN_START); start.setHours(0,0,0,0);
+  const diff  = Math.round((now - start) / 86400000);
+  const curWi = Math.max(0, Math.min(3, Math.floor(diff / 7)));
+  const wi    = Math.min(3, curWi + 1); // always next week
+
+  const weekStart = new Date(PLAN_START);
+  weekStart.setDate(weekStart.getDate() + wi * 7);
+  const weekEnd = new Date(weekStart);
+  weekEnd.setDate(weekEnd.getDate() + 6);
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const fmt = d => `${d.getDate()} ${months[d.getMonth()]}`;
+
+  const list = GROCERY_VENDOR[wi] || GROCERY_VENDOR[3];
+  const lines = [
+    `🥦 *Grocery Order — Week ${wi+1} (${fmt(weekStart)}–${fmt(weekEnd)})*`,
+    '',
+  ];
+  Object.entries(list).forEach(([cat, items]) => {
+    lines.push(`*${cat}*`);
+    items.forEach(i => lines.push(`• ${i}`));
+    lines.push('');
+  });
+  lines.push('Please deliver by Saturday morning. Thank you! 🙏');
+
+  const msg = lines.join('\n').trim();
+  return `https://wa.me/${VENDOR_PHONE}?text=${encodeURIComponent(msg)}`;
+}
+
 const app  = express();
 const PORT = process.env.PORT || 3000;
 
@@ -137,7 +195,9 @@ cron.schedule('* * * * *', () => {
     const days = JSON.parse(r.days);
     if (!days.includes(day) || r.time !== time) return;
     console.log(`[cron] firing reminder: ${r.id} (${r.label}) at ${time}`);
-    pushAll({ title: 'Family Health', body: r.message, reminderId: r.id, tag: r.id });
+    const payload = { title: 'Family Health', body: r.message, reminderId: r.id, tag: r.id };
+    if (r.id === 'grocery') payload.url = groceryWhatsAppUrl();
+    pushAll(payload);
   });
 
   // One-off snooze reminders
@@ -209,6 +269,11 @@ app.post('/api/snooze', (req, res) => {
   const fireAt = Date.now() + minutes * 60 * 1000;
   db.prepare('INSERT OR REPLACE INTO snoozes (id, fire_at) VALUES (?, ?)').run(reminderId, fireAt);
   res.json({ ok: true, fireAt });
+});
+
+// WhatsApp grocery URL for vendor
+app.get('/api/grocery-whatsapp', (req, res) => {
+  res.json({ url: groceryWhatsAppUrl() });
 });
 
 // Debug — shows server time, timezone, subscribers, enabled reminders

@@ -1,4 +1,4 @@
-const CACHE = 'family-health-v5';
+const CACHE = 'family-health-v6';
 const ASSETS = ['/', '/index.html', '/app.js', '/manifest.json'];
 
 self.addEventListener('install', e => {
@@ -48,7 +48,7 @@ self.addEventListener('push', e => {
       icon:   '/icons/favicon.svg',
       badge:  '/icons/favicon.svg',
       vibrate: [100, 50, 100],
-      data:   { reminderId: data.reminderId },
+      data:   { reminderId: data.reminderId, url: data.url || null },
       actions: [
         { action: 'snooze15',  title: '⏱ 15 min' },
         { action: 'snooze60',  title: '⏰ 1 hour' },
@@ -74,7 +74,14 @@ self.addEventListener('notificationclick', e => {
     return;
   }
 
-  // Default tap — open/focus the app
+  // If notification carries a URL (e.g. WhatsApp grocery link), open it directly
+  const openUrl = e.notification.data?.url;
+  if (openUrl) {
+    e.waitUntil(clients.openWindow(openUrl));
+    return;
+  }
+
+  // Default — open/focus the app
   e.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true }).then(list => {
       const existing = list.find(c => c.url.includes(self.location.origin));

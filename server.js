@@ -62,7 +62,7 @@ function groceryWhatsAppUrl() {
     items.forEach(i => lines.push(`• ${i}`));
     lines.push('');
   });
-  lines.push('Please deliver by Saturday morning. Thank you! 🙏');
+  lines.push('Please deliver by Friday morning, 7 am. Thank you! 🙏');
 
   const msg = lines.join('\n').trim();
   return `https://wa.me/${VENDOR_PHONE}?text=${encodeURIComponent(msg)}`;

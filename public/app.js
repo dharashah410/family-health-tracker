@@ -1345,10 +1345,32 @@ function renderCalDayPreview(wi, di) {
   `;
 }
 
-function linkify(text) {
-  // "Recipe Name (domain.com/path)" → recipe name becomes the clickable link, URL hidden
-  return text.replace(/([^(+]+?)\s*\(([a-z0-9-]+\.[a-z]{2,}\/[^\s)]*)\)/g,
-    (_, name, url) => `<a href="https://${url}" target="_blank" rel="noopener" style="color:var(--teal);font-weight:600;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:2px">${name.trim()} ↗</a>`);
+const LINK_STYLE = 'color:var(--teal);font-weight:600;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:2px';
+
+function linkify(text, sharanUrl) {
+  let out = text;
+
+  // 1. "Recipe Name (domain.com/path)" — cookieandkate style
+  out = out.replace(/([^(+]+?)\s*\(([a-z0-9-]+\.[a-z]{2,}\/[^\s)]*)\)/g,
+    (_, name, url) => `<a href="https://${url}" target="_blank" rel="noopener" style="${LINK_STYLE}">${name.trim()} ↗</a>`);
+
+  if (sharanUrl) {
+    // 2. Explicit "(SHARAN)" / "(SHARAN style)" / "(SHARAN baked)" annotations
+    out = out.replace(/([^(+]+?)\s*\(SHARAN[^)]*\)/gi,
+      (_, name) => `<a href="${sharanUrl}" target="_blank" rel="noopener" style="${LINK_STYLE}">${name.trim()} ↗</a>`);
+
+    // 3. Slug-based match for the day's primary SHARAN recipe name
+    //    e.g. "jackfruit-sambar" → try to find "Jackfruit Sambar" in text
+    const slug = sharanUrl.replace(/\/$/, '').split('/').pop();
+    const primarySlug = slug.split('-or-')[0]; // "red-rice-idli-or-dosa" → "red-rice-idli"
+    const recipeName  = primarySlug.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join(' ');
+    const escaped     = recipeName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    // Only link if not already inside an <a> tag
+    out = out.replace(new RegExp(`(?<!">)(${escaped})(?![^<]*<\\/a>)`, 'i'),
+      (_, m) => `<a href="${sharanUrl}" target="_blank" rel="noopener" style="${LINK_STYLE}">${m} ↗</a>`);
+  }
+
+  return out;
 }
 
 function renderMealDay() {
@@ -1401,7 +1423,7 @@ function renderMealDay() {
       mp.style.borderRadius = '0 8px 8px 0';
 
       mp.innerHTML = `<span class="badge badge-${p.toLowerCase()}">${PEOPLE[p].name}</span>
-        <div class="meal-text" style="margin-top:5px">${linkify(meal)}</div>
+        <div class="meal-text" style="margin-top:5px">${linkify(meal, day.link)}</div>
         ${jf   ? `<div class="jf-note">🌿 ${jf}</div>` : ''}
         ${note ? `<div class="vasu-note">💡 ${note}</div>` : ''}`;
       card.appendChild(mp);
@@ -1410,14 +1432,6 @@ function renderMealDay() {
     c.appendChild(card);
   });
 
-  if (day.link) {
-    const lnk = document.createElement('a');
-    lnk.href = day.link;
-    lnk.target = '_blank';
-    lnk.style.cssText = 'font-size:12px;color:var(--teal);display:inline-block;margin-top:4px';
-    lnk.textContent = 'SHARAN recipe ↗';
-    c.appendChild(lnk);
-  }
 }
 
 // ─── JF REMINDER ──────────────────────────────────────────────────────────
@@ -1648,8 +1662,8 @@ function renderPrepContent() {
     tr.style.borderBottom = '0.5px solid var(--border)';
     tr.innerHTML = `
       <td style="padding:6px 0;color:var(--text-muted);white-space:nowrap;font-weight:500">${day.dayShort}</td>
-      <td style="padding:6px 6px;color:var(--text)">${linkify(day.R.l)}</td>
-      <td style="padding:6px 0;color:var(--text)">${linkify(day.R.d)}</td>`;
+      <td style="padding:6px 6px;color:var(--text)">${linkify(day.R.l, day.link)}</td>
+      <td style="padding:6px 0;color:var(--text)">${linkify(day.R.d, day.link)}</td>`;
     tbody.appendChild(tr);
   });
   table.appendChild(tbody);

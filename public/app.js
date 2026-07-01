@@ -942,7 +942,8 @@ const MEAL_PLAN = [
 const GROCERY_ONLINE = {
   'Grains & millets': ['Millet (bajra/jowar) 1kg','Ragi flour 500g','Brown rice 1kg','Whole wheat flour 1kg','Red rice 500g','Oats (rolled) 500g','Brown rice noodles 200g','Quinoa 300g'],
   'Legumes & pulses': ['Masoor dal 500g','Moong dal 500g','Chana / chickpeas 500g','Rajma 500g','Toor dal 500g','Moong (whole, for sprouts) 300g'],
-  'Nuts & seeds': ['Almonds 200g','Walnuts 150g','Peanuts (raw) 500g','Flaxseed (whole) 200g','Sesame seeds 200g','Chia seeds 100g','Hemp seeds 100g','Dried figs 150g','Dates 200g','Dry apricots 100g'],
+  'Nuts & seeds': ['Almonds 200g','Walnuts 150g','Peanuts (raw) 500g','Makhana / fox nuts 200g','Flaxseed (whole) 200g','Sesame seeds 200g','Chia seeds 100g','Hemp seeds 100g','Dried figs 150g','Dates 200g','Dry apricots 100g'],
+  'Dairy & eggs': ['Eggs 30 (Sabi breakfast Mon–Fri + Vasu chilla daily)','Regular milk / toned milk 3–4L (curd + Dhara tea)','Soy milk 2L (Ritvij tea — 4 cups/day)'],
   'Proteins': ['Tofu (firm) ×3 packs 400g each','Tempeh ×1 pack (optional)'],
   'Pantry': ['Miso paste 200g','Tamarind paste 100g','Coconut (desiccated / grated frozen) 200g','Whole grain bread (or homemade)','Peanut butter 200g','Almond butter 200g','Mustard seeds','Cumin seeds','Turmeric','Coriander powder','Green chillies (paste or fresh)','Soy sauce 200ml','Apple cider vinegar 250ml','Coconut milk 2 cans'],
   '🌿 Jackfruit powder — Ritvij only': ['Green jackfruit powder 200g (1 tbsp/day in food, ~3-week supply)'],
@@ -1584,6 +1585,12 @@ function renderMealDay() {
         jf   = '1 tbsp JF blended in smoothie';
       }
 
+      // Tea additions — fixed daily routine
+      let teaNote = null;
+      if (slot.key === 'b' && p === 'R') teaNote = '🍵 Tea ×2 (soy milk)';
+      if (slot.key === 'b' && p === 'D') teaNote = '🍵 Tea ×1 (regular milk)';
+      if (slot.key === 's' && p === 'R') teaNote = '🍵 Tea ×2 (soy milk)';
+
       const mp = document.createElement('div');
       mp.className = 'meal-person';
       mp.style.borderLeft = `3px solid ${PEOPLE[p].color}`;
@@ -1591,6 +1598,7 @@ function renderMealDay() {
 
       mp.innerHTML = `<span class="badge badge-${p.toLowerCase()}">${PEOPLE[p].name}</span>
         <div class="meal-text" style="margin-top:5px">${linkify(meal, day.link)}</div>
+        ${teaNote ? `<div class="jf-note" style="color:var(--text-muted)">${teaNote}</div>` : ''}
         ${jf   ? `<div class="jf-note">🌿 ${jf}</div>` : ''}
         ${note ? `<div class="vasu-note">💡 ${note}</div>` : ''}`;
       card.appendChild(mp);

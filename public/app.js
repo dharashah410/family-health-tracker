@@ -1586,7 +1586,7 @@ function renderMealDay() {
 
     // Snack slot: show one shared family snack card instead of per-person rows
     if (slot.key === 's') {
-      const snacks = FAMILY_SNACKS[di] || FAMILY_SNACKS[0];
+      const snacks = FAMILY_SNACKS[activeDayIdx] || FAMILY_SNACKS[0];
       const mp = document.createElement('div');
       mp.className = 'meal-person';
       mp.style.borderLeft = '3px solid var(--teal)';

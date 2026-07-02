@@ -1563,6 +1563,17 @@ function renderMealDay() {
     { key: 'd',  label: 'Dinner' },
   ];
 
+  // Generic rotating snack list (by day of week: 0=Mon … 6=Sun)
+  const FAMILY_SNACKS = [
+    ['Roasted makhana', 'Mixed nuts (almonds + walnuts)', 'Seasonal fruit'],
+    ['Moong sprout chaat', 'Roasted peanuts', 'Guava or banana'],
+    ['Sweet potato chaat + green chutney', 'Coconut water', 'Mixed nuts'],
+    ['Almonds + walnuts', 'Pear or guava (with skin)', 'Roasted makhana'],
+    ['Roasted makhana', 'Seasonal fruit', 'Coconut water + peanuts'],
+    ['Chickpea masala chaat', 'Coconut water', 'Mixed nuts'],
+    ['Soaked almonds + dried figs + dates', 'Seasonal fruit'],
+  ];
+
   slots.forEach(slot => {
     const card = document.createElement('div');
     card.className = 'card';
@@ -1572,6 +1583,21 @@ function renderMealDay() {
     slotLabel.className = 'meal-slot';
     slotLabel.textContent = slot.label;
     card.appendChild(slotLabel);
+
+    // Snack slot: show one shared family snack card instead of per-person rows
+    if (slot.key === 's') {
+      const snacks = FAMILY_SNACKS[di] || FAMILY_SNACKS[0];
+      const mp = document.createElement('div');
+      mp.className = 'meal-person';
+      mp.style.borderLeft = '3px solid var(--teal)';
+      mp.style.borderRadius = '0 8px 8px 0';
+      mp.innerHTML = `<span class="badge" style="background:var(--teal);color:#fff">Everyone</span>
+        <div class="meal-text" style="margin-top:5px">${snacks.join(' &nbsp;·&nbsp; ')}</div>
+        <div class="jf-note" style="color:var(--text-muted)">🍵 Ritvij: Tea ×2 (soy milk)</div>`;
+      card.appendChild(mp);
+      c.appendChild(card);
+      return;
+    }
 
     ['R','D','S','V'].forEach(p => {
       let meal = day[p] && day[p][slot.key];
@@ -1589,7 +1615,6 @@ function renderMealDay() {
       let teaNote = null;
       if (slot.key === 'b' && p === 'R') teaNote = '🍵 Tea ×2 (soy milk)';
       if (slot.key === 'b' && p === 'D') teaNote = '🍵 Tea ×1 (regular milk)';
-      if (slot.key === 's' && p === 'R') teaNote = '🍵 Tea ×2 (soy milk)';
 
       const mp = document.createElement('div');
       mp.className = 'meal-person';

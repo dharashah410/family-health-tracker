@@ -2430,10 +2430,30 @@ function fallbackCopy(text, onSuccess) {
   document.body.removeChild(ta);
 }
 
-async function sendVendorWhatsApp() {
-  const res = await fetch('/api/grocery-whatsapp');
-  const { url } = await res.json();
-  window.open(url, '_blank');
+function sendVendorWhatsApp() {
+  const dict = GROCERY_VENDOR[groceryWeekIdx];
+  const prefix = `w${groceryWeekIdx}:vendor:`;
+  const wi = groceryWeekIdx;
+  const weekStart = planWeekStartDate(wi);
+  const weekEnd = new Date(weekStart); weekEnd.setDate(weekEnd.getDate() + 6);
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const fmt = d => `${d.getDate()} ${months[d.getMonth()]}`;
+  const lines = [
+    `🥦 *Grocery Order — Week ${wi+1} (${fmt(weekStart)}–${fmt(weekEnd)})*`,
+    '',
+  ];
+  Object.entries(dict).forEach(([cat, items]) => {
+    const unchecked = items.filter(item => !groceryState[prefix + cat + ':' + item]);
+    if (unchecked.length) {
+      lines.push(`*${cat}*`);
+      unchecked.forEach(i => lines.push(`• ${i}`));
+      lines.push('');
+    }
+  });
+  lines.push('Please deliver by Friday morning, 7 am. Thank you! 🙏');
+  const msg = lines.join('\n').trim();
+  const VENDOR_PHONE = '919818882261';
+  window.open(`https://wa.me/${VENDOR_PHONE}?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
 async function resetGrocery() {
